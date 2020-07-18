@@ -8,6 +8,8 @@ import com.example.dyno.Retrofit2.RetrofitClient
 import com.example.dyno.Retrofit2.RetrofitService
 import com.example.dyno.VO.UserVO
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Response
 import javax.security.auth.callback.Callback
 
 class MainActivity : AppCompatActivity() {
@@ -18,12 +20,22 @@ class MainActivity : AppCompatActivity() {
 
         val retrofitClient: RetrofitClient = RetrofitClient()
 
-        var inputid = findViewById(R.id.id) as EditText
+        val inputid = findViewById(R.id.id) as EditText
 
         button.setOnClickListener {
-            var id: String = inputid.text.toString()
+            val id: String = inputid.text.toString()
 
-            retrofitClient.buildRetrofit().requestJoin(id)
+            retrofitClient.buildRetrofit().requestJoin(id).enqueue(object : retrofit2.Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d("db insert", "실패"+t.localizedMessage)
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Log.d("db insert", "성공"+response?.body().toString())
+                }
+
+
+            })
 
         }
     }
