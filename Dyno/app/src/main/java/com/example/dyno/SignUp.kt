@@ -1,5 +1,6 @@
 package com.example.dyno
 
+import android.content.Intent
 import android.location.SettingInjectorService
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,10 +21,12 @@ class SignUp : AppCompatActivity() {
         val newUser = User()
 
         var et= findViewById<EditText>(R.id.editTextTextPersonName) //사용자 이름 받아오기 위한 거
-        var tv= findViewById<TextView>(R.id.userD)// 사용자 단말기 아이디 보여주는거
+        val tv : TextView= findViewById(R.id.userD) as TextView// 사용자 단말기 아이디 보여주는거
 
         var userDevice=Settings.Secure.getString(this.contentResolver,Settings.Secure.ANDROID_ID)
         tv.setText(userDevice)
+
+
         newUser.dId=userDevice
 
 
@@ -32,7 +35,9 @@ class SignUp : AppCompatActivity() {
             userDB=UserDB.getInstance(this)
             newUser.uName =et.text.toString()
             userDB?.userDao()?.insertUser(newUser)
-           
+
+            val i= Intent(this,MainActivity::class.java)
+            startActivity(i)
 
         }
 
