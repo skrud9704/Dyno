@@ -2,8 +2,8 @@ package com.example.dyno
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
+//import com.gun0912.tedpermission.PermissionListener
+//import com.gun0912.tedpermission.TedPermission
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -34,12 +34,12 @@ class Camera : AppCompatActivity() {
             startCapture()
         }
         startOCR.setOnClickListener{
-            val nextIntent=Intent(this,OCR_Register::class.java)
-            startActivity(nextIntent)
+            //val nextIntent=Intent(this,OCR_Register::class.java)
+            //startActivity(nextIntent)
         }
     }
     fun settingPermission(){
-        var permis = object : PermissionListener{
+        /*var permis = object : PermissionListener{
             override fun onPermissionGranted() {
                 Toast.makeText(this@Camera,"권한허가", Toast.LENGTH_SHORT).show()
             }
@@ -55,7 +55,7 @@ class Camera : AppCompatActivity() {
             .setPermissions(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA)
-            .check()
+            .check()*/
 
     }
     @Throws(IOException::class)

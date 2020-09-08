@@ -10,14 +10,41 @@
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:layout_marginTop="20dp"
      android:orientation="horizontal"
-     android:padding="3dp">
+     android:background="@color/colorAccent">
+  <View
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:layout_margin="10dp"
+   />
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="DYNO 로고"
+      android:textSize="20sp"
+      android:gravity="center"
+      android:layout_margin="10dp"/>
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:text="MY"
+      android:textSize="20sp"
+      android:gravity="end"
+      android:layout_margin="10dp"/>
+ </LinearLayout>
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:padding="20dp">
 
   <Button
       android:id="@+id/registerM"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="150dp"
       android:layout_weight="1"
       android:text="의약품 등록"
       android:textSize="12sp" />
@@ -25,15 +52,15 @@
   <Button
       android:id="@+id/registerS"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="150dp"
       android:layout_weight="1"
-      android:text="건강기능식품 등록"
+      android:text="건강기능식품등록"
       android:textSize="12sp" />
 
   <Button
       android:id="@+id/combineUse"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="150dp"
       android:layout_weight="1"
       android:text="병용판단"
       android:textSize="12sp" />
@@ -42,24 +69,28 @@
  <androidx.viewpager.widget.ViewPager
      android:id="@+id/mPager"
      android:layout_width="match_parent"
-     android:layout_height="500dp"
+     android:layout_height="300dp"
      android:layout_marginTop="25dp"
-     android:layout_marginBottom="25dp"></androidx.viewpager.widget.ViewPager>
+     android:layout_marginBottom="25dp"
+     android:padding="10dp"
+     android:background="#999999"/>
 
 
 
  <LinearLayout
-     android:layout_width="match_parent"
+     android:layout_width="200dp"
      android:layout_height="wrap_content"
      android:orientation="horizontal"
-     android:padding="3dp">
+     android:padding="3dp"
+     android:layout_gravity="center">
   <Button
       android:id="@+id/modify"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:text="수정"
-      android:textSize="12sp" />
+      android:textSize="12sp"
+      android:layout_margin="10dp"/>
 
   <Button
       android:id="@+id/viewAll"
@@ -67,7 +98,8 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:text="자세히"
-      android:textSize="12sp" />
+      android:textSize="12sp"
+      android:layout_margin="10dp"/>
 
  </LinearLayout>
 </LinearLayout>
