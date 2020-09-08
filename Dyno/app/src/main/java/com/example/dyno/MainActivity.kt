@@ -3,8 +3,9 @@ package com.example.dyno
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import com.example.dyno.MyPage.MyPageActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,13 @@ class MainActivity : AppCompatActivity() {
         registerDiseasePage.setOnClickListener{
             val nextIntent=Intent(this,Camera::class.java)
             startActivity(nextIntent)
+        }
+
+        val myPage=findViewById<TextView>(R.id.myPage)
+        myPage.setOnClickListener{
+            val myPageIntent=Intent(this,
+                MyPageActivity::class.java)
+            startActivity(myPageIntent)
         }
 
     }

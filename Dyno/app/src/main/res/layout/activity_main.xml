@@ -27,6 +27,7 @@
       android:gravity="center"
       android:layout_margin="10dp"/>
   <TextView
+      android:id="@+id/myPage"
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
@@ -39,43 +40,42 @@
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:orientation="horizontal"
-     android:padding="20dp">
+     android:paddingTop="20dp"
+     android:paddingBottom="20dp"
+     android:paddingLeft="30dp"
+     android:paddingRight="30dp">
 
   <Button
       android:id="@+id/registerM"
       android:layout_width="0dp"
-      android:layout_height="150dp"
+      android:layout_height="130dp"
       android:layout_weight="1"
-      android:text="의약품 등록"
+      android:text="@string/main_btn_medicine"
       android:textSize="12sp" />
 
   <Button
       android:id="@+id/registerS"
       android:layout_width="0dp"
-      android:layout_height="150dp"
+      android:layout_height="130dp"
       android:layout_weight="1"
-      android:text="건강기능식품등록"
+      android:text="@string/main_btn_supplement"
       android:textSize="12sp" />
 
   <Button
       android:id="@+id/combineUse"
       android:layout_width="0dp"
-      android:layout_height="150dp"
+      android:layout_height="130dp"
       android:layout_weight="1"
-      android:text="병용판단"
+      android:text="@string/main_btn_combine"
       android:textSize="12sp" />
  </LinearLayout>
 
  <androidx.viewpager.widget.ViewPager
      android:id="@+id/mPager"
      android:layout_width="match_parent"
-     android:layout_height="300dp"
+     android:layout_height="200dp"
      android:layout_marginTop="25dp"
-     android:layout_marginBottom="25dp"
-     android:padding="10dp"
-     android:background="#999999"/>
-
-
+     android:layout_marginBottom="25dp" />
 
  <LinearLayout
      android:layout_width="200dp"
