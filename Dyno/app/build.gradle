@@ -57,4 +57,7 @@ dependencies {
     kaptTest "android.arch.persistence.room:testing:1.1.1"
     implementation 'gun0912.ted:tedpermission:2.0.0'
 
+    // 크롤링
+    implementation 'org.jsoup:jsoup:1.13.1'
+
 }
