@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OCR_Register">
+    android:orientation="vertical"
+    tools:context=".ocrRegister">
     <EditText
         android:id="@+id/textView_ocr_result"
         android:layout_width="306dp"
         android:layout_height="242dp"
         android:layout_marginTop="8dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_ocr_translate"
-        app:layout_constraintStart_toStartOf="@+id/btn_ocr_translate"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ocr_translate" />
+        />
 
     <Button
         android:id="@+id/btn_ocr_translate"
@@ -21,9 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:text="변환하기"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+         />
 
     <TextView
         android:id="@+id/textView7"
@@ -35,10 +32,7 @@
         android:text="OCR"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
 
     <TextView
@@ -50,20 +44,12 @@
         android:layout_marginEnd="55dp"
         android:text="변환하기 버튼을 눌러서 이미지를 텍스트로 변환하세요."
         android:textColor="@android:color/background_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+       />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ocr_sample"
        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

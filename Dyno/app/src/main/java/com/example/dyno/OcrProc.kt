@@ -1,75 +1,82 @@
 package com.example.dyno
 
+import android.util.Base64
+import android.util.Base64OutputStream
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.DataOutputStream
-import java.io.InputStreamReader
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+import java.nio.charset.Charset
 import java.util.*
 
 
 class OcrProc {
-    fun start(ocrApiUrl: String, ocrSecretKey: String): String? {
+    fun start(ocrApiUrl: String?, ocrSecretKey: String?,filePath:String?): String? {
+        Log.d("ocr_star",ocrApiUrl)
+        Log.d("ocr_filepath",filePath)
         var ocrMessage = ""
+        var imgData=convertImageFileToBase64(filePath)
+        Log.d("convertSuccess",imgData)
         try {
-            /*val objectStorageURL =
-                "https://kr.object.ncloudstorage.com/labs/ocr/ocr_sample.jpg"
+            /*val myDrawable: Drawable = getResources().getDrawable(R.drawable)
+            val anImage = (myDrawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            val b = baos.toByteArray()
+            val imageEncoded =
+                Base64.encodeToString(b, Base64.DEFAULT)*/
 
-            val message = getReqMessage(objectStorageURL)
-            println("##$message")*/
+            val message = getReqMessage(imgData)
+            println("##$message")
+            val arr=message.toByteArray(Charset.defaultCharset())
             val url = URL(ocrApiUrl)
-            val apiURL = ocrApiUrl
             val timestamp: Long = Date().getTime()
             val con: HttpURLConnection = url.openConnection() as HttpURLConnection
-            con.setRequestMethod("POST")
-            con.setRequestProperty("Content-Type", "application/json;UTF-8")
-            con.setRequestProperty("X-OCR-SECRET", ocrSecretKey)
+            if(con!=null){//연결됨
+                con.requestMethod="POST"
+                con.setRequestProperty("Content-Type", "application/json")
+                con.setRequestProperty("X-OCR-SECRET", ocrSecretKey)
+            }else{
+                Log.d("con","connectionFail")
+            }
 
-            //예제로 drawable에 저장한 사진데이터를 사용하여 json으로 만든다음 보냄
-           val jObject:JSONObject
-            jObject.put("version","v1")
-            jObject.put("requestId","sampleid")
-            jObject.put("timestamp",timestamp)
-            val jArray:JSONArray
-            jArray.put("name","sample_image")
-            jArray.put("format","png")
-            jArray.put("data",)
-
+            con.doOutput=true//POST로 데이터를 넘겨주겠다는 옵션
             // post request
-           /*con.setDoOutput(true)
-            val wr = DataOutputStream(con.getOutputStream())
-                    wr.write(message.toByteArray(charset("UTF-8")))
+            val wr = DataOutputStream(con.outputStream)
+            wr.write(arr)
             wr.flush()
-            wr.close()*/
+            wr.close()
 
             val responseCode: Int = con.getResponseCode()
-
+            Log.d("responesCode",responseCode.toString())
             if (responseCode == 200) { // 정상 호출
-                System.out.println(con.getResponseMessage())
-                val `in` = BufferedReader(
-                    InputStreamReader(
-                        con.getInputStream()
-                    )
+                /*System.out.println(con.getResponseMessage())*/
+                Log.d("trans_start",con.responseMessage)
+                val input = BufferedReader(
+                    InputStreamReader(con.inputStream,"utf-8")
                 )
-                var decodedString: String
-                while (`in`.readLine().also({ decodedString = it }) != null) {
-                    ocrMessage = decodedString
-                    //chatbotMessage = decodedString;
-                }
-                `in`.close()
+                var inputLine: String?=null
+                val response=StringBuffer()
+               while ({inputLine=input.readLine();inputLine}()!=null){
+                   response.append(inputLine)
+               }
+                input.close()
+                return response.toString()
             } else {  // 에러 발생
+                Log.d("responseCode",responseCode.toString())
                 ocrMessage = con.getResponseMessage()
             }
         } catch (e: Exception) {
             println(e)
+            Log.d("error",e.toString())
         }
-        println(">>>>>>>>>>$ocrMessage")
+        Log.d("ocrMessage",ocrMessage)
         return ocrMessage
     }
 
-    fun getReqMessage(objectStorageURL: String?): String {
+    fun getReqMessage(objectStorageURL: String): String {
         var requestBody = ""
         try {
             val timestamp: Long = Date().getTime()
@@ -79,15 +86,28 @@ class OcrProc {
             json.put("timestamp", java.lang.Long.toString(timestamp))
             val image = JSONObject()
             image.put("format", "jpg")
-            image.put("url", objectStorageURL)
+            image.put("data", objectStorageURL)
             image.put("name", "test_ocr")
             val images = JSONArray()
             images.put(image)
             json.put("images", images)
             requestBody = json.toString()
         } catch (e: Exception) {
-            println("## Exception : $e")
+            Log.d("get_reqM_error",e.toString())
+
         }
         return requestBody
+    }
+    fun convertImageFileToBase64(imageFile: String?): String {
+        Log.d("convert",imageFile)
+        return FileInputStream(imageFile).use { inputStream ->
+            ByteArrayOutputStream().use { outputStream ->
+                Base64OutputStream(outputStream, Base64.DEFAULT).use { base64FilterStream ->
+                    inputStream.copyTo(base64FilterStream)
+                    base64FilterStream.flush()
+                    outputStream.toString()
+                }
+            }
+        }
     }
 }
