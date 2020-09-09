@@ -2,9 +2,11 @@ package com.example.dyno
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-//import com.gun0912.tedpermission.PermissionListener
-//import com.gun0912.tedpermission.TedPermission
+
 import android.Manifest
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+
 import android.app.Activity
 import android.content.Intent
 import android.graphics.ImageDecoder
@@ -13,7 +15,6 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
@@ -34,8 +35,9 @@ class Camera : AppCompatActivity() {
             startCapture()
         }
         startOCR.setOnClickListener{
-            //val nextIntent=Intent(this,OCR_Register::class.java)
-            //startActivity(nextIntent)
+            val nextIntent=Intent(this,ocrRegister::class.java)
+            nextIntent.putExtra("bitmapImg",currentPhotoPath)
+            startActivity(nextIntent)
         }
     }
     fun settingPermission(){
@@ -107,5 +109,6 @@ class Camera : AppCompatActivity() {
                 img_picture.setImageBitmap(bitmap)
             }
         }
+        return
     }
 }
