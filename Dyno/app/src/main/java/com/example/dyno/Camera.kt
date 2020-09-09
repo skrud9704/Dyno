@@ -41,7 +41,7 @@ class Camera : AppCompatActivity() {
         }
     }
     fun settingPermission(){
-        /*var permis = object : PermissionListener{
+        var permis = object : PermissionListener{
             override fun onPermissionGranted() {
                 Toast.makeText(this@Camera,"권한허가", Toast.LENGTH_SHORT).show()
             }
@@ -57,7 +57,7 @@ class Camera : AppCompatActivity() {
             .setPermissions(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA)
-            .check()*/
+            .check()
 
     }
     @Throws(IOException::class)
