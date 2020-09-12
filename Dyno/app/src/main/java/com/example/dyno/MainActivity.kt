@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.dyno.MyPage.MyPageActivity
 import com.example.dyno.RegistSupplement.RegistSupplementActivity
+import com.example.dyno.Server.ServerExample
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +40,11 @@ class MainActivity : AppCompatActivity() {
             val myPageIntent=Intent(this,
                 MyPageActivity::class.java)
             startActivity(myPageIntent)
+        }
+        val combineUse=findViewById<Button>(R.id.combineUse)
+        combineUse.setOnClickListener{
+            val intent=Intent(this,ServerExample::class.java)
+            startActivity(intent)
         }
 
     }

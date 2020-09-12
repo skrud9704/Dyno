@@ -20,54 +20,55 @@ class ocrRegister : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_register)
         val ocrApiGwUrl = "url 넣을 것!"
-        val ocrSecretKey="test할때 secretKey 넣을 것"
-        var filepath:String=""
-        if(intent.hasExtra("bitmapImg")){
-            filepath=intent.getStringExtra("bitmapImg")
-        }else{
-            Log.d("noFile",null)
+        val ocrSecretKey = "test할때 secretKey 넣을 것"
+        var filepath: String = ""
+        if (intent.hasExtra("bitmapImg")) {
+            filepath = intent.getStringExtra("bitmapImg")
+        } else {
+            Log.d("noFile", null)
         }
         val file = File(filepath)
         if (Build.VERSION.SDK_INT < 28) {
             val bitmap = MediaStore.Images.Media
                 .getBitmap(contentResolver, Uri.fromFile(file))
             imageView.setImageBitmap(bitmap)
-        }
-        else{
-            val decode = ImageDecoder.createSource(this.contentResolver,
-                Uri.fromFile(file))
+        } else {
+            val decode = ImageDecoder.createSource(
+                this.contentResolver,
+                Uri.fromFile(file)
+            )
             val bitmap = ImageDecoder.decodeBitmap(decode)
             imageView.setImageBitmap(bitmap)
         }
 
-        btn_ocr_translate.setOnClickListener{
-            Log.d("trans_start",ocrApiGwUrl)
-            var task =PapagoNmTask()
-            task.execute(ocrApiGwUrl,ocrSecretKey,filepath)
+        btn_ocr_translate.setOnClickListener {
+            Log.d("trans_start", ocrApiGwUrl)
+            var task = PapagoNmTask()
+            task.execute(ocrApiGwUrl, ocrSecretKey, filepath)
         }
     }
 
-     inner  class PapagoNmTask : AsyncTask<String,String,String>(){
-            override fun doInBackground(vararg params: String?): String? {
-                Log.d("ocr_start",params[0])
-                Log.d("ocr_start",params[2])
-                val ocrProc=OcrProc()
-                return ocrProc.start(params[0],params[1],params[2])
-            }
-         override fun onPostExecute(result: String?) {
-             if (result != null) {
-                 Log.d("json",result.length.toString())
-                 ReturnThreadResult(result)
-             }
-             else{
-                 Log.d("no_result","")
-             }
-         }
+    inner class PapagoNmTask : AsyncTask<String, String, String>() {
+        override fun doInBackground(vararg params: String?): String? {
+            Log.d("ocr_start", params[0])
+            Log.d("ocr_start", params[2])
+            val ocrProc = OcrProc()
+            return ocrProc.start(params[0], params[1], params[2])
+        }
 
-     }
+        override fun onPostExecute(result: String?) {
+            if (result != null) {
+                Log.d("json", result.length.toString())
+                ReturnThreadResult(result)
+            } else {
+                Log.d("no_result", "")
+            }
+        }
+
+    }
 
     fun ReturnThreadResult(result: String) {
-        Log.d("start_pars",result)
+        Log.d("start_pars", result)
         var translateText: String? = ""
         try {
             val jsonObject = JSONObject(result)
@@ -83,9 +84,9 @@ class ocrRegister : AppCompatActivity() {
             }
             val txtResult = findViewById(R.id.textView_ocr_result) as TextView
             txtResult.text = translateText
-            Log.d("trans_end",translateText)
+            Log.d("trans_end", translateText)
         } catch (e: Exception) {
-            Log.d("pars_error",e.toString())
+            Log.d("pars_error", e.toString())
         }
     }
 
