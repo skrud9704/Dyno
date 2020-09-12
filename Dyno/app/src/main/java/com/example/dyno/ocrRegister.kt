@@ -19,8 +19,8 @@ class ocrRegister : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_register)
-        val ocrApiGwUrl = "url 넣을 것!"
-        val ocrSecretKey="test할때 secretKey 넣을 것"
+        val ocrApiGwUrl = "https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
+        val ocrSecretKey="eWdHemhlUXNBeGloUHFESU9QTXFLeUxLSkpDckNJUmo="
         var filepath:String=""
         if(intent.hasExtra("bitmapImg")){
             filepath=intent.getStringExtra("bitmapImg")
