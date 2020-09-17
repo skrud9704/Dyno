@@ -6,7 +6,13 @@
     <string name="main_btn_supplement">건강기능식품\n등록</string>
     <string name="main_btn_combine">병용\n판단</string>
     <string name="btn_search">검색</string>
+
+    <!-- 건강기능식품 검색-->
     <string name="hint_supplement">건강기능식품의 이름을 입력하세요.</string>
+
+    <!-- My Page -->
     <string name="mypage_nim">&#160;님</string>
     <string name="mypage_name">로그인</string>
+    <string name="mypage_medicine_name">질병명</string>
+    <string name="mypage_date">2020–09-17</string>
 </resources>

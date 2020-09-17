@@ -5,4 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="dynoGreen">#5FE084</color>
     <color name="dynoBlack">#000000</color>
+    <color name="dynoGrey">#E1DDDD</color>
+    <color name="dynoCombineRed">#EB0C0C</color> <!--44% -->
+    <color name="dynoCombineOrage">#F09F24</color> <!--100%-->
+    <color name="dynoCombineGreen">#159735</color> <!--63%-->
 </resources>
