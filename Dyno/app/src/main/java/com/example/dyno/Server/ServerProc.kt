@@ -32,7 +32,7 @@ class ServerProc {
             wr.flush()
             wr.close()
             val responseCode: Int = con.getResponseCode()
-            Log.d("responesCode",responseCode.toString())
+            Log.d("responseCode",responseCode.toString())
             if (responseCode == 200) { // 정상 호출
                 /*System.out.println(con.getResponseMessage())*/
                 Log.d("trans_start",con.responseMessage)
