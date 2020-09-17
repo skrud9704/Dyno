@@ -22,11 +22,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         >
-        <activity android:name=".Server.ServerExample"></activity>
+        <activity android:name=".ServerExample"></activity>
         <activity android:name=".MyPage.MyPageActivity" />
-        <activity android:name=".ocrRegister" />
+        <activity android:name=".RegistMedicine.ocrRegister" />
         <activity android:name=".RegistSupplement.RegistSupplementActivity" />
-        <activity android:name=".Camera" />
+        <activity android:name=".RegistMedicine.Camera" />
         <activity android:name=".SignUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

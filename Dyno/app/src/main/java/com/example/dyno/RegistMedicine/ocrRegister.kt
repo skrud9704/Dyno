@@ -1,4 +1,4 @@
-package com.example.dyno
+package com.example.dyno.RegistMedicine
 
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -9,7 +9,9 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_camera.*
+import com.example.dyno.R
+import com.example.dyno.RegistMedicine.OcrProc
+import com.example.dyno.Server.RdsServer
 import kotlinx.android.synthetic.main.activity_ocr_register.*
 import org.json.JSONObject
 import java.io.File
@@ -45,6 +47,11 @@ class ocrRegister : AppCompatActivity() {
             Log.d("trans_start", ocrApiGwUrl)
             var task = PapagoNmTask()
             task.execute(ocrApiGwUrl, ocrSecretKey, filepath)
+        }
+        btn_server.setOnClickListener{
+            Log.d("server_connect","start")
+            var task=RdsServer().networkTask()
+            task.execute()
         }
     }
 
