@@ -2,21 +2,13 @@ package com.example.dyno.RegistSupplement
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.os.AsyncTask
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Message
 import android.util.Log
-import android.view.View
 import android.webkit.*
-import android.widget.Toast
 import com.example.dyno.R
-import com.example.dyno.VO.SupplementVO
 import kotlinx.android.synthetic.main.activity_regist_supplement.*
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
 
 // process
 // 0. 이름으로 검색.
@@ -30,7 +22,7 @@ var siteSource : String =""
 class RegistSupplementActivity : AppCompatActivity() {
     // 식품안전나라 건강기능식품 검색 주소
     val siteUrl : String = "https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/searchHomeHF.do?menu_grp=MENU_NEW01&menu_no=2823"
-    val TAG = "Jsoup"
+    //val TAG = "Jsoup"
     var keyword : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,95 +40,45 @@ class RegistSupplementActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     fun webViewConfiguration(){
         val myJavaScriptInterface = MyJavaScriptInterface()
+
+        // Javascript 사용하기
         webView.settings.javaScriptEnabled = true
+        // DOM 사용하기
         webView.settings.domStorageEnabled = true
+        // 캐시 사용모드 - LOAD_NO_CACHE : 항상 최신 데이터 불러옴.
+        //webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+
+        // 커스텀 인터페이스 추가 -> ex) document.android.Dyno
         webView.addJavascriptInterface(myJavaScriptInterface,"Dyno")
         webView.webViewClient = object : WebViewClient(){
 
+            /* 페이지가 로드되기 시작할 때부터 동작
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
-                val js = "javascript:document.getElementById('search_word').value=\"$keyword\";"+
-                        "javascript:fn_search();"
+            }*/
+
+            // 페이지가 완전히 로드 된 후에 동작
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                keyword = input_search.text.toString()
+                Log.d("검색어",keyword)
+
+                val js = "javascript:document.getElementById('search_word').value=\"$keyword\"; javascript:fn_search();"
+                val js2 = "javascript:android.Dyno.getHtml()"
                 view?.evaluateJavascript(js){ value ->
                     view.loadUrl(js)
                 }
             }
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                keyword = input_search.text.toString()
-                Log.d("he",keyword)
-                //view?.loadUrl("javascript:document.getElementById('search_word').value=\"바나나\";")
-
-                val js = "javascript:document.getElementById('search_word').value=\"$keyword\";"+
-                        "javascript:fn_search();"
-
-                view?.evaluateJavascript(js){ value ->
-                    //view.loadUrl(js)
-                    view.loadUrl("javascript:fn_search();")
-
-                }
-
-            }
-
-            /*override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
-                super.doUpdateVisitedHistory(view, url, isReload)
-                view?.evaluateJavascript(""){ value ->
-                    //view.loadUrl(js)
-                    view.loadUrl("javascript:fn_search();")
-                }
-            }*/
-
-            override fun onLoadResource(view: WebView?, url: String?) {
-                super.onLoadResource(view, url)
-                view?.evaluateJavascript(""){ value ->
-                    //view.loadUrl(js)
-                    view.loadUrl("javascript:fn_search();")
-                    view?.loadUrl("javascript:window.Dyno.getHtml(document.getElementsByTagName('tbody')[0].innerHTML);")
-                }
-            }
 
         }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    inner class CrawlingAsyncTask : AsyncTask<String, String, String>(){
-        private var result : String = ""
-        var supplementList: ArrayList<SupplementVO> = arrayListOf()
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.visibility = View.VISIBLE
-            webViewConfiguration()
-        }
-        override fun doInBackground(vararg params: String?): String? {
-            webView.loadUrl(siteUrl)
-            return null
-
-            //val doc : Document = Jsoup.connect("$siteUrl").get()
-            //val elts: Elements = doc.select("")
-            // val eltsSize = elts.size
-            // Log.d(TAG, eltsSize.toString())
-            /*elts.forEachIndexed { index, elem ->
-                val a_href = elem.select("a").attr("href")
-                val title = elem.select("").text()
-                Log.d(TAG,"$index $a_href")
-                //supplementList.add()
-            }
-            return doc.title()*/
-        }
-
-        override fun onPostExecute(result: String?) {
-            progressBar.visibility = View.GONE
-            // 결과 출력 및 어답터 설정.
-        }
-
     }
 
     class MyJavaScriptInterface() {
+        // 커스텀 메서드 마다 JavascriptInterface 어노테이션 부여해야함.
         @JavascriptInterface
         fun getHtml(html : String) {
             siteSource = html;
-            Log.d("hello","나 호출은 됐다.")
+            Log.d("hello","나 호출 됐다.")
             Log.d("hello",siteSource)
         }
     }
