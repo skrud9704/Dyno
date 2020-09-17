@@ -1,4 +1,4 @@
-package com.example.dyno
+package com.example.dyno.RegistMedicine
 
 import android.util.Base64
 import android.util.Base64OutputStream
