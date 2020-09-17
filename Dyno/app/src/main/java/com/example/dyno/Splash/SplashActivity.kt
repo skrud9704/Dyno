@@ -9,6 +9,10 @@ import android.os.SystemClock
 import com.example.dyno.MainActivity
 
 class SplashActivity : AppCompatActivity() {
+    var SHARED_PREF = "SaveLogin"
+    var SHARED_PREF_NAME = "name"
+    var SHARED_PREF_DID = "did"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,9 +22,9 @@ class SplashActivity : AppCompatActivity() {
         // 그렇지 않다면
         // -> SignUp 액티비티
 
-        val pref : SharedPreferences = getSharedPreferences("SaveLogin", Context.MODE_PRIVATE)
-        val prefName = pref.getString("name","null")
-        val prefDid = pref.getString("did","null")
+        val pref : SharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val prefName = pref.getString(SHARED_PREF_NAME,"null")
+        val prefDid = pref.getString(SHARED_PREF_DID,"null")
 
         if(prefDid=="null" && prefName=="null"){
             val intent = Intent(this, SignUpActivity::class.java)

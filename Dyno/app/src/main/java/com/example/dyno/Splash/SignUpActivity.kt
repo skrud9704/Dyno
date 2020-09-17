@@ -18,6 +18,11 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
     private var userDB:UserDB?=null
+
+    var SHARED_PREF = "SaveLogin"
+    var SHARED_PREF_NAME = "name"
+    var SHARED_PREF_DID = "did"
+
     @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
         val userDevice = Settings.Secure.getString(this.contentResolver,Settings.Secure.ANDROID_ID)
 
         tv.text = userDevice
-        newUser.dId=userDevice
+        newUser.dId = userDevice
 
         Log.d("device info",userDevice)
 
@@ -40,11 +45,11 @@ class SignUpActivity : AppCompatActivity() {
             newUser.uName = et.text.toString()
             userDB?.userDao()?.insertUser(newUser)
 
-            val pref : SharedPreferences = getSharedPreferences("SaveLogin", Context.MODE_PRIVATE)
+            val pref : SharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
             val editor = pref.edit()
 
-            editor.putString("name",newUser.uName)
-            editor.putString("did",newUser.dId)
+            editor.putString(SHARED_PREF_NAME,newUser.uName)
+            editor.putString(SHARED_PREF_DID,newUser.dId)
             editor.apply()
 
             val intent= Intent(this, MainActivity::class.java)
