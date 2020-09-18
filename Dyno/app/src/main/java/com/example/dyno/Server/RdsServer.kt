@@ -6,7 +6,6 @@ import android.util.Log
 class RdsServer {
     val url:String="http://15.164.144.36:80"
 
-
     inner class networkTask: AsyncTask<String, String, String>(){
         override fun doInBackground(vararg params: String?): String ?{
 

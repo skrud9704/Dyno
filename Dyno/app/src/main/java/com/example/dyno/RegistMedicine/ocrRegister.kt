@@ -1,5 +1,6 @@
 package com.example.dyno.RegistMedicine
 
+import android.annotation.SuppressLint
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.AsyncTask
@@ -18,13 +19,14 @@ import java.io.File
 
 
 class ocrRegister : AppCompatActivity() {
+    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_register)
-        val ocrApiGwUrl = "url 넣을 것!"
-        val ocrSecretKey = "test할때 secretKey 넣을 것"
+        val ocrApiGwUrl = "https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
+        val ocrSecretKey = "UW5ERENERFZnR0p5bmdGa1hpUUNKUFpqZEFEa21MZ1A="
         var filepath: String = ""
-        if (intent.hasExtra("bitmapImg")) {
+        if (intent.hasExtra("bitmapImg")) {//사진 저장된 로컬 저장소 주소 받아옴
             filepath = intent.getStringExtra("bitmapImg")
         } else {
             Log.d("noFile", null)
@@ -89,9 +91,14 @@ class ocrRegister : AppCompatActivity() {
                     translateText += " "
                 }
             }
-            val txtResult = findViewById(R.id.textView_ocr_result) as TextView
-            txtResult.text = translateText
+            var parsText:String?=""
             Log.d("trans_end", translateText)
+            if(translateText!=null){
+                parsText= ocrParsing().prescriptionDrugsR(translateText)
+            }
+            val txtResult = findViewById(R.id.textView_ocr_result) as TextView
+            txtResult.text = parsText
+            Log.d("pars_end",parsText)
         } catch (e: Exception) {
             Log.d("pars_error", e.toString())
         }
