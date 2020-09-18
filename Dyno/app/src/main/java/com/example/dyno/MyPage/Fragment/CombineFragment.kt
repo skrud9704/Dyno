@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.dyno.MyPage.Fragment.Adapters.CFAdapter
 import com.example.dyno.MyPage.Fragment.Adapters.MFAdapter
 import com.example.dyno.R
+import com.example.dyno.VO.CombineVO
 
 class CombineFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +19,16 @@ class CombineFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_combine,null)
 
-        val combines : Array<String> = arrayOf("병용판단(약1+건1)","병용판단(약1+건2)",
-            "병용판단(약1+건3)","병용판단(약2+건1)","병용판단(약2+건2)","병용판단(약2+건3)")
+        val combines : ArrayList<CombineVO> = arrayListOf(
+            CombineVO("약1","건1",0),
+            CombineVO("약1","건2",0),
+            CombineVO("약1","건3",0),
+            CombineVO("약2","건1",1),
+            CombineVO("약2","건2",1),
+            CombineVO("약2","건3",1),
+            CombineVO("약1","건1",-1),
+            CombineVO("약3","건1",-1)
+        )
         val listView = view.findViewById<ListView>(R.id.list_combine)
         listView.adapter =
             CFAdapter(
