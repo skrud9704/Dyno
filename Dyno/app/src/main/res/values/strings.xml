@@ -14,5 +14,7 @@
     <string name="mypage_nim">&#160;님</string>
     <string name="mypage_name">로그인</string>
     <string name="mypage_medicine_name">질병명</string>
+    <string name="mypage_supplement_name">건강기능식품명</string>
+    <string name="mypage_combine_name">병용판단(약1+건1)</string>
     <string name="mypage_date">2020–09-17</string>
 </resources>

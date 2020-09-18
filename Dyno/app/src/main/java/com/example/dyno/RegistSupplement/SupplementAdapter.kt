@@ -1,16 +1,14 @@
 package com.example.dyno.RegistSupplement
 
 import android.content.Context
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.dyno.R
 import com.example.dyno.VO.SupplementVO
-import kotlinx.android.synthetic.main.list_item_supplement.view.*
+import kotlinx.android.synthetic.main.list_item_search_supplement.view.*
 
 class SupplementAdapter(val supplements : ArrayList<SupplementVO>, val context: Context)
     : RecyclerView.Adapter<SupplementAdapter.ViewHolder>() {
@@ -18,7 +16,7 @@ class SupplementAdapter(val supplements : ArrayList<SupplementVO>, val context: 
         parent: ViewGroup,
         viewType: Int
     ): SupplementAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item_supplement,parent,false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item_search_supplement,parent,false)
         return ViewHolder(v)
     }
 

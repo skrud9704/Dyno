@@ -1,4 +1,4 @@
-package com.example.dyno.MyPage.Fragment
+package com.example.dyno.MyPage.Fragment.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.dyno.R
 
-class MFAdapter(context: Context?, resource: Int, objects: Array<String>) :
+class CFAdapter(context: Context?, resource: Int, objects: Array<String>) :
     ArrayAdapter<String>(context, resource, objects) {
 
     private val mContext = context
@@ -19,25 +19,33 @@ class MFAdapter(context: Context?, resource: Int, objects: Array<String>) :
         lateinit var viewHolder: ViewHolder
         var view = convertView
 
-        if(view==null){
+        if (view == null) {
             viewHolder = ViewHolder()
-            view = LayoutInflater.from(mContext).inflate(mResource,parent,false)
-            viewHolder.textView = view.findViewById(R.id.item_medicine_name)
+            view = LayoutInflater.from(mContext).inflate(mResource, parent, false)
+            viewHolder.textView = view!!.findViewById(R.id.item_combine_name) as TextView
             view.tag = viewHolder
-            viewHolder.textView.text = mObjects[position]
+            viewHolder.textView.text = getItem(position)
 
             return view
 
-        }else{
+        } else {
             viewHolder = view.tag as ViewHolder
         }
 
-        viewHolder.textView.text = mObjects[position]
         return view
+    }
 
+    override fun getItem(position: Int): String? {
+        return mObjects[position]
+    }
+
+    override fun getCount(): Int {
+        return mObjects.size
     }
 
     inner class ViewHolder{
         lateinit var textView : TextView
     }
+
+
 }
