@@ -20,7 +20,9 @@
 
     <!-- DUR -->
     <string name="dur_judge">판단하기</string>
-    <string name="dur_txt">질병 A + 건강기능식품 B</string>
+    <string name="dur_txt1">(질병)</string>
+    <string name="dur_plus">" + "</string>
+    <string name="dur_txt2">(질병/건강기능식품)</string>
     <string name="dur_medicine">의약품 선택</string>
     <string name="dur_supplement">건강기능식품 선택</string>
 </resources>
