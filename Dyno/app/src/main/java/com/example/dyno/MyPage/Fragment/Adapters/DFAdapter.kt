@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.dyno.R
 
-class CFAdapter(context: Context?, resource: Int, objects: Array<String>) :
+class DFAdapter(context: Context?, resource: Int, objects: Array<String>) :
     ArrayAdapter<String>(context, resource, objects) {
 
     private val mContext = context
@@ -22,7 +22,7 @@ class CFAdapter(context: Context?, resource: Int, objects: Array<String>) :
         if (view == null) {
             viewHolder = ViewHolder()
             view = LayoutInflater.from(mContext).inflate(mResource, parent, false)
-            viewHolder.textView = view!!.findViewById(R.id.item_combine_name) as TextView
+            viewHolder.textView = view!!.findViewById(R.id.item_dur_name) as TextView
             view.tag = viewHolder
             viewHolder.textView.text = getItem(position)
 

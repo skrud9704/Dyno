@@ -6,11 +6,11 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/item_combine_name"
+        android:id="@+id/item_dur_name"
         android:layout_width="0dp"
         android:layout_weight="3"
         android:layout_height="match_parent"
-        android:text="@string/mypage_combine_name"
+        android:text="@string/mypage_dur_name"
         android:gravity="center_vertical"
         android:textSize="20sp"
         android:textColor="@color/dynoBlack"

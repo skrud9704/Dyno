@@ -62,7 +62,7 @@
       android:textSize="12sp" />
 
   <Button
-      android:id="@+id/combineUse"
+      android:id="@+id/dur"
       android:layout_width="0dp"
       android:layout_height="130dp"
       android:layout_weight="1"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.example.dyno.DUR.DurActivity
 import com.example.dyno.MyPage.MyPageActivity
 import com.example.dyno.RegistMedicine.Camera
 import com.example.dyno.RegistSupplement.RegistSupplementActivity
@@ -41,9 +42,9 @@ class MainActivity : AppCompatActivity() {
                 MyPageActivity::class.java)
             startActivity(myPageIntent)
         }
-        val combineUse=findViewById<Button>(R.id.combineUse)
-        combineUse.setOnClickListener{
-            val intent=Intent(this, ServerExample::class.java)
+        val dur=findViewById<Button>(R.id.dur)
+        dur.setOnClickListener{
+            val intent=Intent(this, DurActivity::class.java)
             startActivity(intent)
         }
 
