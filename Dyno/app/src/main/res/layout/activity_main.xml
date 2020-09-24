@@ -5,58 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/dynoMainWhite">
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal">
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/main_logo"
+      android:paddingTop="20dp"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp" />
+  <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+   <Button
+       android:id="@+id/myPage"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:background="@drawable/user"
+       android:padding="25dp"
+       android:layout_margin="15dp"
+       android:layout_gravity="end"/>
+  </LinearLayout>
+
+ </LinearLayout>
+
+ <LinearLayout
+     android:id="@+id/dash_board"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:padding="10dp">
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="200dp"
+         android:background="@color/dynoMainRed"/>
+ </LinearLayout>
 
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:orientation="horizontal"
-     android:background="@color/colorAccent">
-  <View
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:layout_margin="10dp"
-   />
-  <TextView
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:text="DYNO 로고"
-      android:textSize="20sp"
-      android:gravity="center"
-      android:layout_margin="10dp"/>
-  <TextView
-      android:id="@+id/myPage"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:text="MY"
-      android:textSize="20sp"
-      android:gravity="end"
-      android:layout_margin="10dp"/>
- </LinearLayout>
- <LinearLayout
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:orientation="horizontal"
-     android:paddingTop="20dp"
-     android:paddingBottom="20dp"
+     android:paddingTop="10dp"
+     android:paddingBottom="10dp"
      android:paddingLeft="30dp"
      android:paddingRight="30dp">
 
   <Button
       android:id="@+id/registerM"
       android:layout_width="0dp"
-      android:layout_height="130dp"
+      android:layout_height="110dp"
       android:layout_weight="1"
       android:text="@string/main_btn_medicine"
       android:textSize="12sp" />
 
+
   <Button
       android:id="@+id/registerS"
       android:layout_width="0dp"
-      android:layout_height="130dp"
+      android:layout_height="110dp"
       android:layout_weight="1"
       android:text="@string/main_btn_supplement"
       android:textSize="12sp" />
@@ -64,7 +77,7 @@
   <Button
       android:id="@+id/combineUse"
       android:layout_width="0dp"
-      android:layout_height="130dp"
+      android:layout_height="110dp"
       android:layout_weight="1"
       android:text="@string/main_btn_combine"
       android:textSize="12sp" />
@@ -73,33 +86,6 @@
  <androidx.viewpager.widget.ViewPager
      android:id="@+id/mPager"
      android:layout_width="match_parent"
-     android:layout_height="200dp"
-     android:layout_marginTop="25dp"
-     android:layout_marginBottom="25dp" />
+     android:layout_height="200dp" />
 
- <LinearLayout
-     android:layout_width="200dp"
-     android:layout_height="wrap_content"
-     android:orientation="horizontal"
-     android:padding="3dp"
-     android:layout_gravity="center">
-  <Button
-      android:id="@+id/modify"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:text="수정"
-      android:textSize="12sp"
-      android:layout_margin="10dp"/>
-
-  <Button
-      android:id="@+id/viewAll"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:text="자세히"
-      android:textSize="12sp"
-      android:layout_margin="10dp"/>
-
- </LinearLayout>
 </LinearLayout>
