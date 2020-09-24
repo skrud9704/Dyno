@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
         val adapter=MainAdapter(whatIEatList)
         mPager.adapter=adapter
 
-        val detailInfo= findViewById<Button>(R.id.viewAll)
-        detailInfo.setOnClickListener{
-            //val intent =Intent(this,)
-        }
         val registerDiseasePage=findViewById<Button>(R.id.registerM)
         registerDiseasePage.setOnClickListener{
             val nextIntent=Intent(this, Camera::class.java)

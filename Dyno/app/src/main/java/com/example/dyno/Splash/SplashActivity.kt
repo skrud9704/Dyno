@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        SystemClock.sleep(600)
+        SystemClock.sleep(2000)
         // 앱에 디바이스 아이디와 회원 명이 이미 저장돼있다면
         // -> 메인 액티비티
         // 그렇지 않다면

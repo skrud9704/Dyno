@@ -10,4 +10,9 @@
     <color name="dynoCombineRed">#EB0C0C</color> <!--44% -->
     <color name="dynoCombineOrage">#F09F24</color> <!--100%-->
     <color name="dynoCombineGreen">#159735</color> <!--63%-->
+
+    <color name="dynoMainBlue">#043353</color>
+    <color name="dynoMainRed">#E44652</color>
+    <color name="dynoMainWhite">#FAF8F0</color>
+    <color name="dynoMainBeige">#E4DFCF</color>
 </resources>
