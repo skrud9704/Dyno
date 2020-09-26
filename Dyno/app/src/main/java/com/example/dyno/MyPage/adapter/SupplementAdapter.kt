@@ -21,6 +21,8 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
             context.resources.getStringArray(R.array.supplement_name)
         val subTitleArray =
             context.resources.getStringArray(R.array.disease_date)
+        nameList!!.clear()
+        dateList.clear()
         for (i in listArray.indices) {
             nameList!!.add(listArray[i])
             dateList.add(subTitleArray[i])
