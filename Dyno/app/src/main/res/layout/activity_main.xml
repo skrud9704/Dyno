@@ -45,14 +45,13 @@
      <TextView
          android:layout_width="match_parent"
          android:layout_height="200dp"
-         android:background="@color/dynoMainRed"/>
+         android:background="@color/dynoMainWhite"/>
  </LinearLayout>
 
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:orientation="horizontal"
-     android:paddingTop="10dp"
      android:paddingBottom="10dp"
      android:paddingLeft="30dp"
      android:paddingRight="30dp">
@@ -60,32 +59,48 @@
   <Button
       android:id="@+id/registerM"
       android:layout_width="0dp"
-      android:layout_height="110dp"
+      android:layout_height="90dp"
       android:layout_weight="1"
       android:text="@string/main_btn_medicine"
-      android:textSize="12sp" />
+      android:background="@drawable/btn_main"
+      android:textSize="12sp"
+      android:layout_marginTop="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"/>
 
 
   <Button
       android:id="@+id/registerS"
       android:layout_width="0dp"
-      android:layout_height="110dp"
+      android:layout_height="90dp"
       android:layout_weight="1"
       android:text="@string/main_btn_supplement"
-      android:textSize="12sp" />
+      android:background="@drawable/btn_main"
+      android:textSize="12sp"
+      android:layout_marginTop="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"/>
 
   <Button
       android:id="@+id/dur"
       android:layout_width="0dp"
-      android:layout_height="110dp"
+      android:layout_height="90dp"
       android:layout_weight="1"
       android:text="@string/main_btn_combine"
-      android:textSize="12sp" />
+      android:background="@drawable/btn_main_2"
+      android:textSize="12sp"
+      android:layout_marginTop="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"/>
  </LinearLayout>
 
  <androidx.viewpager.widget.ViewPager
      android:id="@+id/mPager"
      android:layout_width="match_parent"
-     android:layout_height="200dp" />
+     android:layout_height="200dp"
+     android:foregroundGravity="center"
+     android:overScrollMode="never"
+     android:clipToPadding="false"
+     android:layout_marginTop="10dp"/>
 
 </LinearLayout>

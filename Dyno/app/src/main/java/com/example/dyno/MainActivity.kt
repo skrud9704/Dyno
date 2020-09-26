@@ -17,6 +17,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val dpValue = 40
+        val d = resources.displayMetrics.density
+
+        val margin = (dpValue * d).toInt()
+
+        mPager.clipToPadding=false
+        mPager.setPadding(margin,0,margin,0)
+        mPager.pageMargin=margin/2
+
         val adapter=MainAdapter(whatIEatList)
         mPager.adapter=adapter
 
