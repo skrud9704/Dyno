@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "466503334750",
+    "firebase_url": "https://dyno-2ea38.firebaseio.com",
+    "project_id": "dyno-2ea38",
+    "storage_bucket": "dyno-2ea38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466503334750:android:65b2ad9de8c3b4be912dcf",
+        "android_client_info": {
+          "package_name": "com.example.dyno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466503334750-c1lch83tvka54thlm6061kktq8sj3jh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dyno",
+            "certificate_hash": "faf8b06be966a829195e2a1b52e8bfbf43265b9b"
+          }
+        },
+        {
+          "client_id": "466503334750-epmglba2cs42tiun4or6pi2er7576i5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSh-_2qSgaYSn0VKBo0q1QwwW7fg_cXUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466503334750-epmglba2cs42tiun4or6pi2er7576i5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
