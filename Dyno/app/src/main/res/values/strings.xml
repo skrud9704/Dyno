@@ -7,6 +7,13 @@
     <string name="main_btn_combine">병용\n판단</string>
     <string name="btn_search">검색</string>
 
+    <!-- SignUp -->
+    <string name="sign_up_name">사용자 이름</string>
+    <string name="sign_up_device">디바이스 아이디</string>
+    <string name="sign_up_btn">회원 가입</string>
+    <string name="sign_up_notice">Dyno는 사용자의 개인정보를 보호하기 위해 \n한 기기당 하나의 계정만 생성할 수 있습니다. \n해당 기기에 계정을 생성하는 것이 맞습니까?</string>
+
+
     <!-- 건강기능식품 검색-->
     <string name="hint_supplement">건강기능식품의 이름을 입력하세요.</string>
 
@@ -15,10 +22,14 @@
     <string name="mypage_name">로그인</string>
     <string name="mypage_medicine_name">질병명</string>
     <string name="mypage_supplement_name">건강기능식품명</string>
-    <string name="mypage_combine_start">병용판단(</string>
-    <string name="mypage_combine_m1">약1</string>
-    <string name="mypage_combine_plus">+</string>
-    <string name="mypage_combine_s1">건1</string>
-    <string name="mypage_combine_end">)</string>
+    <string name="mypage_dur_name">병용판단(약1+건1)</string>
     <string name="mypage_date">2020–09-17</string>
+
+    <!-- DUR -->
+    <string name="dur_judge">판단하기</string>
+    <string name="dur_txt1">(질병)</string>
+    <string name="dur_plus">" + "</string>
+    <string name="dur_txt2">(질병/건강기능식품)</string>
+    <string name="dur_medicine">의약품 선택</string>
+    <string name="dur_supplement">건강기능식품 선택</string>
 </resources>

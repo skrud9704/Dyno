@@ -13,8 +13,8 @@ import com.example.dyno.R
 import com.example.dyno.VO.CombineVO
 import kotlin.math.log
 
-class CFAdapter(context: Context?, resource: Int, objects: ArrayList<CombineVO>) :
-    ArrayAdapter<CombineVO>(context, resource, objects) {
+class DFAdapter(context: Context?, resource: Int, objects: Array<String>) :
+    ArrayAdapter<String>(context, resource, objects) {
 
     private val mContext = context
     private val mObjects = objects
@@ -26,10 +26,7 @@ class CFAdapter(context: Context?, resource: Int, objects: ArrayList<CombineVO>)
         if (view == null) {
             viewHolder = ViewHolder()
             view = LayoutInflater.from(mContext).inflate(mResource, parent, false)
-            viewHolder.text1View = view.findViewById(R.id.item_combine_name1) as TextView
-            viewHolder.text2View = view.findViewById(R.id.item_combine_name2) as TextView
-            viewHolder.background = view.findViewById(R.id.item_combine_background) as LinearLayout
-
+            viewHolder.textView = view!!.findViewById(R.id.item_dur_name) as TextView
             view.tag = viewHolder
             Log.d("객체확인","dd"+getItem(position)!!.c1)
 
