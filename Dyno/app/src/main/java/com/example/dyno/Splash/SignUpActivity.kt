@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
 import android.util.Log
 import com.example.dyno.VO.UserVO
 import com.example.dyno.MainActivity
@@ -35,7 +36,8 @@ class SignUpActivity : AppCompatActivity() {
         lateinit var userName :String
         // 기기 아이디 보여주기
         val deviceId = Settings.Secure.getString(this.contentResolver,Settings.Secure.ANDROID_ID)
-        userD.text = deviceId
+        userD.setText(deviceId)
+        userD.isEnabled=false
 
         // 로그 확인.
         Log.d("device info",deviceId)
