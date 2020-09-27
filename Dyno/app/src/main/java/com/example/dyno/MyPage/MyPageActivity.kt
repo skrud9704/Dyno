@@ -47,7 +47,7 @@ class MyPageActivity : AppCompatActivity() {
         val pref : SharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         val prefName = pref.getString(SHARED_PREF_NAME,"null")
         if (supportActionBar != null)
-            supportActionBar!!.title = prefName
+            supportActionBar!!.title = "$prefName 님"
 
         // 뒤로가기 버튼 setting true
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -66,7 +66,7 @@ class MyPageActivity : AppCompatActivity() {
         val collapsingToolbarLayout =
             findViewById<View>(R.id.htab_collapse_toolbar) as CollapsingToolbarLayout
 
-        try {
+        /*try {
             val bitmap = BitmapFactory.decodeResource(resources,
                 R.drawable.dyno_logo
             )
@@ -87,7 +87,7 @@ class MyPageActivity : AppCompatActivity() {
             collapsingToolbarLayout.setStatusBarScrimColor(ContextCompat.getColor(this,
                 R.color.dynoMainBeige
             ))
-        }
+        }*/
 
         // 탭 변경 될 때 리스너
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
@@ -117,18 +117,18 @@ class MyPageActivity : AppCompatActivity() {
         )
         adapter.addFrag(
             MyFragment(
-                ContextCompat.getColor(this, R.color.cyan_50), 0
+                ContextCompat.getColor(this, R.color.dynoMainBeige), 0
             ), "의약품"
         )
         adapter.addFrag(
             MyFragment(
-                ContextCompat.getColor(this, R.color.amber_50),
+                ContextCompat.getColor(this, R.color.dynoMainBeige),
                 1
             ), "건강기능식품"
         )
         adapter.addFrag(
             MyFragment(
-                ContextCompat.getColor(this, R.color.purple_50),
+                ContextCompat.getColor(this, R.color.dynoMainBeige),
                 2
             ), "병용판단"
         )
