@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val margin = (dpValue * d).toInt()
 
         mPager.clipToPadding=false
-        mPager.setPadding(margin,0,margin,0)
+        mPager.setPadding(margin*11/12,0,margin*11/12,0)
         mPager.pageMargin=margin/2
 
         val adapter=MainAdapter(whatIEatList)
@@ -57,8 +57,9 @@ class MainActivity : AppCompatActivity() {
     }
     companion object{
         val whatIEatList =arrayListOf(
-            whatIEat("질병a","의약품 a, 의약품 b,의약품 c"),
-            whatIEat("건강기능식품a","기능성원재료")
+            whatIEat("급성 아토피결막염","하메론에이점안액\n톨론점안액\n올로텐플러스점안액","60mg/1회\n1방울/1회\n1방울/1회"),
+
+            whatIEat("건강기능식품a","기능성원재료","60/1회\n1정/1회\n1정/1회")
         )
     }
 

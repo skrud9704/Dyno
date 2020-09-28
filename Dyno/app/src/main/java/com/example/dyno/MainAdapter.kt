@@ -17,6 +17,7 @@ class MainAdapter(private val list:ArrayList<whatIEat>):PagerAdapter() {
 
         view.name.text=list[position].name
         view.detail.text=list[position].detail
+        view.detail2.text=list[position].detail2
         //제목의 경우 약은 처방전 이름으로
         //건강기능식품은 건강기능식품 이름으로
         //세부정보로 약의 경우는 약 종류를 건강기능식품의 경우는?
