@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="disease_name">
+        <item>감기</item>
+        <item>간질환</item>
+        <item>고혈압</item>
+        <item>당뇨</item>
+        <item>변비</item>
+        <item>아토피</item>
+        <item>과민성 대장 증후군</item>
+        <item>코로나 바이러스</item>
+        <item>중이염</item>
+        <item>담석</item>
+        <item>춘곤증</item>
+    </string-array>
+
+    <string-array name="disease_date">
+        <item>2020-09-26</item>
+        <item>2020–08-26</item>
+        <item>2020-09-21</item>
+        <item>2020-08-31</item>
+        <item>2020-07-11</item>
+        <item>2020-06-30</item>
+        <item>2020-02-11</item>
+        <item>2020-01-21</item>
+        <item>2020-01-02</item>
+        <item>2019-10-02</item>
+        <item>2019-09-02</item>
+    </string-array>
+
+    <string-array name="supplement_name">
+        <item>센트룸 아쿠아비타 발포 멀티비타민 딸기향 30포</item>
+        <item>센트룸 포 우먼 멀티비타민 미네랄(50정)</item>
+        <item>California Gold Nutrition, LactoBif 프로바이오틱스, 300억 CFU, 베지 캡슐 60정</item>
+        <item>Now Foods, 비타민 D-3, 고효능, 5,000 IU, 120 소프트젤</item>
+        <item>Sports Research, 아스타잔틴 함유 남극 크릴 오일, 1000mg, 소프트젤 60정</item>
+        <item>Sports Research, 오메가-3 피쉬 오일, Triple Strength, 1,250mg, 소프트젤 180정</item>
+        <item>광동우황청심원(천연사향함유) 액제/환제</item>
+        <item>뉴오리진 비타민 C</item>
+        <item>종근당 갱년기건강 솔루션</item>
+        <item>빠질라카노 그린커피빈 방탄카페</item>
+        <item>편안해질 와이(Y) 먹는 유산균</item>
+    </string-array>
+
+
+</resources>

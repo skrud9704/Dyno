@@ -19,22 +19,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        >
-        <activity android:name=".ServerExample"></activity>
+        android:theme="@style/AppTheme">
         <activity android:name=".MyPage.MyPageActivity" />
-        <activity android:name=".RegistMedicine.ocrRegister" />
-        <activity android:name=".RegistSupplement.RegistSupplementActivity" />
-        <activity android:name=".RegistMedicine.Camera" />
-        <activity android:name=".SignUp">
+        <activity android:name=".DUR.DurActivity" />
+        <activity
+            android:name=".Splash.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MyPage.MyPageActivity" />
+        <activity android:name=".RegistMedicine.ocrRegister" />
+        <activity android:name=".RegistSupplement.RegistSupplementActivity" />
+        <activity android:name=".RegistMedicine.Camera" />
+        <activity android:name=".Splash.SignUpActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".ServerExample" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.example.dyno.DUR.DurActivity
 import com.example.dyno.MyPage.MyPageActivity
 import com.example.dyno.RegistMedicine.Camera
 import com.example.dyno.RegistSupplement.RegistSupplementActivity
@@ -16,13 +17,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val dpValue = 40
+        val d = resources.displayMetrics.density
+
+        val margin = (dpValue * d).toInt()
+
+        mPager.clipToPadding=false
+        mPager.setPadding(margin,0,margin,0)
+        mPager.pageMargin=margin/2
+
         val adapter=MainAdapter(whatIEatList)
         mPager.adapter=adapter
 
-        val detailInfo= findViewById<Button>(R.id.viewAll)
-        detailInfo.setOnClickListener{
-            //val intent =Intent(this,)
-        }
         val registerDiseasePage=findViewById<Button>(R.id.registerM)
         registerDiseasePage.setOnClickListener{
             val nextIntent=Intent(this, Camera::class.java)
@@ -41,9 +48,9 @@ class MainActivity : AppCompatActivity() {
                 MyPageActivity::class.java)
             startActivity(myPageIntent)
         }
-        val combineUse=findViewById<Button>(R.id.combineUse)
-        combineUse.setOnClickListener{
-            val intent=Intent(this, ServerExample::class.java)
+        val dur=findViewById<Button>(R.id.dur)
+        dur.setOnClickListener{
+            val intent=Intent(this, DurActivity::class.java)
             startActivity(intent)
         }
 
