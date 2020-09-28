@@ -44,16 +44,18 @@ class ocrRegister : AppCompatActivity() {
             val bitmap = ImageDecoder.decodeBitmap(decode)
             imageView.setImageBitmap(bitmap)
         }
-
+        var drug:String=""
         btn_ocr_translate.setOnClickListener {
             Log.d("trans_start", ocrApiGwUrl)
             var task = PapagoNmTask()
             task.execute(ocrApiGwUrl, ocrSecretKey, filepath)
         }
+        val txtResult = findViewById(R.id.textView_ocr_result) as TextView
         btn_server.setOnClickListener{
-            Log.d("server_connect","start")
+            var text=txtResult.getText().toString()
+            Log.d("server_connect",text)
             var task=RdsServer().networkTask()
-            task.execute()
+            task.execute("drug",text)
         }
     }
 
@@ -79,6 +81,7 @@ class ocrRegister : AppCompatActivity() {
     fun ReturnThreadResult(result: String) {
         Log.d("start_pars", result)
         var translateText: String? = ""
+        var parsText:String?=""
         try {
             val jsonObject = JSONObject(result)
             val jsonArray = jsonObject.getJSONArray("images")
@@ -91,17 +94,20 @@ class ocrRegister : AppCompatActivity() {
                     translateText += " "
                 }
             }
-            var parsText:String?=""
+
             Log.d("trans_end", translateText)
             if(translateText!=null){
-                parsText= ocrParsing().prescriptionDrugsR(translateText)
+                parsText=ocrParsing().prescriptionDrugsR(translateText)
             }
             val txtResult = findViewById(R.id.textView_ocr_result) as TextView
+            Log.d("server_start",parsText)
+
             txtResult.text = parsText
-            Log.d("pars_end",parsText)
+
         } catch (e: Exception) {
             Log.d("pars_error", e.toString())
         }
+
     }
 
 
