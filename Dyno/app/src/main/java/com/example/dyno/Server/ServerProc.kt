@@ -9,22 +9,23 @@ import java.net.URL
 import java.nio.charset.Charset
 
 class ServerProc {
-    fun start(phpUrl:String?):String?{
+    fun start(phpUrl: String?, category: String?, drug: String?):String?{
         Log.d("url",phpUrl)
-        var sqlResult=""
-
+        var response=""
+        Log.d("drugSer",drug)
         try{
             val url= URL(phpUrl)
             val con:HttpURLConnection=url.openConnection() as HttpURLConnection
             if(con!=null){//연결됨
-                Log.d("con","connectionSuccess")
+                Log.d("Scon","connectionSuccess")
                 con.requestMethod="POST"
                 con.setRequestProperty("Accept-Charset", "UTF-8")
                 con.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;cahrset=UTF-8")
             }else{
-                Log.d("con","connectionFail")
+                Log.d("Scon","connectionFail")
             }
-            var str:String="tjqjtleh"
+            var str:String="category="+category+"&drug="+drug
+            Log.d("cAndD",category+drug)
             val arr=str.toByteArray((Charset.defaultCharset()))
 
             val wr = DataOutputStream(con.outputStream)
@@ -32,10 +33,10 @@ class ServerProc {
             wr.flush()
             wr.close()
             val responseCode: Int = con.getResponseCode()
-            Log.d("responseCode",responseCode.toString())
+            Log.d("SresponseCode",responseCode.toString())
             if (responseCode == 200) { // 정상 호출
                 /*System.out.println(con.getResponseMessage())*/
-                Log.d("trans_start",con.responseMessage)
+                Log.d("server_getInfo",con.responseMessage)
                 val input = BufferedReader(
                     InputStreamReader(con.inputStream,"utf-8")
                 )
@@ -46,15 +47,16 @@ class ServerProc {
                 }
                 input.close()
                 return response.toString()
+
             } else {  // 에러 발생
-                Log.d("responseCode",responseCode.toString())
-                sqlResult = con.getResponseMessage()
+                Log.d("SresponseCode",responseCode.toString())
+                Log.d("SresponseCode",con.errorStream.toString())
             }
         }catch (e:Exception){
-            Log.d("error",e.toString())
+            Log.d("Serror",e.toString())
         }
-        Log.d("sqlResult",sqlResult)
-        return sqlResult
+        Log.d("SsqlResult",response)
 
+        return response
     }
 }
