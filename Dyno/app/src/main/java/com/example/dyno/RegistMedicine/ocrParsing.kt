@@ -19,7 +19,7 @@ class ocrParsing {
         //약으로 추정되는 단어들을 문자열로 만들기
         for (i in arr.indices) {
             for (j in dArr.indices) {
-                if (arr[i].contains(dArr[j]) && !arr[i].endsWith(".")) {
+                if (arr[i].endsWith(dArr[j]) && !arr[i].endsWith(".")) {
                     if(arr[i].endsWith("분")){
                         date += arr[i]
                         date += ","

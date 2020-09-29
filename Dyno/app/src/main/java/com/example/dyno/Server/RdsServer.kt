@@ -7,10 +7,12 @@ import com.example.dyno.RegistMedicine.ocrParsing
 import org.json.JSONObject
 
 class RdsServer {
-    val url:String="http://15.164.144.36:80"
+
+
 
     inner class networkTask: AsyncTask<String, String, String>(){
-
+        var res:String=""
+        val url:String="http://15.164.144.36:80"
         override fun doInBackground(vararg params: String?): String ?{
 
 
@@ -27,16 +29,17 @@ class RdsServer {
 
             if (result != null) {
                 Log.d("Sjson", result.length.toString())
-                ReturnThreadResult(result,"drug")
+
+                res=netReturnThreadResult(result,"drug")
                 Log.d("Sresult",result.toString())
             } else {
                 Log.d("no_result", "")
             }
         }
     }
-    fun ReturnThreadResult(result: String,category: String)  {
+    fun netReturnThreadResult(result: String,category: String) : String {
 
-        Log.d("start_serverS", result)
+        Log.d("start_serverS", result.toString())
         var translateText: String? = ""
         val TAG_JSON = "webnautes"
         var TAG_NAME = ""
@@ -61,12 +64,13 @@ class RdsServer {
 
             }
             Log.d("get_end", serverDrugInfo)
+            return serverDrugInfo
 
         } catch (e: Exception) {
             Log.d("Server_error", e.toString())
 
         }
-
+        return serverDrugInfo
     }
 
 }
