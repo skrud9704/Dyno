@@ -94,11 +94,11 @@ class MyPageActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
                 Log.d(TAG, "onTabSelected: pos: " + tab.position)
-                when (tab.position) {
+                /*when (tab.position) {
                     0 -> showToast("의약품")
                     1 -> showToast("건강기능식품")
                     2 -> showToast("병용판단")
-                }
+                }*/
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}

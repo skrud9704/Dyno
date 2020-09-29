@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RegistSupplement.RegistSupplementActivity"></activity>
         <activity android:name=".MyPage.MyPageActivity" />
         <activity android:name=".DUR.DurActivity" />
         <activity
@@ -31,9 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".RegistMedicine.ocrRegister" />
-        <activity android:name=".RegistSupplement.RegistSupplementActivity" />
         <activity android:name=".RegistMedicine.Camera" />
         <activity android:name=".Splash.SignUpActivity" />
         <activity android:name=".MainActivity" />

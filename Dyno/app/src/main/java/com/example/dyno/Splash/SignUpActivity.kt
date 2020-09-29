@@ -65,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
 
             // 5. 메인 액티비티로 이동
             startActivity(Intent(this, MainActivity::class.java))
-
+            finish()
         }
 
 

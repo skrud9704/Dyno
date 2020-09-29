@@ -1,13 +1,15 @@
 package com.example.dyno.RegistSupplement
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.util.Log
-import android.webkit.*
+import android.view.View
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.example.dyno.R
+import com.example.dyno.VO.SupplementVO
 import kotlinx.android.synthetic.main.activity_regist_supplement.*
 
 // process
@@ -28,11 +30,19 @@ class RegistSupplementActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regist_supplement)
-
         //1. 웹뷰 초기셋팅
-        webViewConfiguration()
+        //webViewConfiguration()
         btn_search.setOnClickListener {
-            webView.loadUrl(siteUrl)
+            //webView.loadUrl(siteUrl)
+            if(input_search.text.toString()=="인삼차"){
+                no_result.visibility = View.GONE
+                search_list.visibility=View.VISIBLE
+                search_list.adapter=SupplementAdapter(this,R.layout.list_item_search_supplement,ArrayList<SupplementVO>())
+            }else{
+                no_result.visibility = View.VISIBLE
+                search_list.visibility=View.GONE
+            }
+
         }
 
     }
@@ -82,5 +92,6 @@ class RegistSupplementActivity : AppCompatActivity() {
             Log.d("hello",siteSource)
         }
     }
+
 
 }

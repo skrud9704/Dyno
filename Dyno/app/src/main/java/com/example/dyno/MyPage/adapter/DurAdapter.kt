@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
 import java.util.ArrayList
@@ -18,14 +20,17 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
 
     fun setDiseaseList(context: Context) {
         val listArray =
-            context.resources.getStringArray(R.array.disease_name)
+            context.resources.getStringArray(R.array.dur_name)
         val subTitleArray =
             context.resources.getStringArray(R.array.disease_date)
+        val colorArray = context.resources.getStringArray(R.array.dur_result)
         homeActivitiesList!!.clear()
         homeActivitiesSubList.clear()
+        homeColorList.clear()
         for (i in listArray.indices) {
             homeActivitiesList!!.add(listArray[i])
             homeActivitiesSubList.add(subTitleArray[i])
+            homeColorList.add(colorArray[i])
         }
     }
 
@@ -50,6 +55,14 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
         if (isHomeList) {
             versionViewHolder.title.text = homeActivitiesList!![i]
             versionViewHolder.subTitle.text = homeActivitiesSubList[i]
+            if(homeColorList[i]=="1"){
+                versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.green_card))
+            }else if(homeColorList[i]=="2"){
+                versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.orange_card))
+            }else if(homeColorList[i]=="3"){
+                versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.red_card))
+            }
+
         } else {
             versionViewHolder.title.text = versionModels!![i]
         }
@@ -108,6 +121,8 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
         var homeActivitiesList: MutableList<String>? =
             ArrayList()
         var homeActivitiesSubList: MutableList<String> =
+            ArrayList()
+        var homeColorList: MutableList<String> =
             ArrayList()
     }
 }

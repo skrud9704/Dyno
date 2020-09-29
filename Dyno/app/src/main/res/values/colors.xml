@@ -57,4 +57,9 @@
     <color name="cyan_50">#E0F7FA</color>
     <color name="amber_50">#FFF8E1</color>
     <color name="purple_50">#F3E5F5</color>
+
+    <color name="green_card">#aed581</color>
+    <color name="orange_card">#ffb74d</color>
+    <color name="red_card">#e57373</color>
+
 </resources>

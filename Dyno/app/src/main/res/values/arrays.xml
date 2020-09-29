@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="disease_name">
+    <string-array name="disease_name2">
         <item>감기</item>
         <item>간질환</item>
         <item>고혈압</item>
@@ -14,6 +14,7 @@
         <item>담석</item>
         <item>춘곤증</item>
     </string-array>
+
 
     <string-array name="disease_date">
         <item>2020-09-26</item>
@@ -29,7 +30,7 @@
         <item>2019-09-02</item>
     </string-array>
 
-    <string-array name="supplement_name">
+    <string-array name="supplement_name2">
         <item>센트룸 아쿠아비타 발포 멀티비타민 딸기향 30포</item>
         <item>센트룸 포 우먼 멀티비타민 미네랄(50정)</item>
         <item>California Gold Nutrition, LactoBif 프로바이오틱스, 300억 CFU, 베지 캡슐 60정</item>
@@ -41,6 +42,30 @@
         <item>종근당 갱년기건강 솔루션</item>
         <item>빠질라카노 그린커피빈 방탄카페</item>
         <item>편안해질 와이(Y) 먹는 유산균</item>
+    </string-array>
+
+    <!-- 데모용 -->
+    <string-array name="disease_name">
+        <item>급성 아토피결막염</item>
+        <item>가려움증</item>
+    </string-array>
+    <string-array name="supplement_name">
+        <item>락토바이옴 장용성</item>
+        <item>고려인삼차</item>
+    </string-array>
+
+    <string-array name="dur_name">
+        <item>급성 아토피결막염 + 락토바이옴 장용성</item>
+        <item>급성 아토피결막염 + 고려인삼차</item>
+        <item>가려움증 + 락토바이옴 장용성</item>
+        <item>가려움증 + 고려인삼차</item>
+    </string-array>
+    <!-- 1이 정상, 2는 주의, 3은 경고 -->
+    <string-array name="dur_result">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
     </string-array>
 
 

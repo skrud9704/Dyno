@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistSupplement.RegistSupplementActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/dynoMainWhite">
     <WebView
         android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
         android:scrollbars="vertical"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +35,8 @@
                 android:layout_marginStart="0dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="0dp"
-                android:autofillHints="@string/hint_supplement"/>
+                android:hint="@string/hint_supplement"
+                android:textSize="15sp"/>
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="0dp"
@@ -48,17 +50,56 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="5"
+        android:background="@color/dynoGrey">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
+        <ListView
+            android:id="@+id/search_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/no_result"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="조회할 건강기능식품이 없습니다.\n식품안전나라에서 제공하는 국내 \n건강기능식품만 검색할 수 있습니다."
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+            <Button
+                android:id="@+id/camera_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="성분 직접 찍기"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
