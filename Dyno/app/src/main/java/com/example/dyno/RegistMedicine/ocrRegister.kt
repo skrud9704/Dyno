@@ -1,5 +1,6 @@
 package com.example.dyno.RegistMedicine
 
+import android.annotation.SuppressLint
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.AsyncTask
@@ -18,13 +19,14 @@ import java.io.File
 
 
 class ocrRegister : AppCompatActivity() {
+    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_register)
-        val ocrApiGwUrl = "url 넣을 것!"
-        val ocrSecretKey = "test할때 secretKey 넣을 것"
+        val ocrApiGwUrl = "https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
+        val ocrSecretKey = "UW5ERENERFZnR0p5bmdGa1hpUUNKUFpqZEFEa21MZ1A="
         var filepath: String = ""
-        if (intent.hasExtra("bitmapImg")) {
+        if (intent.hasExtra("bitmapImg")) {//사진 저장된 로컬 저장소 주소 받아옴
             filepath = intent.getStringExtra("bitmapImg")
         } else {
             Log.d("noFile", null)
@@ -42,16 +44,18 @@ class ocrRegister : AppCompatActivity() {
             val bitmap = ImageDecoder.decodeBitmap(decode)
             imageView.setImageBitmap(bitmap)
         }
-
+        var drug:String=""
         btn_ocr_translate.setOnClickListener {
             Log.d("trans_start", ocrApiGwUrl)
             var task = PapagoNmTask()
             task.execute(ocrApiGwUrl, ocrSecretKey, filepath)
         }
+        val txtResult = findViewById(R.id.textView_ocr_result) as TextView
         btn_server.setOnClickListener{
-            Log.d("server_connect","start")
+            var text=txtResult.getText().toString()
+            Log.d("server_connect",text)
             var task=RdsServer().networkTask()
-            task.execute()
+            task.execute("drug",text)
         }
     }
 
@@ -77,6 +81,7 @@ class ocrRegister : AppCompatActivity() {
     fun ReturnThreadResult(result: String) {
         Log.d("start_pars", result)
         var translateText: String? = ""
+        var parsText:String?=""
         try {
             val jsonObject = JSONObject(result)
             val jsonArray = jsonObject.getJSONArray("images")
@@ -89,12 +94,20 @@ class ocrRegister : AppCompatActivity() {
                     translateText += " "
                 }
             }
-            val txtResult = findViewById(R.id.textView_ocr_result) as TextView
-            txtResult.text = translateText
+
             Log.d("trans_end", translateText)
+            if(translateText!=null){
+                parsText=ocrParsing().prescriptionDrugsR(translateText)
+            }
+            val txtResult = findViewById(R.id.textView_ocr_result) as TextView
+            Log.d("server_start",parsText)
+
+            txtResult.text = parsText
+
         } catch (e: Exception) {
             Log.d("pars_error", e.toString())
         }
+
     }
 
 
