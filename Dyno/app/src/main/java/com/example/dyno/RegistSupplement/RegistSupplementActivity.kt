@@ -30,9 +30,10 @@ class RegistSupplementActivity : AppCompatActivity() {
         setContentView(R.layout.activity_regist_supplement)
 
         //1. 웹뷰 초기셋팅
-        webViewConfiguration()
+
         btn_search.setOnClickListener {
-            webView.loadUrl(siteUrl)
+            webViewConfiguration()
+
         }
 
     }
@@ -66,11 +67,12 @@ class RegistSupplementActivity : AppCompatActivity() {
                 val js = "javascript:document.getElementById('search_word').value=\"$keyword\"; javascript:fn_search();"
                 val js2 = "javascript:android.Dyno.getHtml()"
                 view?.evaluateJavascript(js){ value ->
-                    view.loadUrl(js)
+                    Log.d("js",value)
                 }
             }
 
         }
+        webView.loadUrl(siteUrl)
     }
 
     class MyJavaScriptInterface() {

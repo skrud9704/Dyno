@@ -1,5 +1,7 @@
 package com.example.dyno.RegistMedicine
 
+import android.util.Log
+
 class ocrParsing {
     val drugs = "정,전자모기향,캡슐,스트립,주사액,묽은,수성현탁주사액,석회,액,결합형,정제,경화,산,침강,가루," +
             "미결정,비결정성,연고,콜로이드성,시럽,불검화물,좌제,함당,페이스트,함수,레모네이드,합성,활성,과립," +
@@ -8,6 +10,7 @@ class ocrParsing {
     //약들의 어미 종류
     var dArr = drugs.split(",").toTypedArray()
     fun prescriptionDrugsR(transText: String): String? {
+        Log.d("pars_start",transText)
         var arr = transText.split(" ").toTypedArray()
         //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
 
@@ -29,7 +32,8 @@ class ocrParsing {
             }
         }
         var medArr = med?.split(",")?.toTypedArray()
-        var result=med+"$"+date
+        var result=med//+"$"+date
+        Log.d("pars_medicine",result)
         return result
     }
     fun prescriptionR(transText: String){
