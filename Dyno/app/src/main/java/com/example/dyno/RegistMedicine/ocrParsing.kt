@@ -27,8 +27,9 @@ class ocrParsing {
                         med += arr[i]
                         med += ","
                     }
+                    break
                 }
-                break
+
             }
         }
         var medArr = med?.split(",")?.toTypedArray()
