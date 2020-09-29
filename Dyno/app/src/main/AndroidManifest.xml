@@ -31,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyPage.MyPageActivity" />
+
         <activity android:name=".RegistMedicine.ocrRegister" />
         <activity android:name=".RegistSupplement.RegistSupplementActivity" />
         <activity android:name=".RegistMedicine.Camera" />
