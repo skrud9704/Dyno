@@ -12,6 +12,7 @@
     <color name="dynoCombineGreen">#159735</color> <!--63%-->
 
     <color name="dynoMainBlue">#043353</color>
+    <color name="dynoMainBlueLight">#3a5c80</color>
     <color name="dynoMainRed">#E44652</color>
     <color name="dynoMainWhite">#FAF8F0</color>
     <color name="dynoMainBeige">#E4DFCF</color>

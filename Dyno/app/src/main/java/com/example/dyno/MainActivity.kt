@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         mPager.setPadding(margin*11/12,0,margin*11/12,0)
         mPager.pageMargin=margin/2
 
-        val adapter=MainAdapter(whatIEatList)
+        val adapter=MainAdapter(this,whatIEatList)
         mPager.adapter=adapter
 
         val registerDiseasePage=findViewById<Button>(R.id.registerM)
@@ -57,9 +57,9 @@ class MainActivity : AppCompatActivity() {
     }
     companion object{
         val whatIEatList =arrayListOf(
-            whatIEat("급성 아토피결막염","하메론에이점안액\n톨론점안액\n올로텐플러스점안액","60mg/1회\n1방울/1회\n1방울/1회"),
+            whatIEat("급성 아토피결막염","하메론에이점안액\n톨론점안액\n올로텐플러스점안액","60mg/1회\n1방울/1회\n1방울/1회","2020-06-14",0),
 
-            whatIEat("건강기능식품a","기능성원재료","60/1회\n1정/1회\n1정/1회")
+            whatIEat("락토바이옴 장용성","산화아연","","2020-06-18",1)
         )
     }
 
