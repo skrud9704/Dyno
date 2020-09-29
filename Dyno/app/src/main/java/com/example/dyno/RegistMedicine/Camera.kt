@@ -38,6 +38,7 @@ class Camera : AppCompatActivity() {
             val nextIntent=Intent(this, ocrRegister::class.java)
             nextIntent.putExtra("bitmapImg",currentPhotoPath)
             startActivity(nextIntent)
+            finish()
         }
     }
     fun settingPermission(){

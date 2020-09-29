@@ -163,7 +163,7 @@ class ocrRegister : AppCompatActivity() {
                 var name=item.getString(TAG_NAME)
                 var effectNum=item.getString(TAG_NUM)
                 var detail=item.getString(TAG_DETAIL)
-                serverDrugInfo+=name+","+effectNum+","+detail+"/"
+                serverDrugInfo+=name+","+effectNum+","+detail+"\n"
 
             }
             Log.d("get_end", serverDrugInfo)
