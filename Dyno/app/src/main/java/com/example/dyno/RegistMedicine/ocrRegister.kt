@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dyno.R
 import com.example.dyno.RegistMedicine.OcrProc
 import com.example.dyno.Server.RdsServer
+import com.example.dyno.Server.ServerProc
 import kotlinx.android.synthetic.main.activity_ocr_register.*
 import org.json.JSONObject
 import java.io.File
@@ -49,13 +50,16 @@ class ocrRegister : AppCompatActivity() {
             Log.d("trans_start", ocrApiGwUrl)
             var task = PapagoNmTask()
             task.execute(ocrApiGwUrl, ocrSecretKey, filepath)
+
         }
         val txtResult = findViewById(R.id.textView_ocr_result) as TextView
         btn_server.setOnClickListener{
             var text=txtResult.getText().toString()
             Log.d("server_connect",text)
-            var task=RdsServer().networkTask()
-            task.execute("drug",text)
+            var task=networkTask()
+            val temp=task.execute("drug",text)
+            Log.d("server_drug", temp.toString())
+
         }
     }
 
@@ -108,6 +112,72 @@ class ocrRegister : AppCompatActivity() {
             Log.d("pars_error", e.toString())
         }
 
+    }
+    inner class networkTask: AsyncTask<String, String, String>(){
+        var res:String=""
+        val url:String="http://15.164.144.36:80"
+        override fun doInBackground(vararg params: String?): String ?{
+
+
+            //Log.d("networkTask",params[0])
+            var category=params[0].toString()
+            //의약품-drug인지 건강기능식품인지
+            var drug=""//의약품 이름 ','로 php에서 split 해야함
+            var temp=params[1]
+
+            val serverProc= ServerProc()
+            return serverProc.start(url,params[0],params[1])
+        }
+        override fun onPostExecute(result:String?){
+
+            if (result != null) {
+                Log.d("Sjson", result.length.toString())
+
+                res=netReturnThreadResult(result,"drug")
+                Log.d("Sresult",result.toString())
+            } else {
+                Log.d("no_result", "")
+            }
+        }
+    }
+    fun netReturnThreadResult(result: String,category: String) : String {
+
+        Log.d("start_serverS", result.toString())
+        var translateText: String? = ""
+        val TAG_JSON = "webnautes"
+        var TAG_NAME = ""
+        var TAG_NUM = ""
+        var TAG_DETAIL = ""
+        var serverDrugInfo=""
+        try {
+            if(category=="drug"){
+                TAG_NAME = "m_name"
+                TAG_NUM = "m_effectNum"
+                TAG_DETAIL = "m_guide"
+            }
+            val jsonObject = JSONObject(result)
+            val jsonArray = jsonObject.getJSONArray(TAG_JSON)
+
+            for (i in 0 until jsonArray.length()) {
+                var item=jsonArray.getJSONObject(i)
+                var name=item.getString(TAG_NAME)
+                var effectNum=item.getString(TAG_NUM)
+                var detail=item.getString(TAG_DETAIL)
+                serverDrugInfo+=name+","+effectNum+","+detail+"/"
+
+            }
+            Log.d("get_end", serverDrugInfo)
+            val txtResult = findViewById(R.id.textView_ocr_result) as TextView
+            Log.d("server_start",serverDrugInfo)
+
+            txtResult.text = serverDrugInfo
+            return serverDrugInfo
+
+        } catch (e: Exception) {
+            Log.d("Server_error", e.toString())
+
+        }
+        return serverDrugInfo
     }
 
 
