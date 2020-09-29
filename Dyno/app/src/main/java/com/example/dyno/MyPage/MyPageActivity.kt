@@ -104,6 +104,11 @@ class MyPageActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+
+        if (intent.hasExtra("ver")) {
+            viewPager.currentItem = 1
+
+        }
     }
 
     private fun showToast(text: String) {

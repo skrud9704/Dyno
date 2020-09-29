@@ -47,6 +47,9 @@ class MainActivity : AppCompatActivity() {
             val myPageIntent=Intent(this,
                 MyPageActivity::class.java)
             startActivity(myPageIntent)
+
+            whatIEatList.add(demo)
+            (mPager.adapter as MainAdapter).notifyDataSetChanged()
         }
         val dur=findViewById<Button>(R.id.dur)
         dur.setOnClickListener{

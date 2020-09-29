@@ -1,6 +1,7 @@
 package com.example.dyno.RegistSupplement
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.example.dyno.MyPage.MyPageActivity
 import com.example.dyno.R
 import com.example.dyno.VO.SupplementVO
 import kotlinx.android.synthetic.main.activity_regist_supplement.*
@@ -42,7 +44,13 @@ class RegistSupplementActivity : AppCompatActivity() {
                 no_result.visibility = View.VISIBLE
                 search_list.visibility=View.GONE
             }
+        }
 
+        search_list.setOnItemClickListener { parent, view, position, id ->
+            val intent = Intent(this, MyPageActivity::class.java)
+            intent.putExtra("ver","demo")
+            startActivity(intent)
+            finish()
         }
 
     }
