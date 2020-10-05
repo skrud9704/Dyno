@@ -9,7 +9,7 @@
     android:background="@color/dynoMainBeige">
 
     <TextView
-        android:id="@+id/test_s"
+        android:id="@+id/detail_s_name"
         android:text="@string/detail_supplement_name"
         android:textSize="30sp"
         android:layout_width="wrap_content"
@@ -21,6 +21,7 @@
         android:singleLine="true" />
 
     <TextView
+        android:id="@+id/detail_s_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/dynoBlack"
@@ -36,6 +37,7 @@
         android:text="@string/detail_dur_btn"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_detail_s"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

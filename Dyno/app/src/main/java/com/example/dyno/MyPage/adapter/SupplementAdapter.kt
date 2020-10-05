@@ -12,7 +12,7 @@ import com.example.dyno.Detail.DetailSupplementActivity
 import com.example.dyno.R
 import com.example.dyno.VO.SupplementVO
 
-class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHolder> {
+class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.ViewHolder> {
     var versionModels: List<String>? = null
 
     var isHomeList: Boolean
@@ -42,18 +42,18 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
         this.versionModels = versionModels
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): VersionViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.recyclerlist_item, viewGroup, false)
-        return VersionViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(versionViewHolder: VersionViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         if (isHomeList) {
-            versionViewHolder.title.text = nameList!![i]
-            versionViewHolder.subTitle.text = dateList[i]
+            viewHolder.title.text = nameList!![i]
+            viewHolder.subTitle.text = dateList[i]
         } else {
-            versionViewHolder.title.text = versionModels!![i]
+            viewHolder.title.text = versionModels!![i]
         }
     }
 
@@ -77,7 +77,7 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
         return position
     }
 
-    inner class VersionViewHolder(itemView: View) :
+    inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var cardItemLayout: CardView
         var title: TextView
@@ -95,7 +95,7 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
                 "① 정상적인 면역 기능에 필요\n② 정상적인 세포 분열에 필요"
             )
             //constructor(company: String, name: String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
-            val testVo3 = SupplementVO("(주)한국씨엔에스팜","세라미드 맥스","2020-01-20",testVo,testVo2)
+            val testVo3 = SupplementVO("세라미드 맥스","(주)한국씨엔에스팜","2020-01-20",testVo,testVo2)
             val intent = Intent(context, DetailSupplementActivity::class.java)
             intent.putExtra("DATA2",testVo3)
             context!!.startActivity(intent)
