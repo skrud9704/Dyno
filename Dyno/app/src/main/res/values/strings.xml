@@ -33,6 +33,13 @@
     <string name="dur_medicine">의약품 선택</string>
     <string name="dur_supplement">건강기능식품 선택</string>
 
+    <!-- Detail -->
+    <string name="detail_disease_name">질병명1</string>
+    <string name="detail_disease_date_s">2020-01-10</string>
+    <string name="detail_disease_date_m">" ~ "</string>
+    <string name="detail_disease_date_e">2020-01-12</string>
+    <string name="detail_dur_btn">병용판단 하기</string>
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
