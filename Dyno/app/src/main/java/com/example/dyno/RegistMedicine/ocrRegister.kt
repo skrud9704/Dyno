@@ -14,19 +14,29 @@ import com.example.dyno.R
 import com.example.dyno.RegistMedicine.OcrProc
 import com.example.dyno.Server.RdsServer
 import com.example.dyno.Server.ServerProc
+import com.example.dyno.VO.DiseaseVO
+import com.example.dyno.VO.MedicineVO
+import com.example.dyno.VO.UserVO
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_ocr_register.*
 import org.json.JSONObject
 import java.io.File
 
 
 class ocrRegister : AppCompatActivity() {
+    private lateinit var mLocalDatabase : FirebaseDatabase
+    private lateinit var mRef : DatabaseReference
+    var TABLE_NAME = "MEDICINE"
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_register)
+
         val ocrApiGwUrl = "https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
         val ocrSecretKey = "UW5ERENERFZnR0p5bmdGa1hpUUNKUFpqZEFEa21MZ1A="
         var filepath: String = ""
+
         if (intent.hasExtra("bitmapImg")) {//사진 저장된 로컬 저장소 주소 받아옴
             filepath = intent.getStringExtra("bitmapImg")
         } else {
@@ -81,7 +91,6 @@ class ocrRegister : AppCompatActivity() {
         }
 
     }
-
     fun ReturnThreadResult(result: String) {
         Log.d("start_pars", result)
         var translateText: String? = ""
@@ -141,7 +150,6 @@ class ocrRegister : AppCompatActivity() {
         }
     }
     fun netReturnThreadResult(result: String,category: String) : String {
-
         Log.d("start_serverS", result.toString())
         var translateText: String? = ""
         val TAG_JSON = "webnautes"
