@@ -7,25 +7,25 @@ class DiseaseVO() : Parcelable{
     var dCode:String=""//질병코드
     var dName:String=""//질병명
     var date:String=""//처방날짜
-    var medicines : MutableList<MedicineVO> = mutableListOf()   // 처방된 약 리스트
+    var medicines : ArrayList<MedicineVO> = arrayListOf()   // 처방된 약 리스트
 
-    constructor(dCode:String,dName:String,date:String,medicines:MutableList<MedicineVO>) : this(){
+    constructor(dCode:String,dName:String,date:String,medicines:ArrayList<MedicineVO>) : this(){
         this.dCode=dCode
         this.dName=dName
         this.date=date
         this.medicines=medicines
     }
 
-    constructor(parcel: Parcel) : this() {
-        dCode = parcel.readString()
-        dName = parcel.readString()
-        date = parcel.readString()
-    }
+    constructor(parcel: Parcel) :
+            this(parcel.readString()!!, parcel.readString()!!, parcel.readString()!!,
+                parcel.readArrayList(MedicineVO::class.java.classLoader) as ArrayList<MedicineVO>
+            )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(dCode)
         parcel.writeString(dName)
         parcel.writeString(date)
+        parcel.writeList(medicines)
     }
 
     override fun describeContents(): Int {

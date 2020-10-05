@@ -17,7 +17,8 @@ class SupplementAdapter(context: Context?, resource: Int, objects: ArrayList<Sup
 
     private val mContext = context
     private val mResource = resource
-    val data = arrayListOf(
+    val data = arrayListOf<SupplementVO>()
+    /*val data = arrayListOf(
         SupplementVO("20","고려인삼차","대동고려삼(주)"),
         SupplementVO("19","고려인삼차","대동고려삼(주)"),
         SupplementVO("18", "고려인삼차(수출용)","(주)케이지앤에프"),
@@ -38,7 +39,7 @@ class SupplementAdapter(context: Context?, resource: Int, objects: ArrayList<Sup
         SupplementVO("3","고려인삼차","고려인삼과학주식회사"),
         SupplementVO("2","고려인삼성분인삼차골드(전량수출용)","고려인삼제조주식회사"),
         SupplementVO("1","고려인삼차성분골드(전량수출용)","고려인삼제조주식회사")
-    )
+    )*/
     private val mObjects = data
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -52,7 +53,7 @@ class SupplementAdapter(context: Context?, resource: Int, objects: ArrayList<Sup
             viewHolder.tv_name = view!!.findViewById(R.id.item_name) as TextView
             viewHolder.tv_company = view!!.findViewById(R.id.item_company) as TextView
             view.tag = viewHolder
-            viewHolder.tv_no.text = getItem(position)!!.m_no
+            viewHolder.tv_no.text = ""+position+1
             viewHolder.tv_name.text = getItem(position)!!.m_name
             viewHolder.tv_company.text = getItem(position)!!.m_company
 

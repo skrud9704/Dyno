@@ -5,32 +5,30 @@ import android.os.Parcelable
 
 class SupplementVO() : Parcelable{
 
-    var m_no : String = ""
     var m_name: String = ""
     var m_company: String = ""
-    var m_num: Int = 0
     var m_date: String = ""
+    var m_ingredients : ArrayList<String> = arrayListOf()           // 기능성원재료
+    var m_ingredients_info : ArrayList<String> = arrayListOf()      // 기능성내용, 위 배열과 사이즈가 같아야한다.
 
-    constructor(no: String, name: String, company: String) : this() {
-        this.m_no=no
+    constructor(company: String, name: String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
+        this.m_company = company
         this.m_name=name
-        this.m_company=company
+        this.m_ingredients=ingredients
+        this.m_ingredients_info=infos
+        this.m_date = date
     }
 
-    constructor(parcel: Parcel) : this() {
-        m_no = parcel.readString()
-        m_name = parcel.readString()
-        m_company = parcel.readString()
-        m_num = parcel.readInt()
-        m_date = parcel.readString()
-    }
+    constructor(parcel: Parcel) : this(parcel.readString()!!,parcel.readString()!!,parcel.readString()!!,
+        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,
+        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(m_no)
         parcel.writeString(m_name)
         parcel.writeString(m_company)
-        parcel.writeInt(m_num)
         parcel.writeString(m_date)
+        parcel.writeList(m_ingredients)
+        parcel.writeList(m_ingredients_info)
     }
 
     override fun describeContents(): Int {
@@ -46,5 +44,6 @@ class SupplementVO() : Parcelable{
             return arrayOfNulls(size)
         }
     }
+
 
 }

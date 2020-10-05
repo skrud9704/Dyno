@@ -1,14 +1,16 @@
 package com.example.dyno.MyPage.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dyno.Detail.DetailSupplementActivity
 import com.example.dyno.R
+import com.example.dyno.VO.SupplementVO
 
 class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHolder> {
     var versionModels: List<String>? = null
@@ -81,7 +83,22 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
         var title: TextView
         var subTitle: TextView
         override fun onClick(v: View?) {
-            Toast.makeText(context,"gdgd1", Toast.LENGTH_SHORT).show()
+            // 건강기능식품 상세정보 화면으로 이동. 현재 SupplementVO 넘긴다.
+            val testVo : ArrayList<String> = arrayListOf(
+                "곤약감자추출물",
+                "비타민C",
+                "아연"
+            )
+            val testVo2 : ArrayList<String> = arrayListOf(
+                "피부 보습에 도움을 줄 수 있음",
+                "① 결합조직 형성과 기능유지에 필요\n② 철의 흡수에 필요\n③ 항산화 작용을 하여 유해산소로부터 세포를 보호하는데 필요",
+                "① 정상적인 면역 기능에 필요\n② 정상적인 세포 분열에 필요"
+            )
+            //constructor(company: String, name: String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
+            val testVo3 = SupplementVO("(주)한국씨엔에스팜","세라미드 맥스","2020-01-20",testVo,testVo2)
+            val intent = Intent(context, DetailSupplementActivity::class.java)
+            intent.putExtra("DATA2",testVo3)
+            context!!.startActivity(intent)
         }
 
         init {

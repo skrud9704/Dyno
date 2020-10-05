@@ -4,13 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Detail.DetailMedicineActivity">
+    tools:context=".Detail.DetailMedicineActivity"
+    android:orientation="vertical"
+    android:background="@color/dynoMainBeige">
 
     <TextView
         android:id="@+id/test_s"
-        android:textSize="100sp"
+        android:text="@string/detail_supplement_name"
+        android:textSize="30sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/dynoBlack"
+        android:ellipsize="marquee"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dynoBlack"
+        android:text="@string/detail_disease_date_s"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/s_dur_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="end"
+        android:text="@string/detail_dur_btn"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"/>
 
 
 </LinearLayout>
