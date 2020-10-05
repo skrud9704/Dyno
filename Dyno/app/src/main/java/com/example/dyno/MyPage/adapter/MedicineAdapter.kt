@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
 
 class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> {
     var versionModels: List<String>? = null
-
     var isHomeList: Boolean
     var context: Context? = null
-    var clickListener: OnItemClickListener? = null
 
     fun setDiseaseList(context: Context) {
         val listArray =
@@ -80,8 +79,8 @@ class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> 
         var cardItemLayout: CardView
         var title: TextView
         var subTitle: TextView
-        override fun onClick(v: View) {
-            clickListener!!.onItemClick(v, adapterPosition)
+        override fun onClick(v: View?) {
+            Toast.makeText(context,"gdgd2", Toast.LENGTH_SHORT).show()
         }
 
         init {
@@ -94,14 +93,6 @@ class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> 
                 subTitle.visibility = View.GONE
             }
         }
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(view: View?, position: Int)
-    }
-
-    fun SetOnItemClickListener(itemClickListener: OnItemClickListener?) {
-        clickListener = itemClickListener
     }
 
     companion object {
