@@ -187,7 +187,7 @@ class ocrRegister : AppCompatActivity() {
                 var detail=item.getString(TAG_DETAIL)
                 var code=item.getString(TAG_CODE)
                 var ingredient=item.getString(TAG_INGREDIENT)
-                var medicine=MedicineVO(code,1,1,detail,1)
+                var medicine=MedicineVO(name,1,1,detail,1)
 
                 medicineList.add(medicine)
                 serverDrugInfo+=name+","+effectNum+","+detail+"\n"
@@ -212,7 +212,7 @@ class ocrRegister : AppCompatActivity() {
         mLocalDatabase = FirebaseDatabase.getInstance()
         mRef = mLocalDatabase.getReference(TABLE_NAME)  // "USERS"
         for(i in 0 until arr.size){
-            mRef.child(prefDid).child(dCode).child(arr[i].mCode).setValue(arr[i])
+            mRef.child(prefDid).child(dCode).child(arr[i].mName).setValue(arr[i])
         }
 
     }
