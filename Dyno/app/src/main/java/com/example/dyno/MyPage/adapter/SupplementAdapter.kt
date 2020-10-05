@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
@@ -14,7 +15,6 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
 
     var isHomeList: Boolean
     var context: Context? = null
-    var clickListener: OnItemClickListener? = null
 
     fun setSupplementList(context: Context) {
         val listArray =
@@ -80,8 +80,8 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
         var cardItemLayout: CardView
         var title: TextView
         var subTitle: TextView
-        override fun onClick(v: View) {
-            clickListener!!.onItemClick(v, adapterPosition)
+        override fun onClick(v: View?) {
+            Toast.makeText(context,"gdgd1", Toast.LENGTH_SHORT).show()
         }
 
         init {
@@ -94,14 +94,6 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
                 subTitle.visibility = View.GONE
             }
         }
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(view: View?, position: Int)
-    }
-
-    fun SetOnItemClickListener(itemClickListener: OnItemClickListener?) {
-        clickListener = itemClickListener
     }
 
     companion object {

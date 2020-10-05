@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,6 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
     var versionModels: List<String>? = null
     var isHomeList: Boolean
     var context: Context? = null
-    var clickListener: OnItemClickListener? = null
 
     fun setDiseaseList(context: Context) {
         val listArray =
@@ -34,12 +34,14 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
         }
     }
 
+    // context만 넘기면 자체 데모데이터로 넣고
     constructor(context: Context) {
         isHomeList = true
         this.context = context
         setDiseaseList(context)
-    }
 
+    }
+    // List를 넘기면 실제데이터로 보여줌.
     constructor(versionModels: List<String>?) {
         isHomeList = false
         this.versionModels = versionModels
@@ -53,6 +55,7 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
 
     override fun onBindViewHolder(versionViewHolder: VersionViewHolder, i: Int) {
         if (isHomeList) {
+
             versionViewHolder.title.text = homeActivitiesList!![i]
             versionViewHolder.subTitle.text = homeActivitiesSubList[i]
             if(homeColorList[i]=="1"){
@@ -93,11 +96,10 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
         var cardItemLayout: CardView
         var title: TextView
         var subTitle: TextView
-        override fun onClick(v: View) {
-            clickListener!!.onItemClick(v, adapterPosition)
-        }
+
 
         init {
+
             cardItemLayout = itemView.findViewById(R.id.cardlist_item)
             title = itemView.findViewById(R.id.listitem_name)
             subTitle = itemView.findViewById(R.id.listitem_subname)
@@ -107,15 +109,12 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
                 subTitle.visibility = View.GONE
             }
         }
+
+        override fun onClick(v: View?) {
+            Toast.makeText(context,"gdgd",Toast.LENGTH_SHORT).show()
+        }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(view: View?, position: Int)
-    }
-
-    fun SetOnItemClickListener(itemClickListener: OnItemClickListener?) {
-        clickListener = itemClickListener
-    }
 
     companion object {
         var homeActivitiesList: MutableList<String>? =
