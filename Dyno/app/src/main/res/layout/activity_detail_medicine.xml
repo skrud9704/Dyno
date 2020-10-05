@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/test_m"
         android:text="@string/detail_disease_name"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,6 +27,7 @@
         android:textColor="@color/dynoBlack"
         android:orientation="horizontal"
         android:layout_gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,6 +53,14 @@
         android:layout_margin="15dp"
         android:layout_gravity="end"
         android:text="@string/detail_dur_btn"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"/>
+
+
 
 
 </LinearLayout>

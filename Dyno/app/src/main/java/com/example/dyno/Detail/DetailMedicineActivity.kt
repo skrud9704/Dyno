@@ -13,6 +13,7 @@ class DetailMedicineActivity : AppCompatActivity() {
 
         val data = intent.getParcelableExtra<DiseaseVO>("DATA")
 
-        test_m.text = data.dName
+        test_m.text = data.medicines[0].mCode
+
     }
 }
