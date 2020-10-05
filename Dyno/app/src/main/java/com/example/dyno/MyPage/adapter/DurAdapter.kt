@@ -1,16 +1,18 @@
 package com.example.dyno.MyPage.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dyno.Detail.DetailDurActivity
 import com.example.dyno.R
+import com.example.dyno.VO.CombineVO
 import java.util.ArrayList
 
 class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
@@ -58,6 +60,7 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
 
             versionViewHolder.title.text = homeActivitiesList!![i]
             versionViewHolder.subTitle.text = homeActivitiesSubList[i]
+            //1 : 정상, 2 : 조심, 3 : 경고
             if(homeColorList[i]=="1"){
                 versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.green_card))
             }else if(homeColorList[i]=="2"){
@@ -111,7 +114,11 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
         }
 
         override fun onClick(v: View?) {
-            Toast.makeText(context,"gdgd",Toast.LENGTH_SHORT).show()
+            val intent = Intent(context,DetailDurActivity::class.java)
+            val testVo = CombineVO("인자1","인자2",1)
+            intent.putExtra("DATA",testVo)
+            context!!.startActivity(intent)
+
         }
     }
 

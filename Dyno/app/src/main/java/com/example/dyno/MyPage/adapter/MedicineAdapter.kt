@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
+import com.example.dyno.VO.CombineVO
 
 class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> {
     var versionModels: List<String>? = null
