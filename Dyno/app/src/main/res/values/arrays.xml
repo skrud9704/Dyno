@@ -60,7 +60,7 @@
         <item>가려움증 + 락토바이옴 장용성</item>
         <item>가려움증 + 고려인삼차</item>
     </string-array>
-    <!-- 1이 정상, 2는 주의, 3은 경고 -->
+    <!-- 1이 정상, 2는 주의, 3은 경고 (주의는 없어질 것) -->
     <string-array name="dur_result">
         <item>1</item>
         <item>1</item>
