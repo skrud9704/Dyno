@@ -187,7 +187,7 @@ class ocrRegister : AppCompatActivity() {
                 var detail=item.getString(TAG_DETAIL)
                 var code=item.getString(TAG_CODE)
                 var ingredient=item.getString(TAG_INGREDIENT)
-                var medicine=MedicineVO(code,1,1,detail,1,ingredient)
+                var medicine=MedicineVO(code,1,1,detail,1)
 
                 medicineList.add(medicine)
                 serverDrugInfo+=name+","+effectNum+","+detail+"\n"
