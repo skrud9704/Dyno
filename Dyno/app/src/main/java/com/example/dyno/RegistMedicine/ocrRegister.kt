@@ -1,6 +1,8 @@
 package com.example.dyno.RegistMedicine
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.AsyncTask
@@ -28,13 +30,17 @@ class ocrRegister : AppCompatActivity() {
     private lateinit var mLocalDatabase : FirebaseDatabase
     private lateinit var mRef : DatabaseReference
     var TABLE_NAME = "MEDICINE"
+    var SHARED_PREF = "SaveLogin"
+    var SHARED_PREF_DID = "did"
+    var medicineList=mutableListOf<MedicineVO>()
+
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_register)
 
-        val ocrApiGwUrl = "https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
-        val ocrSecretKey = "UW5ERENERFZnR0p5bmdGa1hpUUNKUFpqZEFEa21MZ1A="
+        val ocrApiGwUrl ="https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
+        val ocrSecretKey = "UUVJaWtUdnFvTlVjVm5ld2tjS1dEWHlzdWNPbFNnYUg="
         var filepath: String = ""
 
         if (intent.hasExtra("bitmapImg")) {//사진 저장된 로컬 저장소 주소 받아옴
@@ -70,6 +76,10 @@ class ocrRegister : AppCompatActivity() {
             val temp=task.execute("drug",text)
             Log.d("server_drug", temp.toString())
 
+        }
+        userD.setOnClickListener{
+            println(medicineList)
+            insertUserData(medicineList,"예시")
         }
     }
 
@@ -157,11 +167,14 @@ class ocrRegister : AppCompatActivity() {
         var TAG_NUM = ""
         var TAG_DETAIL = ""
         var serverDrugInfo=""
+        var TAG_CODE=""
+
         try {
             if(category=="drug"){
                 TAG_NAME = "m_name"
                 TAG_NUM = "m_effectNum"
                 TAG_DETAIL = "m_guide"
+                TAG_CODE="m_code"
             }
             val jsonObject = JSONObject(result)
             val jsonArray = jsonObject.getJSONArray(TAG_JSON)
@@ -171,8 +184,11 @@ class ocrRegister : AppCompatActivity() {
                 var name=item.getString(TAG_NAME)
                 var effectNum=item.getString(TAG_NUM)
                 var detail=item.getString(TAG_DETAIL)
-                serverDrugInfo+=name+","+effectNum+","+detail+"\n"
+                var code=item.getString(TAG_CODE)
+                var medicine=MedicineVO(code,1,1,detail,1)
 
+                medicineList.add(medicine)
+                serverDrugInfo+=name+","+effectNum+","+detail+"\n"
             }
             Log.d("get_end", serverDrugInfo)
             val txtResult = findViewById(R.id.textView_ocr_result) as TextView
@@ -187,6 +203,16 @@ class ocrRegister : AppCompatActivity() {
         }
         return serverDrugInfo
     }
+    fun insertUserData(arr:MutableList<MedicineVO>,dCode:String){
+        val pref : SharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val prefDid = pref.getString(SHARED_PREF_DID,"null")
 
+        mLocalDatabase = FirebaseDatabase.getInstance()
+        mRef = mLocalDatabase.getReference(TABLE_NAME)  // "USERS"
+        for(i in 0 until arr.size){
+            mRef.child(prefDid).child(dCode).child(arr[i].mCode).setValue(arr[i])
+        }
+
+    }
 
 }
