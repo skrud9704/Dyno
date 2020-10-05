@@ -14,12 +14,12 @@ class DetailMedicineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_medicine)
 
-        test_m.text = data.medicines[0].mCode
-
         val medicineDurApiUrl="http://apis.data.go.kr/1470000/DURPrdlstInfoService"
         val medicineDurApiKey="aK%2FBiBnzg6KzgMpSBaMjM7G42kbPdMd%2BOk9KPT8NOlGfDW5pRdlKhU2FufcZ4%2FlKFnHBVpi0gbVbfT8FDdTRhg%3D%3D"
 
         val data = intent.getParcelableExtra<DiseaseVO>("DATA")
+
+        test_m.text = data.medicines[0].mName
         /*var medicines:MutableList<MedicineVO> = data.medicines
         var mString:String=""//질병별 의약품 이름들 스트링에 붙이기
         var mNum:Int=medicines.size
