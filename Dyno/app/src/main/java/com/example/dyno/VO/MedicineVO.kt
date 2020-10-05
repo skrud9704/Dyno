@@ -16,7 +16,6 @@ class MedicineVO() : Parcelable{
         this.amount=amount
         this.detail=detail
         this.total=total
-        this.ingredient=ingredient
     }
     constructor(parcel: Parcel) : this() {
         mCode = parcel.readString()
