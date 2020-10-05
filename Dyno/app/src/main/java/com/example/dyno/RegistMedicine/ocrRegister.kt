@@ -168,6 +168,7 @@ class ocrRegister : AppCompatActivity() {
         var TAG_DETAIL = ""
         var serverDrugInfo=""
         var TAG_CODE=""
+        var TAG_INGREDIENT=""
 
         try {
             if(category=="drug"){
@@ -185,7 +186,8 @@ class ocrRegister : AppCompatActivity() {
                 var effectNum=item.getString(TAG_NUM)
                 var detail=item.getString(TAG_DETAIL)
                 var code=item.getString(TAG_CODE)
-                var medicine=MedicineVO(code,1,1,detail,1)
+                var ingredient=item.getString(TAG_INGREDIENT)
+                var medicine=MedicineVO(code,1,1,detail,1,ingredient)
 
                 medicineList.add(medicine)
                 serverDrugInfo+=name+","+effectNum+","+detail+"\n"
