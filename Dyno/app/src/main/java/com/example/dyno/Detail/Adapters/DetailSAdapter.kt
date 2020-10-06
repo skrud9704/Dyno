@@ -144,7 +144,7 @@ class DetailSAdapter(context: Context, ingredients : ArrayList<String>, infos : 
             info_tv = itemView.ingredient_info
             expand_btn = itemView.expand_btn
             fold_btn = itemView.fold_btn
-            info_layout = itemView.info_layout
+            info_layout = itemView.s_info_layout
         }
 
     }

@@ -9,7 +9,7 @@
     android:background="@color/dynoMainBeige">
 
     <TextView
-        android:id="@+id/test_m"
+        android:id="@+id/detail_m_name"
         android:text="@string/detail_disease_name"
         android:textSize="30sp"
         android:layout_width="wrap_content"
@@ -29,6 +29,7 @@
         android:layout_gravity="center">
 
         <TextView
+            android:id="@+id/detail_m_sdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dynoBlack"
@@ -39,6 +40,7 @@
             android:textColor="@color/dynoBlack"
             android:text="@string/detail_disease_date_m"/>
         <TextView
+            android:id="@+id/detail_m_edate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dynoBlack"
@@ -55,6 +57,7 @@
         android:text="@string/detail_dur_btn"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_detail_m"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
