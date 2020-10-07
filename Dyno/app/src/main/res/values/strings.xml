@@ -55,6 +55,9 @@
     <string name="detail_supplement_ingredient">비타민C</string>
     <string name="detail_supplement_function">기능성 내용 : 체지방 감소에 도움을 줄 수 있음</string>
 
+    <!-- Detail Dur -->
+    <string name="detail_dur_name">병용 판단</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_fab_animations">FAB Animation</string>

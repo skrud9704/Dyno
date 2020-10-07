@@ -64,19 +64,19 @@ class DetailMedicineActivity : AppCompatActivity() {
             if(maxPeriod < medicineModel.total)
                 maxPeriod = medicineModel.total
         }
-        var localDate =
+        // sDate에 더하기를 할 수 있게 LocalDate로 바꾸는 작업.
+        val localDate =
+            // API Level 26이상부터 가능.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                LocalDate.parse(sDate, DateTimeFormatter.ISO_DATE)
-            } else {
+                LocalDate.parse(sDate, DateTimeFormatter.ISO_DATE)      // ISO_DATE : YYYY-mm-dd
+            }
+            // 보류.
+            else {
                 TODO("VERSION.SDK_INT < O")
             }
-        Log.d("날짜는1",sDate)
-        Log.d("날짜는222",maxPeriod.toLong().toString())
-        Log.d("날짜는2",localDate.toString())
+
+        // 더하기 후 리턴.
         val addedDate = localDate.plusDays(maxPeriod.toLong())
-
-        Log.d("날짜는3",addedDate.toString())
-
         return addedDate.toString()
     }
     
