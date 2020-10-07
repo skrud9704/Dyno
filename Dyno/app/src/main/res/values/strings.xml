@@ -1,3 +1,86 @@
 <resources>
     <string name="app_name">Dyno</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_btn_medicine">의약품\n등록</string>
+    <string name="main_btn_supplement">건강기능식품\n등록</string>
+    <string name="main_btn_combine">병용\n판단</string>
+    <string name="btn_search">검색</string>
+
+    <!-- SignUp -->
+    <string name="sign_up_name">사용자 이름</string>
+    <string name="sign_up_device">디바이스 아이디</string>
+    <string name="sign_up_btn">회원 가입</string>
+    <string name="sign_up_notice">Dyno는 사용자의 개인정보를 보호하기 위해 \n한 기기당 하나의 계정만 생성할 수 있습니다. \n해당 기기에 계정을 생성하는 것이 맞습니까?</string>
+
+
+    <!-- 건강기능식품 검색-->
+    <string name="hint_supplement">건강기능식품의 이름을 입력하세요.</string>
+
+    <!-- My Page -->
+    <string name="mypage_nim">&#160;님</string>
+    <string name="mypage_name">로그인</string>
+    <string name="mypage_medicine_name">질병명</string>
+    <string name="mypage_supplement_name">건강기능식품명</string>
+    <string name="mypage_dur_name">병용판단(약1+건1)</string>
+    <string name="mypage_date">2020–09-17</string>
+
+    <!-- DUR -->
+    <string name="dur_judge">판단하기</string>
+    <string name="dur_txt1">(질병)</string>
+    <string name="dur_plus">" + "</string>
+    <string name="dur_txt2">(질병/건강기능식품)</string>
+    <string name="dur_medicine">의약품 선택</string>
+    <string name="dur_supplement">건강기능식품 선택</string>
+
+    <!-- Detail Medicine -->
+    <string name="detail_disease_name">질병명1</string>
+    <string name="detail_disease_date_s">2020-01-10</string>
+    <string name="detail_disease_date_m">" ~ "</string>
+    <string name="detail_disease_date_e">2020-01-12</string>
+    <string name="detail_dur_btn">병용판단 하기</string>
+    <string name="detail_item_m_name">약 이름</string>
+    <string name="detail_item_m_dosage">1정씩/3회/3일</string>
+    <string name="detail_item_m_info">"1. 이 약은 무슨 약입니까?
+
+항균작용을 나타냄으로써 세균에 의한 각종 감염증을 치료하는 약입니다.
+
+2. 이 약은 어떻게 복용합니까?
+
+- 증상이 개선되더라도 전문가와 상의없이 투약을 중단하지 마세요. - 위장장애가 나타날 수 있어요. 증상이 심하면 전문가와 상의하세요. - 호흡곤란, 홍조, 부종, 발진 등이 나타나면 투여를 중지하고 전문가와 상의하세요. - 간질환 환자나 신장질환 환자의 경우 전문가에게 미리 알리세요."
+    </string>
+
+    <!-- Detail Supplement -->
+    <string name="detail_supplement_name">건강기능식품명</string>
+    <string name="detail_supplement_ingredient">비타민C</string>
+    <string name="detail_supplement_function">기능성 내용 : 체지방 감소에 도움을 줄 수 있음</string>
+
+    <!-- Detail Dur -->
+    <string name="detail_dur_name">병용 판단</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_fab_animations">FAB Animation</string>
+    <string name="title_activity_toolbar_test">ToolbarTestActivity</string>
+    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
+    <string name="title_activity_animate_toolbar">Animate Toolbar</string>
+    <string name="title_activity_tab_animation">Tabs Animation</string>
+    <string name="title_activity_sticky_view">StickyViewActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_swipe_refresh">Swipe Refresh</string>
+    <string name="title_activity_mini_drawer">Mini Drawer</string>
+    <string name="title_activity_nested_toolbar">Nested Toolbar</string>
+    <string name="action_search">Search</string>
+    <string name="action_view_module">View</string>
+    <string name="title_quick_return">Quick Return</string>
+    <string name="title_activity_reveal">Reveal Animation</string>
+    <string name="title_activity_reveal_animation">Reveal Animation</string>
+    <string name="title_activity_launch_screen">LaunchScreenActivity</string>
+    <string name="title_activity_gmail_style">Gmail List</string>
+    <string name="title_activity_tabs_header">Header Tabs</string>
+    <string name="title_activity_pager">PagerActivity</string>
+    <string name="section_format">Page %1$d</string>
+    <string name="action_add">Add</string>
+    <string name="android_desserts">Android Desserts</string>
 </resources>

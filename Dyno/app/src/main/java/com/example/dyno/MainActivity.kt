@@ -1,16 +1,15 @@
 package com.example.dyno
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
-import com.example.dyno.Retrofit2.RetrofitClient
-import com.example.dyno.Retrofit2.RetrofitService
-import com.example.dyno.VO.UserVO
+import android.widget.Button
+import android.widget.TextView
+import com.example.dyno.DUR.DurActivity
+import com.example.dyno.MyPage.MyPageActivity
+import com.example.dyno.RegistMedicine.Camera
+import com.example.dyno.RegistSupplement.RegistSupplementActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,25 +17,61 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val retrofitClient: RetrofitClient = RetrofitClient()
 
-        val inputid = findViewById(R.id.id) as EditText
+        val dpValue = 40
+        val d = resources.displayMetrics.density
 
-        button.setOnClickListener {
-            val id: String = inputid.text.toString()
+        val margin = (dpValue * d).toInt()
 
-            retrofitClient.buildRetrofit().requestJoin(id).enqueue(object : retrofit2.Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d("db insert", "실패"+t.localizedMessage)
-                }
+        mPager.clipToPadding=false
+        mPager.setPadding(margin*11/12,0,margin*11/12,0)
+        mPager.pageMargin=margin/2
 
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d("db insert", "성공"+response?.body().toString())
-                }
+        val adapter=MainAdapter(this,whatIEatList)
+        mPager.adapter=adapter
 
-
-            })
-
+        val registerDiseasePage=findViewById<Button>(R.id.registerM)
+        registerDiseasePage.setOnClickListener{
+            val nextIntent=Intent(this, Camera::class.java)
+            startActivity(nextIntent)
         }
+
+        val registerSupplementPage=findViewById<Button>(R.id.registerS)
+        registerSupplementPage.setOnClickListener {
+            val nextIntent = Intent(this,RegistSupplementActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        val myPage=findViewById<TextView>(R.id.myPage)
+        myPage.setOnClickListener{
+            val myPageIntent=Intent(this,
+                MyPageActivity::class.java)
+            startActivity(myPageIntent)
+
+            whatIEatList.add(demo)
+            (mPager.adapter as MainAdapter).notifyDataSetChanged()
+        }
+        val dur=findViewById<Button>(R.id.dur)
+        dur.setOnClickListener{
+            val intent=Intent(this, DurActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+    companion object{
+        val whatIEatList =arrayListOf(
+            whatIEat("급성 아토피결막염",
+                "하메론에이점안액\n톨론점안액\n올로텐플러스점안액",
+                "60mg/1회\n1방울/1회\n1방울/1회","2020-09-26",0),
+
+            whatIEat("가려움증",
+                "아레그라정",
+                "1정/2회","2020-09-26",0),
+
+            whatIEat("락토바이옴 장용성","산화아연","","2020-09-26",1)
+        )
+
+        val demo = whatIEat("고려인삼차", "인삼", "","2020-09-26",1)
+    }
+
 }
