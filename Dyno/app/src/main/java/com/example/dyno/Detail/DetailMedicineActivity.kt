@@ -21,6 +21,12 @@ class DetailMedicineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_medicine)
 
+        //Intent From MyPage>adapter>MedicineAdapter
+        // 질병 데이터 : 질병명,등록날짜,질병코드,의약품객체배열.
+        val data = intent.getParcelableExtra<DiseaseVO>("DATA")
+
+        var medicines: MutableList<MedicineVO> = data.medicines
+        Log.d("api", "medicines:" + medicines)
         //UI
         detail_m_name.text = data.dName                                             // 질병 명
         detail_m_sdate.text = data.date                                             // 등록날짜(복용시작날짜)
@@ -32,13 +38,6 @@ class DetailMedicineActivity : AppCompatActivity() {
         val medicineDurApiKey =
             "aK%2FBiBnzg6KzgMpSBaMjM7G42kbPdMd%2BOk9KPT8NOlGfDW5pRdlKhU2FufcZ4%2FlKFnHBVpi0gbVbfT8FDdTRhg%3D%3D"
 
-        // Intent From MyPage>adapter>MedicineAdapter
-        // 질병 데이터 : 질병명,등록날짜,질병코드,의약품객체배열.
-        val data = intent.getParcelableExtra<DiseaseVO>("DATA")
-
-        var medicines: MutableList<MedicineVO> = data.medicines
-        Log.d("api", "medicines:" + medicines)
-
         var mString: String = ""//질병별 의약품 이름들 스트링에 붙이기
         var mNum: Int = medicines.size
         for (i in 0 until mNum) {
@@ -47,7 +46,8 @@ class DetailMedicineActivity : AppCompatActivity() {
         }
         mString = mString.substring(0, mString.length - 1)
         Log.d("api", "medicines:" + mString)
-        test_m.text = data.dName
+
+        //test_m.text = data.dName
         m_dur_btn.setOnClickListener {
             var api = apiTask()
             api.execute(medicineDurApiUrl, medicineDurApiKey, mString)
@@ -79,8 +79,7 @@ class DetailMedicineActivity : AppCompatActivity() {
 
         return addedDate.toString()
     }
-
-
+    
     //공공데이터포털에서 제공하는 Dur 품목 api용
     inner class apiTask:AsyncTask<String,String,String>(){
         override fun doInBackground(vararg params: String?): String? {
