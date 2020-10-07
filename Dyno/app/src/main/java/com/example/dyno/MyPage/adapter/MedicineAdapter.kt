@@ -2,6 +2,7 @@ package com.example.dyno.MyPage.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,8 +96,11 @@ class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> 
             )
             //constructor(dCode:String,dName:String,date:String,medicines:MutableList<MedicineVO>)
             val testVo2 = DiseaseVO("H101,H1618","급성 아토비결막영,기타 및 상세불명의 표재성 각막염","2020-06-14",testVo)
+            var b=Bundle()
+            b.putParcelable("b",testVo2)
+
             val intent = Intent(context,DetailMedicineActivity::class.java)
-            intent.putExtra("DATA",testVo2)
+            intent.putExtra("DATA",b)
             context!!.startActivity(intent)
         }
 

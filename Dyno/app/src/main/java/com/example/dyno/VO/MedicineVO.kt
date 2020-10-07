@@ -4,7 +4,7 @@ import android.os.Parcelable
 
 class MedicineVO() : Parcelable{
 
-    var mName:String=""//약코드
+    var mName:String=""//약이름
     var count:Int=0//1회투여횟수
     var amount:Int=0//1회 투약량
     var detail:String=""//세부정보

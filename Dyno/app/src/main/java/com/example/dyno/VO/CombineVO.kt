@@ -4,26 +4,31 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class CombineVO() : Parcelable{
-    var c1: String =""
-    var c2: String =""
-    var result: Int =-1     //1 : 정상, 2 : 조심, 3 : 경고
+    var lookFor: String =""//api에 보낼 약 이름
+    var result: String =""//같이 먹으면 안되는 거 이름
+    var reason: String=""  //이유
+    var item:MutableList<CombineVO> = mutableListOf()
 
-    constructor(c1 : String, c2: String, result : Int) : this(){
-        this.c1 = c1
-        this.c2 = c2
-        this.result = result
+   constructor(lookFor:String,item:ArrayList<CombineVO>):this(){
+       this.lookFor=lookFor
+       this.item=item
+   }
+    constructor(result:String,reason:String):this(){
+        this.result=result
+        this.reason=reason
     }
 
     constructor(parcel: Parcel) : this() {
-        c1 = parcel.readString()
+        /*c1 = parcel.readString()
         c2 = parcel.readString()
-        result = parcel.readInt()
+        result = parcel.readInt()*/
+
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(c1)
+       /* parcel.writeString(c1)
         parcel.writeString(c2)
-        parcel.writeInt(result)
+        parcel.writeInt(result)*/
     }
 
     override fun describeContents(): Int {
