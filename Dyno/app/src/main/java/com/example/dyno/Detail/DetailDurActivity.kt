@@ -13,6 +13,6 @@ class DetailDurActivity : AppCompatActivity() {
 
         val data = intent.getParcelableExtra<CombineVO>("DATA")
 
-        test_d.text = data.c1
+
     }
 }
