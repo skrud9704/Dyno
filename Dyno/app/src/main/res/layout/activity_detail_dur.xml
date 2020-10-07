@@ -9,7 +9,7 @@
     android:background="@color/dynoMainBeige">
 
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -25,7 +25,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textStyle="bold"/>
-        <!--<TextView
+        <TextView
             android:text="@string/dur_plus"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -42,8 +42,8 @@
             android:layout_gravity="center"
             android:textColor="@color/dynoBlack"
             android:ellipsize="marquee"
-            android:singleLine="true" />-->
-    </LinearLayout>
+            android:singleLine="true" />
+    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
