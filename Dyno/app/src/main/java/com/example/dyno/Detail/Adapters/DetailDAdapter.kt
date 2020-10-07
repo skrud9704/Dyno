@@ -12,17 +12,18 @@ import com.example.dyno.VO.MedicineVO
 import kotlinx.android.synthetic.main.recyclerlist_item_expandable_dur.view.*
 import kotlinx.android.synthetic.main.recyclerlist_item_expandable_medicine.view.*
 
-class DetailDAdapter(context: Context, medicines : ArrayList<MedicineVO>)
+class DetailDAdapter(context: Context, warnList1 : ArrayList<String>)
     : RecyclerView.Adapter<DetailDAdapter.ViewHolder>() {
 
-    // 한 질병 아래 처방된 의약품 정보
-    var medicineModels: ArrayList<MedicineVO>
+    // 병용판단한 인자(질병/건강기능식품)에서 위험한
+    // 의약품(질병)/주성분(건강기능식품) 리스트
+    var warnList1: ArrayList<String>
     // context
     var context: Context
 
     // 초기화. (init을 지우고 위에 맴버변수에 바로 할당해도 됨.)
     init {
-        this.medicineModels = medicines
+        this.warnList1 = warnList1
         this.context = context
     }
 
@@ -36,12 +37,12 @@ class DetailDAdapter(context: Context, medicines : ArrayList<MedicineVO>)
 
     // 카운트를 리턴하지 않으면 onCreateViewHolder를 부르지 않음. 즉 리턴된 카운트 수만큼 onCreateViewHolder를 부름.
     override fun getItemCount(): Int {
-        return medicineModels.size
+        return warnList1.size
     }
 
     // Data 와 커스텀 ViewHolder를 Bind하는 부분.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.elem_name_tv.text = warnList1[position]
 
     }
 

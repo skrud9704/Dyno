@@ -16,7 +16,6 @@
         android:layout_gravity="center"
         android:layout_margin="20dp">
         <TextView
-            android:id="@+id/detail_d_name1"
             android:text="@string/detail_dur_name"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -24,8 +23,9 @@
             android:layout_gravity="center"
             android:textColor="@color/dynoBlack"
             android:ellipsize="marquee"
-            android:singleLine="true" />
-        <TextView
+            android:singleLine="true"
+            android:textStyle="bold"/>
+        <!--<TextView
             android:text="@string/dur_plus"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -35,7 +35,6 @@
             android:ellipsize="marquee"
             android:singleLine="true" />
         <TextView
-            android:id="@+id/detail_d_name2"
             android:text="@string/detail_dur_name"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -43,17 +42,77 @@
             android:layout_gravity="center"
             android:textColor="@color/dynoBlack"
             android:ellipsize="marquee"
-            android:singleLine="true" />
+            android:singleLine="true" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/style_round_corner"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <TextView
+            android:id="@+id/detail_d_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_supplement_ingredient"
+            android:textColor="@color/dynoWhite"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="20dp"
+        android:padding="20dp"
+        android:background="@color/dynoWhite">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_detail_d1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/style_round_corner"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <TextView
+            android:id="@+id/detail_d_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_supplement_ingredient"
+            android:textColor="@color/dynoWhite"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="20dp"
+        android:padding="20dp"
+        android:background="@color/dynoWhite">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_detail_d2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_detail_d"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_margin="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

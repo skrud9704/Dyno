@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.Detail.DetailDurActivity
 import com.example.dyno.R
 import com.example.dyno.VO.CombineVO
+import com.example.dyno.VO.DurVO
+import com.example.dyno.VO.MedicineVO
 import java.util.ArrayList
 
 class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
@@ -115,8 +117,10 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
 
         override fun onClick(v: View?) {
             val intent = Intent(context,DetailDurActivity::class.java)
-            val testVo = CombineVO("인자1","인자2",1)
-            intent.putExtra("DATA",testVo)
+            val testVo : ArrayList<String> = arrayListOf("뮤코세라정","볼그레액")
+            val testV2 : ArrayList<String> = arrayListOf("세포독심정")
+            val testVo3 = DurVO("각막염","감기","","무엇무엇을 유발해서 좋지 않음",testVo,testV2)
+            intent.putExtra("DATA3",testVo3)
             context!!.startActivity(intent)
 
         }
