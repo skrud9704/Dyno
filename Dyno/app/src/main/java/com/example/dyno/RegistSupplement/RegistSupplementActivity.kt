@@ -3,6 +3,7 @@ package com.example.dyno.RegistSupplement
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.R
 import com.example.dyno.ServerAPI.RetrofitService
@@ -26,14 +27,15 @@ class RegistSupplementActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var retrofit : Retrofit
     private lateinit var supplementService : RetrofitService
-    var dataList : ArrayList<SupplementVO> = arrayListOf()
+    private lateinit var supplementAdapter : SupplementAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regist_supplement)
 
         // 어댑터 달기
-        search_list.adapter = SupplementAdapter(this,dataList)
+        supplementAdapter = SupplementAdapter(this, arrayListOf())
+        search_list.adapter = supplementAdapter
         search_list.layoutManager= LinearLayoutManager(this)
 
         // 서버 연결
@@ -41,7 +43,10 @@ class RegistSupplementActivity : AppCompatActivity() {
 
         // 버튼 클릭 시
         btn_search.setOnClickListener {
-            connect(supplementService)
+            // 검색어
+            val keyword = input_search.text.toString()
+            if(keyword!="")
+                connect(supplementService, keyword)
         }
 
     }
@@ -51,10 +56,10 @@ class RegistSupplementActivity : AppCompatActivity() {
         supplementService = retrofit.create(RetrofitService::class.java)
     }
 
-    private fun connect(service : RetrofitService){
-        service.requestSupplementSimple(input_search.text.toString()).enqueue(object : Callback<ArrayList<SupplementVO>>{
+    private fun connect(service : RetrofitService, keyword : String){
+        service.requestSupplementSimple(keyword).enqueue(object : Callback<ArrayList<SupplementVO>>{
             override fun onFailure(call: Call<ArrayList<SupplementVO>>, t: Throwable) {
-                Log.d(TAG,"실패")
+                Log.d(TAG,"실패 : {$t}")
             }
 
             override fun onResponse(
@@ -62,9 +67,15 @@ class RegistSupplementActivity : AppCompatActivity() {
                 response: Response<ArrayList<SupplementVO>>
             ) {
                 Log.d(TAG,"성공^^")
-                // 데이터 저장
-                dataList = response.body()!!
-                search_list.adapter!!.notifyDataSetChanged()
+                if(response.body()!!.size==0){
+                    yes_result.visibility = View.GONE
+                    no_result.visibility = View.VISIBLE
+                }else {
+                    Log.d(TAG,"사이즈 : ${response.body()!!.size}, 첫번째 인자 이름 : ${response.body()!![0].m_name}")
+                    supplementAdapter.getData(response.body()!!)
+                    yes_result.visibility = View.VISIBLE
+                    no_result.visibility = View.GONE
+                }
             }
         })
     }
