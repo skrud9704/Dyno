@@ -45,6 +45,7 @@ class RegistSupplementActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             // 검색어
             val keyword = input_search.text.toString()
+            // 연결
             if(keyword!="")
                 connect(supplementService, keyword)
         }
@@ -57,7 +58,8 @@ class RegistSupplementActivity : AppCompatActivity() {
     }
 
     private fun connect(service : RetrofitService, keyword : String){
-        service.requestSupplementSimple(keyword).enqueue(object : Callback<ArrayList<SupplementVO>>{
+        // 키워드로 검색
+        service.requestSimple(keyword).enqueue(object : Callback<ArrayList<SupplementVO>>{
             override fun onFailure(call: Call<ArrayList<SupplementVO>>, t: Throwable) {
                 Log.d(TAG,"실패 : {$t}")
             }
@@ -67,14 +69,17 @@ class RegistSupplementActivity : AppCompatActivity() {
                 response: Response<ArrayList<SupplementVO>>
             ) {
                 Log.d(TAG,"성공^^")
+                // 결과가 없을 경우
                 if(response.body()!!.size==0){
-                    yes_result.visibility = View.GONE
-                    no_result.visibility = View.VISIBLE
-                }else {
-                    Log.d(TAG,"사이즈 : ${response.body()!!.size}, 첫번째 인자 이름 : ${response.body()!![0].m_name}")
-                    supplementAdapter.getData(response.body()!!)
-                    yes_result.visibility = View.VISIBLE
-                    no_result.visibility = View.GONE
+                    yes_result.visibility = View.GONE           // 결과 있음 GONE
+                    no_result.visibility = View.VISIBLE         // 결과 없음 VISIBLE
+                }
+                // 결과가 있을 경우
+                else {
+                    //Log.d(TAG,"사이즈 : ${response.body()!!.size}, 첫번째 인자 이름 : ${response.body()!![0].m_name}")
+                    supplementAdapter.getData(response.body()!!)    // 어댑터에 데이터 업데이트
+                    yes_result.visibility = View.VISIBLE            // 결과 있음 VISIBLE
+                    no_result.visibility = View.GONE                // 결과 없음 GONE
                 }
             }
         })

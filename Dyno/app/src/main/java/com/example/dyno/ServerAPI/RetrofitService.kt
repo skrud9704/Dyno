@@ -10,13 +10,13 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Supplement/getSimple")
-    fun requestSupplementSimple(
+    fun requestSimple(
         @Field("s_name") s_name: String
     ) : Call<ArrayList<SupplementVO>>
 
     @FormUrlEncoded
     @POST("Supplement/getDetail")
-    fun requestSupplementDetail(
+    fun requestDetail(
         @Field("s_name") s_name: String
     ) : Call<SupplementVO>
 
