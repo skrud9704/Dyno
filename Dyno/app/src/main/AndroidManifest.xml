@@ -39,8 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistMedicine.ocrRegister" />
-        <activity android:name=".RegistMedicine.Camera" />
+        <activity android:name=".RegistMedicine.OcrRegisterActivity" />
+        <activity android:name=".RegistMedicine.CameraActivity" />
         <activity android:name=".Splash.SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ServerExample" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegistMedicine.ocrRegister"
+    tools:context=".RegistMedicine.OcrRegisterActivity"
     android:background="@color/dynoMainWhite">
     <EditText
         android:id="@+id/textView_ocr_result"

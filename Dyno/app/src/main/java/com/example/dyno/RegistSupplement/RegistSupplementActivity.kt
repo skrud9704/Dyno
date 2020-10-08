@@ -35,7 +35,10 @@ class RegistSupplementActivity : AppCompatActivity() {
         val supplementService = retrofit.create(RetrofitService::class.java)
 
         btn_search.setOnClickListener {
-            supplementService.requestSupplement(input_search.text.toString()).enqueue(object : Callback<SupplementVO>{
+
+
+
+            /*supplementService.requestSupplement(input_search.text.toString()).enqueue(object : Callback<SupplementVO>{
                 override fun onFailure(call: Call<SupplementVO>, t: Throwable) {
                     Log.d(TAG,"실패 : $t")
                 }
@@ -49,7 +52,7 @@ class RegistSupplementActivity : AppCompatActivity() {
                     Log.d(TAG,"재료명 정보 : ${response.body()!!.m_ingredients_info}")
                 }
 
-            })
+            })*/
         }
 
     }
