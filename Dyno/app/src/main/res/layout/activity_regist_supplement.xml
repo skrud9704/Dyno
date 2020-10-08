@@ -48,7 +48,7 @@
         android:layout_weight="5"
         android:background="@color/dynoGrey">
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
