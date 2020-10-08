@@ -43,7 +43,6 @@
         <activity android:name=".RegistMedicine.CameraActivity" />
         <activity android:name=".Splash.SignUpActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ServerExample" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
