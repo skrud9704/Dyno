@@ -34,19 +34,22 @@ class RegistSupplementActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance()
         val supplementService = retrofit.create(RetrofitService::class.java)
 
-        supplementService.requestSupplement("활력").enqueue(object : Callback<SupplementVO>{
-            override fun onFailure(call: Call<SupplementVO>, t: Throwable) {
-                Log.d(TAG,"실패 : $t")
-            }
-
-            override fun onResponse(call: Call<SupplementVO>, response: Response<SupplementVO>) {
-                Log.d(TAG,"성공 : ${response.body()!!.m_name}")
-            }
-
-        })
-
         btn_search.setOnClickListener {
+            supplementService.requestSupplement(input_search.text.toString()).enqueue(object : Callback<SupplementVO>{
+                override fun onFailure(call: Call<SupplementVO>, t: Throwable) {
+                    Log.d(TAG,"실패 : $t")
+                }
 
+                override fun onResponse(call: Call<SupplementVO>, response: Response<SupplementVO>) {
+                    Log.d(TAG,"성공^^")
+                    Log.d(TAG,"이름 : ${response.body()!!.m_name}")
+                    Log.d(TAG,"회사 : ${response.body()!!.m_company}")
+                    Log.d(TAG,"날짜(없어야 정상) : ${response.body()!!.m_date}")
+                    Log.d(TAG,"재료명 리스트 : ${response.body()!!.m_ingredients}")
+                    Log.d(TAG,"재료명 정보 : ${response.body()!!.m_ingredients_info}")
+                }
+
+            })
         }
 
     }
