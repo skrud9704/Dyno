@@ -8,12 +8,16 @@ import retrofit2.http.*
 // POST 방식으로 데이터를 주고 받을 때 넘기는 변수는 Field라고 해야한다.
 interface RetrofitService {
 
-    // 건강기능식품 이름으로 RDS에서 검색해오기.
     @FormUrlEncoded
-    @POST("Supplement/get")
-    fun requestSupplement(
+    @POST("Supplement/getSimple")
+    fun requestSupplementSimple(
+        @Field("s_name") s_name: String
+    ) : Call<ArrayList<SupplementVO>>
+
+    @FormUrlEncoded
+    @POST("Supplement/getDetail")
+    fun requestSupplementDetail(
         @Field("s_name") s_name: String
     ) : Call<SupplementVO>
-
 
 }

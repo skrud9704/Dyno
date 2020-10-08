@@ -6,17 +6,21 @@ import com.google.gson.annotations.SerializedName
 
 class SupplementVO() : Parcelable{
 
-    @SerializedName("m_name")
+    @SerializedName("s_name")
     var m_name: String = ""
-    @SerializedName("m_company")
+    @SerializedName("s_company")
     var m_company: String = ""
-    @SerializedName("m_date")
+    @SerializedName("s_date")
     var m_date: String = ""
-    @SerializedName("m_ingredient")
+    @SerializedName("s_ingredient")
     var m_ingredients : ArrayList<String> = arrayListOf()           // 기능성원재료
-    @SerializedName("m_info")
+    @SerializedName("s_info")
     var m_ingredients_info : ArrayList<String> = arrayListOf()      // 기능성내용, 위 배열과 사이즈가 같아야한다.
 
+    constructor(company: String, name: String) : this() {
+        this.m_company = company
+        this.m_name=name
+    }
     constructor(company: String, name: String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
         this.m_company = company
         this.m_name=name

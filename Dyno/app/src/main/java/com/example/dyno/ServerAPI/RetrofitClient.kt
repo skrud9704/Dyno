@@ -7,11 +7,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private var instance: Retrofit? = null
     private val gson = GsonBuilder().setLenient().create()
+    // 서버 주소
+    private const val BASE_URL = "http://15.164.144.36/CI/index.php/"
 
+    // SingleTon
     fun getInstance(): Retrofit {
         if (instance == null) {
             instance = Retrofit.Builder()
-                .baseUrl("http://15.164.144.36/CI/index.php/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
