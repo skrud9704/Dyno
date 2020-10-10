@@ -2,11 +2,13 @@ package com.example.dyno.VO
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
 
 // DUR = ("질병" + "질병")  or ("질병" + "건강기능식품")
 // diseaseName2가 ""일 경우 질+건으로 보고,
 // supplementName이 ""일 경우 질+질으로 본다.
 // diseaseName2,supplementName 둘다 ""일 수 없다.
+@Entity(tableName = "DUR")
 class DurVO() : Parcelable {
 
     var diseaseName1 : String =""       // 질병명 1

@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.Detail.Adapters.DetailSAdapter
+import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.R
+import com.example.dyno.VO.SupplementDAO
 import com.example.dyno.VO.SupplementVO
 import kotlinx.android.synthetic.main.activity_detail_supplement.*
 import java.text.SimpleDateFormat
@@ -63,7 +65,9 @@ class DetailSupplementActivity : AppCompatActivity() {
     }
 
     private fun insertLocalDB(){
-
-    }
+        Log.d(TAG,"RoomDB 접근")
+        val localDB = RoomDB.getInstance(this)
+        localDB.supplementDAO().insertSupplement(data)
+}
 
 }

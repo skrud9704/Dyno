@@ -2,22 +2,31 @@ package com.example.dyno.VO
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.*
+import com.example.dyno.LocalDB.RoomDAO
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "Supplement")
 class SupplementVO() : Parcelable{
 
+    @PrimaryKey
+    @ColumnInfo(name="s_name")
     @SerializedName("s_name")
     var m_name: String = ""
 
+    @ColumnInfo(name="s_company")
     @SerializedName("s_company")
     var m_company: String = ""
 
+    @ColumnInfo(name="s_date")
     @SerializedName("s_date")
     var m_date: String = ""
 
+    @ColumnInfo(name="s_ingredient")
     @SerializedName("s_ingredient")
     var m_ingredients : ArrayList<String> = arrayListOf()           // 기능성원재료
 
+    @ColumnInfo(name="s_info")
     @SerializedName("s_info")
     var m_ingredients_info : ArrayList<String> = arrayListOf()      // 기능성내용, 위 배열과 사이즈가 같아야한다.
 
@@ -57,4 +66,10 @@ class SupplementVO() : Parcelable{
     }
 
 
+}
+
+@Dao
+interface SupplementDAO : RoomDAO<SupplementVO>{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertSupplement(supplementVO: SupplementVO): Long
 }
