@@ -1,16 +1,15 @@
 package com.example.dyno
 
 import android.content.Context
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
+import com.example.dyno.VO.NowEatVO
 import kotlinx.android.synthetic.main.layout.view.*
 
-class MainAdapter(private val context: Context,private val list:ArrayList<whatIEat>):PagerAdapter() {
+class MainAdapter(private val context: Context,private val list:ArrayList<NowEatVO>):PagerAdapter() {
 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
