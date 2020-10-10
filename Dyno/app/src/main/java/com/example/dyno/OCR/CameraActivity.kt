@@ -1,5 +1,6 @@
-package com.example.dyno.RegistMedicine
+package com.example.dyno.OCR
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -13,28 +14,48 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.example.dyno.R
-import kotlinx.android.synthetic.main.activity_regist_medicine.*
+import com.example.dyno.RegistMedicine.OcrRegisterActivity
+import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegistMedicineActivity : AppCompatActivity() {
+class CameraActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_CAPTURE = 1
     lateinit var currentPhotoPath : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_regist_medicine)
+        setContentView(R.layout.activity_camera)
+
+        // 의약품 등록일 경우 (From MainActivity)
+        if(intent.getStringExtra("DATA")=="medicine"){
+            regist_medicine.visibility = View.VISIBLE
+            regist_supplement.visibility = View.GONE
+        }
+        // 건강기능식품 등록일 경우 (From RegistSupplementActivity)
+        else if(intent.getStringExtra("DATA")=="supplement"){
+            regist_medicine.visibility = View.GONE
+            regist_supplement.visibility = View.VISIBLE
+        }
 
         // 카메라 권한 획득
         settingPermission()
+
+        // 촬영 버튼 클릭 시
         btn_picture.setOnClickListener {
             startCapture()
         }
+        // 재촬영 버튼 클릭 시
+        btn_repicture.setOnClickListener {
+            startCapture()
+        }
+
         startOCR.setOnClickListener{
             val nextIntent=Intent(this, OcrRegisterActivity::class.java)
             nextIntent.putExtra("bitmapImg",currentPhotoPath)
@@ -46,11 +67,11 @@ class RegistMedicineActivity : AppCompatActivity() {
     fun settingPermission(){
         var permis = object : PermissionListener{
             override fun onPermissionGranted() {
-                Toast.makeText(this@RegistMedicineActivity,"권한허가", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity,"권한허가", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-                Toast.makeText(this@RegistMedicineActivity,"권한 거부",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity,"권한 거부",Toast.LENGTH_SHORT).show()
             }
         }
         TedPermission.with(this)
@@ -63,6 +84,8 @@ class RegistMedicineActivity : AppCompatActivity() {
             .check()
 
     }
+
+    @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
     private fun createImageFile() : File {
         val timeStamp : String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -100,6 +123,7 @@ class RegistMedicineActivity : AppCompatActivity() {
 
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
             val file = File(currentPhotoPath)
+            before_picture.visibility=View.GONE
             if (Build.VERSION.SDK_INT < 28) {
                 val bitmap = MediaStore.Images.Media
                     .getBitmap(contentResolver, Uri.fromFile(file))
@@ -111,6 +135,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                 val bitmap = ImageDecoder.decodeBitmap(decode)
                 img_picture.setImageBitmap(bitmap)
             }
+            img_picture.visibility = View.VISIBLE
         }
         return
     }

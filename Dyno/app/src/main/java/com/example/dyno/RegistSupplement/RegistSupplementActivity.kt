@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.Detail.DetailSupplementActivity
 import com.example.dyno.R
 import com.example.dyno.ServerAPI.RetrofitService
@@ -58,13 +58,20 @@ class RegistSupplementActivity : AppCompatActivity() {
         // 서버 연결
         initRetrofit()
 
-        // 버튼 클릭 시
+        // 검색 버튼 클릭 시
         btn_search.setOnClickListener {
             // 검색어
             val keyword = input_search.text.toString()
             // 연결
             if(keyword!="")
                 getSearchList(supplementService, keyword)
+        }
+
+        // 성분 직접 찍기 클릭 시
+        camera_btn.setOnClickListener {
+            val intent = Intent(this,CameraActivity::class.java)
+            intent.putExtra("DATA","supplement")
+            startActivity(intent)
         }
 
     }

@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegistMedicine.OcrRegisterActivity" />
-        <activity android:name=".RegistMedicine.RegistMedicineActivity" />
+        <activity android:name=".OCR.CameraActivity" />
         <activity android:name=".Splash.SignUpActivity" />
         <activity android:name=".MainActivity" />
 
