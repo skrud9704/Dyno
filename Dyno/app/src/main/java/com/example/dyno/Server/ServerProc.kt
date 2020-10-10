@@ -9,10 +9,16 @@ import java.net.URL
 import java.nio.charset.Charset
 
 class ServerProc {
-    fun start(phpUrl: String?, category: String?, drug: String?):String?{
+    fun start(phpUrl: String?, category: String?, things: String?):String?{
         Log.d("url",phpUrl)
         var response=""
-        Log.d("drugSer",drug)
+        Log.d("drugSer",things)
+
+        //정보가져올 때 어디서 요청하였는 category 값으로 주고
+        //"drug" 의약품 조회시 검색할 것
+        //"durM" 의-의 병용판단
+        //"durS" 의-건 병용판단
+
         try{
             val url= URL(phpUrl)
             val con:HttpURLConnection=url.openConnection() as HttpURLConnection
@@ -24,8 +30,8 @@ class ServerProc {
             }else{
                 Log.d("Scon","connectionFail")
             }
-            var str:String="category="+category+"&drug="+drug
-            Log.d("cAndD",category+drug)
+            var str:String="category="+category+"&drug="+things
+            Log.d("cAndD",category+things)
             val arr=str.toByteArray((Charset.defaultCharset()))
 
             val wr = DataOutputStream(con.outputStream)

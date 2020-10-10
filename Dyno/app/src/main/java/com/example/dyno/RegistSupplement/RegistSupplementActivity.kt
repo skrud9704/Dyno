@@ -1,18 +1,22 @@
 package com.example.dyno.RegistSupplement
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import com.example.dyno.MyPage.MyPageActivity
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dyno.Detail.DetailSupplementActivity
 import com.example.dyno.R
+import com.example.dyno.ServerAPI.RetrofitService
+import com.example.dyno.ServerAPI.RetrofitClient
 import com.example.dyno.VO.SupplementVO
 import kotlinx.android.synthetic.main.activity_regist_supplement.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 // process
 // 0. 이름으로 검색.
@@ -21,85 +25,99 @@ import kotlinx.android.synthetic.main.activity_regist_supplement.*
 // 3. 1.에서 없다면 웹에서 크롤링 후 RDS 저장, 어플에서 등록.
 // 일단, RDS 절차 건너뛰고 3부터.
 
-var siteSource : String =""
-
 class RegistSupplementActivity : AppCompatActivity() {
-    // 식품안전나라 건강기능식품 검색 주소
-    val siteUrl : String = "https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/searchHomeHF.do?menu_grp=MENU_NEW01&menu_no=2823"
-    //val TAG = "Jsoup"
-    var keyword : String = ""
+
+    private val TAG = this::class.java.simpleName
+    private lateinit var retrofit : Retrofit
+    private lateinit var supplementService : RetrofitService
+    private lateinit var supplementAdapter : SupplementAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regist_supplement)
-        //1. 웹뷰 초기셋팅
-        //webViewConfiguration()
-        btn_search.setOnClickListener {
-            //webView.loadUrl(siteUrl)
-            if(input_search.text.toString()=="인삼차"){
-                no_result.visibility = View.GONE
-                search_list.visibility=View.VISIBLE
-                search_list.adapter=SupplementAdapter(this,R.layout.list_item_search_supplement,ArrayList<SupplementVO>())
-            }else{
-                no_result.visibility = View.VISIBLE
-                search_list.visibility=View.GONE
-            }
-        }
 
-        search_list.setOnItemClickListener { parent, view, position, id ->
-            val intent = Intent(this, MyPageActivity::class.java)
-            intent.putExtra("ver","demo")
-            startActivity(intent)
-            finish()
+        // 어댑터 달기
+        supplementAdapter = SupplementAdapter(this, arrayListOf())
+        // 어댑터에 커스텀리스너(SupplementClickListener) 달기
+        supplementAdapter.setSupplementClickListener(object : SupplementAdapter.SupplementClickListener{
+            override fun onItemClick(position: Int) {
+                // 어댑터 뷰홀더에서 선택한 데이터 정보 가져옴.
+                val clickedItem = supplementAdapter.getData(position)
+                //Toast.makeText(applicationContext,clickedItem.m_name,Toast.LENGTH_SHORT).show()
+
+                // 서버로부터 선택된 건강기능식품의 전체정보를 가져오고, (어댑터 리스트는 간략한 정보만 가졌음)
+                // 건강기능식품 디테일 액티비티로 이동 (service가 enqueue(비동기)여서 그쪽에서 이동해줘야함.)
+                getSelectedSingle(supplementService,clickedItem.m_name)
+
+            }
+
+        })
+        search_list.adapter = supplementAdapter
+        search_list.layoutManager= LinearLayoutManager(this)
+
+        // 서버 연결
+        initRetrofit()
+
+        // 버튼 클릭 시
+        btn_search.setOnClickListener {
+            // 검색어
+            val keyword = input_search.text.toString()
+            // 연결
+            if(keyword!="")
+                getSearchList(supplementService, keyword)
         }
 
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    fun webViewConfiguration(){
-        val myJavaScriptInterface = MyJavaScriptInterface()
+    private fun initRetrofit(){
+        retrofit = RetrofitClient.getInstance()
+        supplementService = retrofit.create(RetrofitService::class.java)
+    }
 
-        // Javascript 사용하기
-        webView.settings.javaScriptEnabled = true
-        // DOM 사용하기
-        webView.settings.domStorageEnabled = true
-        // 캐시 사용모드 - LOAD_NO_CACHE : 항상 최신 데이터 불러옴.
-        //webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+    private fun getSearchList(service : RetrofitService, keyword : String){
+        // 키워드로 검색
+        service.requestList(keyword).enqueue(object : Callback<ArrayList<SupplementVO>>{
+            override fun onFailure(call: Call<ArrayList<SupplementVO>>, t: Throwable) {
+                Log.d(TAG,"실패 : {$t}")
+            }
 
-        // 커스텀 인터페이스 추가 -> ex) document.android.Dyno
-        webView.addJavascriptInterface(myJavaScriptInterface,"Dyno")
-        webView.webViewClient = object : WebViewClient(){
-
-            /* 페이지가 로드되기 시작할 때부터 동작
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
-            }*/
-
-            // 페이지가 완전히 로드 된 후에 동작
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                keyword = input_search.text.toString()
-                Log.d("검색어",keyword)
-
-                val js = "javascript:document.getElementById('search_word').value=\"$keyword\"; javascript:fn_search();"
-                val js2 = "javascript:android.Dyno.getHtml()"
-                view?.evaluateJavascript(js){ value ->
-                    Log.d("js",value)
+            override fun onResponse(call: Call<ArrayList<SupplementVO>>, response: Response<ArrayList<SupplementVO>>) {
+                Log.d(TAG,"성공^^")
+                // 결과가 없을 경우
+                if(response.body()!!.size==0){
+                    yes_result.visibility = View.GONE           // 결과 있음 GONE
+                    no_result.visibility = View.VISIBLE         // 결과 없음 VISIBLE
+                }
+                // 결과가 있을 경우
+                else {
+                    //Log.d(TAG,"사이즈 : ${response.body()!!.size}, 첫번째 인자 이름 : ${response.body()!![0].m_name}")
+                    supplementAdapter.setNewData(response.body()!!)    // 어댑터에 데이터 업데이트
+                    yes_result.visibility = View.VISIBLE            // 결과 있음 VISIBLE
+                    no_result.visibility = View.GONE                // 결과 없음 GONE
                 }
             }
-
-        }
-        webView.loadUrl(siteUrl)
+        })
     }
 
-    class MyJavaScriptInterface() {
-        // 커스텀 메서드 마다 JavascriptInterface 어노테이션 부여해야함.
-        @JavascriptInterface
-        fun getHtml(html : String) {
-            siteSource = html;
-            Log.d("hello","나 호출 됐다.")
-            Log.d("hello",siteSource)
-        }
+    private fun getSelectedSingle(service : RetrofitService, keyword : String) {
+
+        service.requestSingle(keyword).enqueue(object : Callback<SupplementVO>{
+            override fun onFailure(call: Call<SupplementVO>, t: Throwable) {
+                Log.d(TAG,"실패 : {$t}")
+            }
+
+            override fun onResponse(call: Call<SupplementVO>, response: Response<SupplementVO>) {
+                Log.d(TAG,"성공^^ 22")
+                Log.d(TAG,"${response.body()!!.m_name},${response.body()!!.m_company}")
+                // 현재 액티비티 종료하고, 건강기능식품 디테일 액티비티로 넘어감.
+                val intent = Intent(applicationContext,DetailSupplementActivity::class.java)
+                intent.putExtra("DATA2",response.body()!!)
+                startActivity(intent)
+                finish()
+            }
+
+        })
+
     }
 
 

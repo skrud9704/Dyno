@@ -13,12 +13,8 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dyno.R
-import com.example.dyno.RegistMedicine.OcrProc
-import com.example.dyno.Server.RdsServer
 import com.example.dyno.Server.ServerProc
-import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
-import com.example.dyno.VO.UserVO
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_ocr_register.*
@@ -26,7 +22,7 @@ import org.json.JSONObject
 import java.io.File
 
 
-class ocrRegister : AppCompatActivity() {
+class OcrRegisterActivity : AppCompatActivity() {
     private lateinit var mLocalDatabase : FirebaseDatabase
     private lateinit var mRef : DatabaseReference
     var TABLE_NAME = "MEDICINE"
@@ -40,7 +36,7 @@ class ocrRegister : AppCompatActivity() {
         setContentView(R.layout.activity_ocr_register)
 
         val ocrApiGwUrl ="https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
-        val ocrSecretKey = "UUVJaWtUdnFvTlVjVm5ld2tjS1dEWHlzdWNPbFNnYUg="
+        val ocrSecretKey = "SGhKZ3pERXpHQnZWZEtpQlVaeHJqb2JoZWlVaUpWcW4=="
         var filepath: String = ""
 
         if (intent.hasExtra("bitmapImg")) {//사진 저장된 로컬 저장소 주소 받아옴
@@ -120,7 +116,7 @@ class ocrRegister : AppCompatActivity() {
 
             Log.d("trans_end", translateText)
             if(translateText!=null){
-                parsText=ocrParsing().prescriptionDrugsR(translateText)
+                parsText=OcrParsing().prescriptionDrugsR(translateText)
             }
             val txtResult = findViewById(R.id.textView_ocr_result) as TextView
             Log.d("server_start",parsText)
@@ -168,6 +164,7 @@ class ocrRegister : AppCompatActivity() {
         var TAG_DETAIL = ""
         var serverDrugInfo=""
         var TAG_CODE=""
+        var TAG_INGREDIENT=""
 
         try {
             if(category=="drug"){
@@ -185,7 +182,8 @@ class ocrRegister : AppCompatActivity() {
                 var effectNum=item.getString(TAG_NUM)
                 var detail=item.getString(TAG_DETAIL)
                 var code=item.getString(TAG_CODE)
-                var medicine=MedicineVO(code,1,1,detail,1)
+                var ingredient=item.getString(TAG_INGREDIENT)
+                var medicine=MedicineVO(name,1,1,detail,1)
 
                 medicineList.add(medicine)
                 serverDrugInfo+=name+","+effectNum+","+detail+"\n"
@@ -210,7 +208,7 @@ class ocrRegister : AppCompatActivity() {
         mLocalDatabase = FirebaseDatabase.getInstance()
         mRef = mLocalDatabase.getReference(TABLE_NAME)  // "USERS"
         for(i in 0 until arr.size){
-            mRef.child(prefDid).child(dCode).child(arr[i].mCode).setValue(arr[i])
+            mRef.child(prefDid).child(dCode).child(arr[i].mName).setValue(arr[i])
         }
 
     }

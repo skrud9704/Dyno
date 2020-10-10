@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistMedicine.Camera"
+    tools:context=".RegistMedicine.CameraActivity"
     android:background="@color/dynoMainWhite"
     android:orientation="vertical">
 

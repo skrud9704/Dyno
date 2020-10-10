@@ -1,70 +1,39 @@
 package com.example.dyno.MyPage.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dyno.Detail.DetailSupplementActivity
+import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.R
+import com.example.dyno.VO.SupplementMinimal
 
-class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHolder> {
-    var versionModels: List<String>? = null
+class SupplementAdapter(private val context: Context) :
+    RecyclerView.Adapter<SupplementAdapter.ViewHolder>() {
 
-    var isHomeList: Boolean
-    var context: Context? = null
+    // 로컬 DB, DAO 생성.
+    private val localDB = RoomDB.getInstance(context)
+    private val supplementDAO = localDB.supplementDAO()
+    // SupplementMinimal = 현재 페이지에서 필요한 기본적인 정보만 가진 객체
+    private val supplementData : List<SupplementMinimal> = supplementDAO.getSupplementMinimal()
 
-    fun setSupplementList(context: Context) {
-        val listArray =
-            context.resources.getStringArray(R.array.supplement_name)
-        val subTitleArray =
-            context.resources.getStringArray(R.array.disease_date)
-        nameList!!.clear()
-        dateList.clear()
-        for (i in listArray.indices) {
-            nameList!!.add(listArray[i])
-            dateList.add(subTitleArray[i])
-        }
-    }
-
-    constructor(context: Context) {
-        isHomeList = true
-        this.context = context
-        setSupplementList(context)
-    }
-
-    constructor(versionModels: List<String>?) {
-        isHomeList = false
-        this.versionModels = versionModels
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): VersionViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.recyclerlist_item, viewGroup, false)
-        return VersionViewHolder(view)
+            .inflate(R.layout.recyclerlist_item_mypage, viewGroup, false)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(versionViewHolder: VersionViewHolder, i: Int) {
-        if (isHomeList) {
-            versionViewHolder.title.text = nameList!![i]
-            versionViewHolder.subTitle.text = dateList[i]
-        } else {
-            versionViewHolder.title.text = versionModels!![i]
-        }
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+        viewHolder.title.text = supplementData[i].s_name
+        viewHolder.subTitle.text = supplementData[i].s_date
     }
 
     override fun getItemCount(): Int {
-        return if (isHomeList)
-            if (nameList == null)
-                0
-            else
-                nameList!!.size
-        else if (versionModels == null)
-            0
-        else
-            versionModels!!.size
+        return supplementData.size
     }
 
     override fun getItemId(position: Int): Long {
@@ -75,31 +44,24 @@ class SupplementAdapter : RecyclerView.Adapter<SupplementAdapter.VersionViewHold
         return position
     }
 
-    inner class VersionViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var cardItemLayout: CardView
-        var title: TextView
-        var subTitle: TextView
-        override fun onClick(v: View?) {
-            Toast.makeText(context,"gdgd1", Toast.LENGTH_SHORT).show()
-        }
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
+        var title: TextView = itemView.findViewById(R.id.listitem_name)
+        var subTitle: TextView = itemView.findViewById(R.id.listitem_subname)
         init {
-            cardItemLayout = itemView.findViewById(R.id.cardlist_item)
-            title = itemView.findViewById(R.id.listitem_name)
-            subTitle = itemView.findViewById(R.id.listitem_subname)
-            if (isHomeList) {
-                itemView.setOnClickListener(this)
-            } else {
-                subTitle.visibility = View.GONE
-            }
+            itemView.setOnClickListener(this)
         }
+
+        override fun onClick(v: View?) {
+            // 건강기능식품 상세정보 화면으로 이동. 현재 SupplementVO 넘긴다.
+            val selectedData = supplementDAO.getSupplement(supplementData[adapterPosition].s_name)
+            val intent = Intent(context, DetailSupplementActivity::class.java)
+            intent.putExtra("DATA2",selectedData)
+            context.startActivity(intent)
+
+        }
+
+
     }
 
-    companion object {
-        var nameList: MutableList<String>? =
-            ArrayList()
-        var dateList: MutableList<String> =
-            ArrayList()
-    }
 }

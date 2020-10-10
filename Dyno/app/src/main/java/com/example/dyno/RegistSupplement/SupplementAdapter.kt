@@ -4,80 +4,73 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
 import com.example.dyno.VO.SupplementVO
-import kotlinx.android.synthetic.main.list_item_search_supplement.view.*
+import kotlinx.android.synthetic.main.recyclerlist_item_reg_supplement.view.*
 
-class SupplementAdapter(context: Context?, resource: Int, objects: ArrayList<SupplementVO>) :
-    ArrayAdapter<SupplementVO>(context, resource, objects) {
+class SupplementAdapter(private val context: Context, private var data : ArrayList<SupplementVO>)
+    : RecyclerView.Adapter<SupplementAdapter.ViewHolder>(){
 
-    private val mContext = context
-    private val mResource = resource
-    val data = arrayListOf(
-        SupplementVO("20","고려인삼차","대동고려삼(주)"),
-        SupplementVO("19","고려인삼차","대동고려삼(주)"),
-        SupplementVO("18", "고려인삼차(수출용)","(주)케이지앤에프"),
-        SupplementVO("17","고려인삼차플러스","(주)농협홍삼"),
-        SupplementVO("16","고려인삼차","(주)화인내츄럴"),
-        SupplementVO("15","학표고려인삼차","(주)케이지앤에프"),
-        SupplementVO("14","고려인삼차","(주)농협홍삼"),
-        SupplementVO("13","고려인삼차파워","(주)케이지앤에프"),
-        SupplementVO("12","진스트 고려인삼차(수출용제품명:진스트 15 고려인삼차GINST 15 KOREAN GINSENG TEA)","(주)일화"),
-        SupplementVO("11","고려인삼차","주식회사 유림 고려홍삼"),
-        SupplementVO("10","진스트 고려인삼차(GINST KOREAN GINSENG TEA)-전량수출용","(주)일화"),
-        SupplementVO("9","고려인삼차골드","농업회사법인 (주)삼흥"),
-        SupplementVO("8","고려천일인삼차","(주)화인내츄럴"),
-        SupplementVO("7","고려인삼차골드","(주)케이지앤에프"),
-        SupplementVO("6","고려인삼차","(주)유니쎌팜"),
-        SupplementVO("5","고려인삼차골드","(주)건보"),
-        SupplementVO("4","고려인삼차","(주)일화"),
-        SupplementVO("3","고려인삼차","고려인삼과학주식회사"),
-        SupplementVO("2","고려인삼성분인삼차골드(전량수출용)","고려인삼제조주식회사"),
-        SupplementVO("1","고려인삼차성분골드(전량수출용)","고려인삼제조주식회사")
-    )
-    private val mObjects = data
+    // 검색 결과 리스트 클릭시 이벤트리스너 인터페이스
+    private lateinit var listener : SupplementClickListener
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        lateinit var viewHolder: ViewHolder
-        var view = convertView
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view=LayoutInflater.from(context)
+                .inflate(R.layout.recyclerlist_item_reg_supplement, parent, false)
+        return ViewHolder(view)
+    }
 
-        if (view == null) {
-            viewHolder = ViewHolder()
-            view = LayoutInflater.from(mContext).inflate(mResource, parent, false)
-            viewHolder.tv_no = view!!.findViewById(R.id.item_no) as TextView
-            viewHolder.tv_name = view!!.findViewById(R.id.item_name) as TextView
-            viewHolder.tv_company = view!!.findViewById(R.id.item_company) as TextView
-            view.tag = viewHolder
-            viewHolder.tv_no.text = getItem(position)!!.m_no
-            viewHolder.tv_name.text = getItem(position)!!.m_name
-            viewHolder.tv_company.text = getItem(position)!!.m_company
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // 번호
+        holder.s_no.text = (data.size-position).toString()
+        // 건강기능식품 이름
+        holder.s_name.text = data[position].m_name
+        // 건강기능식품 회사
+        holder.s_company.text = data[position].m_company
+    }
 
-            return view
+    override fun getItemCount(): Int {
+        return data.size
+    }
 
-        } else {
-            viewHolder = view.tag as ViewHolder
+    // RegistSupplementActivity에서 결과 데이터 업데이트시 사용
+    fun setNewData(data : ArrayList<SupplementVO>){
+        this.data.clear()
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    // 액티비티에서 private 멤버 변수에 접근하기 위한 get 함수
+    fun getData(position: Int) : SupplementVO{
+        return data[position]
+    }
+
+    // 멤버 변수 listener set
+    fun setSupplementClickListener(listener: SupplementClickListener){
+        this.listener = listener
+    }
+
+
+    // 커스텀 ViewHolder, 리사이클러뷰의 각각의 아이템마다 데이터를 넣을 View 를 미리 선언하고 가져옴, 클릭리스너 implement
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        var s_name = itemView.item_name
+        var s_no = itemView.item_no
+        var s_company = itemView.item_company
+        init{
+            // 클릭리스너 달기
+            itemView.setOnClickListener(this)
+        }
+        // 클릭 시 supplementClickListener의 onItemClick 사용
+        // 어댑터에서 액티비티의 매서드를 사용하기위해 커스텀 리스너 만든 것.
+        override fun onClick(v: View?) {
+            listener.onItemClick(adapterPosition)
         }
 
-        return view
     }
 
-    override fun getItem(position: Int): SupplementVO? {
-        return mObjects[position]
-    }
-
-    override fun getCount(): Int {
-        return mObjects.size
-    }
-
-    inner class ViewHolder{
-        lateinit var tv_no : TextView
-        lateinit var tv_name : TextView
-        lateinit var tv_company : TextView
-
+    interface SupplementClickListener{
+        fun onItemClick(position: Int)
     }
 
 

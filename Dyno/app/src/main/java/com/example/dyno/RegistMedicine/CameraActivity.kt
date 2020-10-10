@@ -22,7 +22,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Camera : AppCompatActivity() {
+class CameraActivity : AppCompatActivity() {
     val REQUEST_IMAGE_CAPTURE = 1
     lateinit var currentPhotoPath : String
 
@@ -35,7 +35,7 @@ class Camera : AppCompatActivity() {
             startCapture()
         }
         startOCR.setOnClickListener{
-            val nextIntent=Intent(this, ocrRegister::class.java)
+            val nextIntent=Intent(this, OcrRegisterActivity::class.java)
             nextIntent.putExtra("bitmapImg",currentPhotoPath)
             startActivity(nextIntent)
             finish()
@@ -44,11 +44,11 @@ class Camera : AppCompatActivity() {
     fun settingPermission(){
         var permis = object : PermissionListener{
             override fun onPermissionGranted() {
-                Toast.makeText(this@Camera,"권한허가", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity,"권한허가", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-                Toast.makeText(this@Camera,"권한 거부",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity,"권한 거부",Toast.LENGTH_SHORT).show()
             }
         }
         TedPermission.with(this)
