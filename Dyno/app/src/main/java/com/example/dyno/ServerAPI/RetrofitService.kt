@@ -9,14 +9,14 @@ import retrofit2.http.*
 interface RetrofitService {
 
     @FormUrlEncoded
-    @POST("Supplement/getSimple")
-    fun requestSimple(
+    @POST("Supplement/getList")
+    fun requestList(
         @Field("s_name") s_name: String
     ) : Call<ArrayList<SupplementVO>>
 
     @FormUrlEncoded
-    @POST("Supplement/getDetail")
-    fun requestDetail(
+    @POST("Supplement/getSingle")
+    fun requestSingle(
         @Field("s_name") s_name: String
     ) : Call<SupplementVO>
 

@@ -8,20 +8,21 @@ class SupplementVO() : Parcelable{
 
     @SerializedName("s_name")
     var m_name: String = ""
+
     @SerializedName("s_company")
     var m_company: String = ""
+
     @SerializedName("s_date")
     var m_date: String = ""
+
     @SerializedName("s_ingredient")
     var m_ingredients : ArrayList<String> = arrayListOf()           // 기능성원재료
+
     @SerializedName("s_info")
     var m_ingredients_info : ArrayList<String> = arrayListOf()      // 기능성내용, 위 배열과 사이즈가 같아야한다.
 
-    constructor(company: String, name: String) : this() {
-        this.m_company = company
-        this.m_name=name
-    }
-    constructor(company: String, name: String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
+
+    constructor(name: String, company : String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
         this.m_company = company
         this.m_name=name
         this.m_ingredients=ingredients
