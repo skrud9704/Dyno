@@ -16,20 +16,23 @@ class DurVO() : Parcelable {
     var warnMedicineNames1 : ArrayList<String> = arrayListOf()  // 질병명 1의 병용불가 의약품 리스트
     var warnMedicineNames2 : ArrayList<String> = arrayListOf()  // 질병명 1의 병용불가 의약품 리스트
     var durDetail : String = ""        // 병용금기 내용
+    var durCheck:Int=0//병용금기 의약품이 있는지 없는지 용으로 있으면 1 없으면 0
 
     constructor(diseaseName1 : String, diseaseName2 : String, supplementName : String,durDetail : String,
-                warnMedicineNames1 : ArrayList<String>,warnMedicineNames2 : ArrayList<String>) : this(){
+                warnMedicineNames1 : ArrayList<String>,warnMedicineNames2 : ArrayList<String>,durCheck:Int) : this(){
         this.diseaseName1 = diseaseName1
         this.diseaseName2 = diseaseName2
         this.supplementName = supplementName
         this.warnMedicineNames1 = warnMedicineNames1
         this.warnMedicineNames2 = warnMedicineNames2
         this.durDetail = durDetail
+        this.durCheck=durCheck
     }
+
 
     constructor(parcel: Parcel) : this(parcel.readString()!!, parcel.readString()!!, parcel.readString()!!,parcel.readString()!!,
         parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,
-        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>)
+        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,parcel.readInt())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(diseaseName1)
@@ -38,6 +41,8 @@ class DurVO() : Parcelable {
         parcel.writeString(durDetail)
         parcel.writeList(warnMedicineNames1)
         parcel.writeList(warnMedicineNames2)
+        parcel.writeValue(durCheck)
+        parcel.writeInt(durCheck)
     }
 
     override fun describeContents(): Int {

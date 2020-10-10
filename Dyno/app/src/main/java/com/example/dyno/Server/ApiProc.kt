@@ -24,7 +24,7 @@ class ApiProc {
 
         var response = StringBuilder()
         if (arr != null) {
-            var apiResult = ArrayList<CombineVO>()
+            var apiResult :String=""
             for (i in arr.indices) {
                 var mName: String = arr[i]
                 val urlBuilder =
@@ -43,7 +43,8 @@ class ApiProc {
                     ) + "=" + URLEncoder.encode(mName, "UTF-8")
                 )
                 Log.d("api", "urlBuilder" + urlBuilder.toString())
-
+                apiResult+=mName
+                apiResult+="@"
                 try {
                     val url = URL(urlBuilder.toString())
                     var b_itemName: Boolean = false//같이 먹으면 안되는 의약품 이름 태그 있는지 체크용
@@ -83,7 +84,7 @@ class ApiProc {
                     val parser: XmlPullParser = factory.newPullParser()
                     parser.setInput(InputStreamReader(inputStream, "UTF-8"))
 
-                    var items = ArrayList<CombineVO>()
+                    var items :String=""
 
                     var eventType: Int = parser.eventType
                     Log.d("api","eventType:"+eventType)
@@ -94,13 +95,17 @@ class ApiProc {
                         when (eventType) {
                             XmlPullParser.END_TAG -> if (parser.getName().equals("item")) {
                                 if (name != null || durReason != null) {
-                                    var item = CombineVO(name, durReason)
-                                    items.add(item)
-                                    var result = CombineVO(mName, items)
-                                    apiResult?.add(result)
+
+                                    items=name+"#"+durReason
+
+                                    apiResult+=items
+                                    apiResult+="$"
+
                                     Log.d("api", "item:" + items)
                                     Log.d("api", "apiResult:" + apiResult)
                                 }
+                            }else if(parser.getName().equals("items")){
+                                apiResult+="%"
                             }
                             XmlPullParser.START_TAG -> if (parser.getName().equals("totalCount")) {
                                 b_resultNum = true
@@ -117,6 +122,9 @@ class ApiProc {
                                 resultNum = parser.text
                                 Log.d("api", "totalCount" + resultNum)
                                 if (resultNum == "0") {
+                                    apiResult+="0"
+                                    apiResult+="$"
+                                    apiResult+="%"
                                     Log.d("api","break할거임")
                                     break@out
                                 }
@@ -136,6 +144,7 @@ class ApiProc {
                     Log.d("api", "error" + e.toString())
                 }
             }
+            return apiResult
             Log.d("api", "apiResult" + apiResult)
         }
         return response.toString()

@@ -40,7 +40,7 @@ class ocrRegister : AppCompatActivity() {
         setContentView(R.layout.activity_ocr_register)
 
         val ocrApiGwUrl ="https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
-        val ocrSecretKey = "UUVJaWtUdnFvTlVjVm5ld2tjS1dEWHlzdWNPbFNnYUg="
+        val ocrSecretKey = "SGhKZ3pERXpHQnZWZEtpQlVaeHJqb2JoZWlVaUpWcW4="
         var filepath: String = ""
 
         if (intent.hasExtra("bitmapImg")) {//사진 저장된 로컬 저장소 주소 받아옴
@@ -132,6 +132,7 @@ class ocrRegister : AppCompatActivity() {
         }
 
     }
+
     inner class networkTask: AsyncTask<String, String, String>(){
         var res:String=""
         val url:String="http://15.164.144.36:80"
