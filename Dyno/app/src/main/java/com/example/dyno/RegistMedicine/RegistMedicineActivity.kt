@@ -16,20 +16,21 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.example.dyno.R
-import kotlinx.android.synthetic.main.activity_camera.*
+import kotlinx.android.synthetic.main.activity_regist_medicine.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CameraActivity : AppCompatActivity() {
-    val REQUEST_IMAGE_CAPTURE = 1
+class RegistMedicineActivity : AppCompatActivity() {
+    private val REQUEST_IMAGE_CAPTURE = 1
     lateinit var currentPhotoPath : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+        setContentView(R.layout.activity_regist_medicine)
 
+        // 카메라 권한 획득
         settingPermission()
         btn_picture.setOnClickListener {
             startCapture()
@@ -41,14 +42,15 @@ class CameraActivity : AppCompatActivity() {
             finish()
         }
     }
+
     fun settingPermission(){
         var permis = object : PermissionListener{
             override fun onPermissionGranted() {
-                Toast.makeText(this@CameraActivity,"권한허가", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RegistMedicineActivity,"권한허가", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-                Toast.makeText(this@CameraActivity,"권한 거부",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RegistMedicineActivity,"권한 거부",Toast.LENGTH_SHORT).show()
             }
         }
         TedPermission.with(this)

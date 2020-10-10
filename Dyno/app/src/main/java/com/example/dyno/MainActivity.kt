@@ -3,9 +3,8 @@ package com.example.dyno
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.MyPage.MyPageActivity
-import com.example.dyno.RegistMedicine.CameraActivity
+import com.example.dyno.RegistMedicine.RegistMedicineActivity
 import com.example.dyno.RegistSupplement.RegistSupplementActivity
 import com.example.dyno.VO.NowEatVO
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     private fun setClickListener(){
         // 의약품 등록
         registerM.setOnClickListener{
-            val nextIntent=Intent(this, CameraActivity::class.java)
+            val nextIntent=Intent(this, RegistMedicineActivity::class.java)
             startActivity(nextIntent)
         }
 
