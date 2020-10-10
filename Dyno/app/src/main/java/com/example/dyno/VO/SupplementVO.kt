@@ -2,6 +2,7 @@ package com.example.dyno.VO
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.dyno.LocalDB.RoomDAO
 import com.google.gson.annotations.SerializedName
@@ -67,9 +68,18 @@ class SupplementVO() : Parcelable{
 
 
 }
+// 마이페이지>건강기능식품 탭에서 보여지는 정보만 가진 객체
+class SupplementMinimal(val s_name : String,val s_date : String)
 
 @Dao
 interface SupplementDAO : RoomDAO<SupplementVO>{
+    // 키 겹칠때 지금 넣는것으로 대체 (즉, 같은 이름의 건강기능식품 넣으면 새로 덮어씌워짐!!)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertSupplement(supplementVO: SupplementVO): Long
+    fun insertSupplement(supplementVO: SupplementVO): Long
+
+    @Query("SELECT * FROM Supplement WHERE s_name=:name")
+    fun getSupplement(name: String) : SupplementVO
+
+    @Query("SELECT s_name, s_date FROM Supplement")
+    fun getSupplementMinimal() : List<SupplementMinimal>
 }

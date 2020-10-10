@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.Detail.DetailDurActivity
 import com.example.dyno.R
-import com.example.dyno.VO.CombineVO
 import com.example.dyno.VO.DurVO
-import com.example.dyno.VO.MedicineVO
 import java.util.ArrayList
 
 class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
@@ -53,7 +50,7 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): VersionViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.recyclerlist_item, viewGroup, false)
+            .inflate(R.layout.recyclerlist_item_mypage, viewGroup, false)
         return VersionViewHolder(view)
     }
 

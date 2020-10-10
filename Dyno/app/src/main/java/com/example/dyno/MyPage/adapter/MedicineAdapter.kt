@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.Detail.DetailMedicineActivity
 import com.example.dyno.R
-import com.example.dyno.VO.CombineVO
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 
@@ -47,7 +45,7 @@ class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): VersionViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.recyclerlist_item, viewGroup, false)
+            .inflate(R.layout.recyclerlist_item_mypage, viewGroup, false)
         return VersionViewHolder(view)
     }
 

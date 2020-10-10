@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.Detail.Adapters.DetailSAdapter
 import com.example.dyno.LocalDB.RoomDB
@@ -66,8 +67,13 @@ class DetailSupplementActivity : AppCompatActivity() {
 
     private fun insertLocalDB(){
         Log.d(TAG,"RoomDB 접근")
+        // DB 싱글톤으로 생성.
         val localDB = RoomDB.getInstance(this)
         localDB.supplementDAO().insertSupplement(data)
+        Toast.makeText(this,"나의 건강기능식품에 추가했습니다.",Toast.LENGTH_SHORT).show()
+
+        // DB 닫기.
+        RoomDB.destroyInstance()
 }
 
 }
