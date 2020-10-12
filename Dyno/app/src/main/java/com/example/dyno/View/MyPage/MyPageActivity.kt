@@ -1,9 +1,8 @@
-package com.example.dyno.MyPage
+package com.example.dyno.View.MyPage
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -15,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -23,9 +21,9 @@ import com.example.dyno.R
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.example.dyno.MyPage.adapter.MedicineAdapter
-import com.example.dyno.MyPage.adapter.DurAdapter
-import com.example.dyno.MyPage.adapter.SupplementAdapter
+import com.example.dyno.View.MyPage.adapter.MedicineAdapter
+import com.example.dyno.View.MyPage.adapter.DurAdapter
+import com.example.dyno.View.MyPage.adapter.SupplementAdapter
 import java.util.*
 
 

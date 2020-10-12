@@ -1,4 +1,4 @@
-package com.example.dyno
+package com.example.dyno.View.Main
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
+import com.example.dyno.R
 import com.example.dyno.VO.NowEatVO
 import kotlinx.android.synthetic.main.layout.view.*
 
@@ -23,10 +24,14 @@ class MainAdapter(private val context: Context,private val list:ArrayList<NowEat
 
         // 건강기능식품이 경우 - 밝은 파랑
         if(list[position].category==1){
-            view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,R.color.dynoMainBlueLight))
+            view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
+                R.color.dynoMainBlueLight
+            ))
         }// 의약품을 경우 - 파랑
         else if(list[position].category==0){
-            view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,R.color.dynoMainBlue))
+            view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
+                R.color.dynoMainBlue
+            ))
         }
 
         //제목의 경우 약은 처방전 이름으로

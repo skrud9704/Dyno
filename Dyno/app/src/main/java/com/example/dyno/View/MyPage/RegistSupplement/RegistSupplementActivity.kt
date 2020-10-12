@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.Detail.DetailSupplementActivity
 import com.example.dyno.R
-import com.example.dyno.ServerAPI.RetrofitService
-import com.example.dyno.ServerAPI.RetrofitClient
+import com.example.dyno.Network.RetrofitService
+import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.VO.SupplementVO
 import kotlinx.android.synthetic.main.activity_regist_supplement.*
 import retrofit2.Call

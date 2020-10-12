@@ -18,7 +18,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.example.dyno.R
-import com.example.dyno.RegistMedicine.OcrRegisterActivity
+import com.example.dyno.View.MyPage.RegistMedicine.RegistMedicineActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 import java.io.IOException
@@ -57,7 +57,7 @@ class CameraActivity : AppCompatActivity() {
         }
 
         startOCR.setOnClickListener{
-            val nextIntent=Intent(this, OcrRegisterActivity::class.java)
+            val nextIntent=Intent(this, RegistMedicineActivity::class.java)
             nextIntent.putExtra("bitmapImg",currentPhotoPath)
             startActivity(nextIntent)
             finish()

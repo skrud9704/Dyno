@@ -1,4 +1,4 @@
-package com.example.dyno.ServerAPI
+package com.example.dyno.Network
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

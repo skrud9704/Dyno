@@ -1,11 +1,12 @@
-package com.example.dyno
+package com.example.dyno.View.Main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dyno.MyPage.MyPageActivity
+import com.example.dyno.View.MyPage.MyPageActivity
 import com.example.dyno.OCR.CameraActivity
-import com.example.dyno.RegistSupplement.RegistSupplementActivity
+import com.example.dyno.R
+import com.example.dyno.View.MyPage.RegistSupplement.RegistSupplementActivity
 import com.example.dyno.VO.NowEatVO
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         mPager.setPadding(margin*11/12,0,margin*11/12,0)
         mPager.pageMargin=margin/2
 
-        val adapter=MainAdapter(this,whatIEatList)
+        val adapter= MainAdapter(
+            this,
+            whatIEatList
+        )
         mPager.adapter=adapter
     }
 

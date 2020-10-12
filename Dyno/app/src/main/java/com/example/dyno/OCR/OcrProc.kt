@@ -1,4 +1,4 @@
-package com.example.dyno.RegistMedicine
+package com.example.dyno.OCR
 
 import android.util.Base64
 import android.util.Base64OutputStream
@@ -13,34 +13,23 @@ import java.util.*
 
 
 class OcrProc {
-    fun start(ocrApiUrl: String?, ocrSecretKey: String?,filePath:String?): String? {
+    fun start(ocrApiUrl: String, ocrSecretKey: String,filePath:String): String? {
         Log.d("ocr_star",ocrApiUrl)
         Log.d("ocr_filepath",filePath)
         var ocrMessage = ""
-        var imgData=convertImageFileToBase64(filePath)
+        val imgData=convertImageFileToBase64(filePath)
         Log.d("convertSuccess",imgData)
         try {
-            /*val myDrawable: Drawable = getResources().getDrawable(R.drawable)
-            val anImage = (myDrawable as BitmapDrawable).bitmap
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-            val b = baos.toByteArray()
-            val imageEncoded =
-                Base64.encodeToString(b, Base64.DEFAULT)*/
-
             val message = getReqMessage(imgData)
             println("##$message")
             val arr=message.toByteArray(Charset.defaultCharset())
             val url = URL(ocrApiUrl)
-            val timestamp: Long = Date().getTime()
+            val timestamp: Long = Date().time
             val con: HttpURLConnection = url.openConnection() as HttpURLConnection
-            if(con!=null){//연결됨
-                con.requestMethod="POST"
-                con.setRequestProperty("Content-Type", "application/json")
-                con.setRequestProperty("X-OCR-SECRET", ocrSecretKey)
-            }else{
-                Log.d("con","connectionFail")
-            }
+            //연결됨
+            con.requestMethod="POST"
+            con.setRequestProperty("Content-Type", "application/json")
+            con.setRequestProperty("X-OCR-SECRET", ocrSecretKey)
 
             con.doOutput=true//POST로 데이터를 넘겨주겠다는 옵션
             // post request
@@ -49,7 +38,7 @@ class OcrProc {
             wr.flush()
             wr.close()
 
-            val responseCode: Int = con.getResponseCode()
+            val responseCode: Int = con.responseCode
             Log.d("responesCode",responseCode.toString())
             if (responseCode == 200) { // 정상 호출
                 /*System.out.println(con.getResponseMessage())*/
@@ -66,7 +55,7 @@ class OcrProc {
                 return response.toString()
             } else {  // 에러 발생
                 Log.d("responseCode",responseCode.toString())
-                ocrMessage = con.getResponseMessage()
+                ocrMessage = con.responseMessage
             }
         } catch (e: Exception) {
             println(e)
@@ -76,7 +65,7 @@ class OcrProc {
         return ocrMessage
     }
 
-    fun getReqMessage(objectStorageURL: String): String {
+    private fun getReqMessage(objectStorageURL: String): String {
         var requestBody = ""
         try {
             val timestamp: Long = Date().getTime()
@@ -98,7 +87,7 @@ class OcrProc {
         }
         return requestBody
     }
-    fun convertImageFileToBase64(imageFile: String?): String {
+    private fun convertImageFileToBase64(imageFile: String?): String {
         Log.d("convert",imageFile)
         return FileInputStream(imageFile).use { inputStream ->
             ByteArrayOutputStream().use { outputStream ->

@@ -1,13 +1,19 @@
 package com.example.dyno.VO
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 class MedicineVO() : Parcelable{
 
+    @SerializedName("m_name")
     var mName:String=""//약이름
+
     var count:Int=0//1회투여횟수
     var amount:Int=0//1회 투약량
+
+    @SerializedName("m_guide")
     var detail:String=""//세부정보
+
     var total:Int=0//총투약일수
 
     constructor(mName:String,count:Int,amount:Int,detail:String,total:Int):this(){

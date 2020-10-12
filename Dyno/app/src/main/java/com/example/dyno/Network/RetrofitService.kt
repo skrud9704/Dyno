@@ -1,4 +1,4 @@
-package com.example.dyno.ServerAPI
+package com.example.dyno.Network
 
 import com.example.dyno.VO.SupplementVO
 import retrofit2.Call
@@ -19,5 +19,12 @@ interface RetrofitService {
     fun requestSingle(
         @Field("s_name") s_name: String
     ) : Call<SupplementVO>
+
+    @FormUrlEncoded
+    @POST("Test/getList")
+    fun requestListM(
+        @Field("m_name") m_name: ArrayList<String>
+    ) : Call<String>
+
 
 }

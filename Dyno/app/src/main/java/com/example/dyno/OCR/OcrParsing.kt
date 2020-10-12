@@ -1,4 +1,4 @@
-package com.example.dyno.RegistMedicine
+package com.example.dyno.OCR
 
 import android.util.Log
 
@@ -9,12 +9,14 @@ class OcrParsing {
             "정량추출물,치과용,공침물,로코트,착염,데스코트,공중합체,유제,혼합건조겔,수혈용,수지,중쇄,염기성"
     //약들의 어미 종류
     var dArr = drugs.split(",").toTypedArray()
-    fun prescriptionDrugsR(transText: String): String? {
+    val resultList : ArrayList<String> = arrayListOf()
+
+    fun prescriptionDrugsR(transText: String): ArrayList<String> {
         Log.d("pars_start",transText)
-        var arr = transText.split(" ").toTypedArray()
+        var arr = transText.split("/").toTypedArray()
         //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
 
-        var med: String? = ""
+        var med = ""
         var date:String?=""
         //약으로 추정되는 단어들을 문자열로 만들기
         for (i in arr.indices) {
@@ -26,16 +28,17 @@ class OcrParsing {
                     }else{
                         med += arr[i]
                         med += ","
+                        resultList.add(arr[i])
                     }
                     break
                 }
 
             }
         }
-        var medArr = med?.split(",")?.toTypedArray()
-        var result=med//+"$"+date
-        Log.d("pars_medicine",result)
-        return result
+        //var medArr = med.split(",").toTypedArray()
+        //var result=med//+"$"+date
+        Log.d("pars_medicine",med)
+        return resultList
     }
     fun prescriptionR(transText: String){
 
