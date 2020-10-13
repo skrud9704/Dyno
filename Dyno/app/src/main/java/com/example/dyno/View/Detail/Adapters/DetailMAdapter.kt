@@ -41,18 +41,18 @@ class DetailMAdapter(context: Context, medicines : ArrayList<MedicineVO>)
     // Data 와 커스텀 ViewHolder를 Bind하는 부분.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // 의약품이름 TextView
-        holder.medicine_tv.text = medicineModels[position].mName
+        holder.medicine_tv.text = medicineModels[position].name
 
         // 의약품 복용법 TextView   ex) 1정씩/3회/3일  amount/count/total
-        val amount = medicineModels[position].amount.toString()
+        /*val amount = medicineModels[position].amount.toString()
         val count = medicineModels[position].count.toString()
         val total = medicineModels[position].total.toString()
         val sb = StringBuilder()
         holder.dosage_tv.text = sb.append(amount).append("씩/")
                                   .append(count).append("회/")
-                                  .append(total).append("일").toString()
+                                  .append(total).append("일").toString()*/
         // 의약품상세 TextView
-        holder.info_tv.text = medicineModels[position].detail
+        holder.info_tv.text = medicineModels[position].dosage
 
     }
 

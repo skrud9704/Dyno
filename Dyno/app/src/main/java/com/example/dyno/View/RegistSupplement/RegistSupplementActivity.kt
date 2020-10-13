@@ -22,8 +22,7 @@ import retrofit2.Retrofit
 // 0. 이름으로 검색.
 // 1. RDS에 해당 건강기능 식품이 존재하는지 검사
 // 2. 1.에서 있다면 바로 등록.
-// 3. 1.에서 없다면 웹에서 크롤링 후 RDS 저장, 어플에서 등록.
-// 일단, RDS 절차 건너뛰고 3부터.
+// 3. 1.에서 없다면 OCR 수행.
 
 class RegistSupplementActivity : AppCompatActivity() {
 
@@ -83,7 +82,7 @@ class RegistSupplementActivity : AppCompatActivity() {
 
     private fun getSearchList(service : RetrofitService, keyword : String){
         // 키워드로 검색
-        service.requestList(keyword).enqueue(object : Callback<ArrayList<SupplementVO>>{
+        service.requestSupplementList(keyword).enqueue(object : Callback<ArrayList<SupplementVO>>{
             override fun onFailure(call: Call<ArrayList<SupplementVO>>, t: Throwable) {
                 Log.d(TAG,"실패 : {$t}")
             }
@@ -108,7 +107,7 @@ class RegistSupplementActivity : AppCompatActivity() {
 
     private fun getSelectedSingle(service : RetrofitService, keyword : String) {
 
-        service.requestSingle(keyword).enqueue(object : Callback<SupplementVO>{
+        service.requestSupplementSingle(keyword).enqueue(object : Callback<SupplementVO>{
             override fun onFailure(call: Call<SupplementVO>, t: Throwable) {
                 Log.d(TAG,"실패 : {$t}")
             }

@@ -2,7 +2,6 @@ package com.example.dyno.VO
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.dyno.LocalDB.RoomDAO
 import com.google.gson.annotations.SerializedName

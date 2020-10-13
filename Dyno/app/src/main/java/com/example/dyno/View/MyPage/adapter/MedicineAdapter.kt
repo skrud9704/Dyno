@@ -88,9 +88,9 @@ class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> 
             // 약 상세정보 화면으로 이동. 현재 DiseaseVO를 넘긴다.
             //constructor(mCode:String,count:Int,amount:Int,detail:String,total:Int)
             val testVo : ArrayList<MedicineVO> = arrayListOf(
-                MedicineVO("하메론에이점안액",1,60,"수시로 점안 건조할 때",2),
-                MedicineVO("톨론점안액",1,1,"흔들어서 점안 하루 2회",1),
-                MedicineVO("올로텐플러스점안액",1,1,"그냥 점안 하루 1회",1)
+                MedicineVO("하메론에이점안액",123123,60123,"이런효과가 있어요","이렇게 쓰세요","주성분 입니다."),
+                MedicineVO("하메론에이점안액2",123123,60123,"이런효과가 있어요","이렇게 쓰세요","주성분 입니다."),
+                MedicineVO("하메론에이점안액3",123123,60123,"이런효과가 있어요","이렇게 쓰세요","주성분 입니다.")
             )
             //constructor(dCode:String,dName:String,date:String,medicines:MutableList<MedicineVO>)
             val testVo2 = DiseaseVO("H101,H1618","급성 아토비결막영,기타 및 상세불명의 표재성 각막염","2020-06-14",testVo)

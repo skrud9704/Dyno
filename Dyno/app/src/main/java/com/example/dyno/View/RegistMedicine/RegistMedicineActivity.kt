@@ -10,6 +10,9 @@ import com.example.dyno.OCR.OcrProc
 import com.example.dyno.R
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
+import com.example.dyno.VO.MedicineVO
+import com.google.gson.JsonArray
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
@@ -18,7 +21,8 @@ import kotlin.collections.ArrayList
 
 class RegistMedicineActivity : AppCompatActivity() {
 
-    private val OCR_API_GW_URL ="https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
+    private val OCR_API_GW_URL =
+        "https://4613fa1b45164de0814a2450c31bfc1c.apigw.ntruss.com/custom/v1/3398/2065ad05effce12ce5c7cb354380e6a13c219ae2f00c996d31988fe0eeb4c844/general"
     private val OCR_SECRET_KEY = "SGhKZ3pERXpHQnZWZEtpQlVaeHJqb2JoZWlVaUpWcW4="
     private lateinit var imgFilePath : String
     private lateinit var imgFile : File
@@ -33,10 +37,8 @@ class RegistMedicineActivity : AppCompatActivity() {
         // 1. CameraActivity로부터 온 파일 저장
         initFile()
 
-        // 2. OCR(글자인식) -> 3. Parsing
+        // 2. OCR(글자인식) -> 3. Parsing -> 4. Server로부터 의약품 정보 획득. (순서대로일어나게) ArrayList<MedicineVO>
         ClovaOcrTask().execute(OCR_API_GW_URL,OCR_SECRET_KEY,imgFilePath)
-
-        // -> 4. Server로부터 의약품 정보 획득. (순서대로일어나게) ArrayList<MedicineVO>
 
         // UI 뿌려지기
         // 질병 추측 -> DiseaseVO
@@ -99,17 +101,19 @@ class RegistMedicineActivity : AppCompatActivity() {
             for(d in data)
                 Log.d(TAG,"데이터 - $d")
 
-            medicineService.requestListM(data).enqueue(object : retrofit2.Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG,"실패 {$t}")
-                }
+            for(i in data){
+                medicineService.requestMedicineSingle(i).enqueue(object : retrofit2.Callback<MedicineVO> {
+                    override fun onFailure(call: Call<MedicineVO>, t: Throwable) {
+                        Log.d(TAG,"실패 {$t}")
+                    }
 
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d(TAG,"성공^^")
-                    Log.d(TAG,"${response.body()}")
-                }
+                    override fun onResponse(call: Call<MedicineVO>, response: Response<MedicineVO>) {
+                        Log.d(TAG,"성공^^")
+                        Log.d(TAG, response.body()!!.name)
+                    }
+                })
+            }
 
-            })
         }
 
 

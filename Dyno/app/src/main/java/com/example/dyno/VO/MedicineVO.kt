@@ -6,37 +6,49 @@ import com.google.gson.annotations.SerializedName
 class MedicineVO() : Parcelable{
 
     @SerializedName("m_name")
-    var mName:String=""//약이름
+    var name:String=""                      // 약이름
 
-    var count:Int=0//1회투여횟수
-    var amount:Int=0//1회 투약량
+    @SerializedName("m_effect_code")
+    var effect_code:Int = -1                // 약효분류군
 
-    @SerializedName("m_guide")
-    var detail:String=""//세부정보
+    @SerializedName("m_ins_code")
+    var ins_code :Int=-1                    // 보험약가코드
 
-    var total:Int=0//총투약일수
+    @SerializedName("m_effect")
+    var effect:String=""                    // 효능 효과
 
-    constructor(mName:String,count:Int,amount:Int,detail:String,total:Int):this(){
-        this.mName=mName
-        this.count=count
-        this.amount=amount
-        this.detail=detail
-        this.total=total
-    }
+    @SerializedName("m_dosage")
+    var dosage :String=""                   // 용법 용량
+
+    @SerializedName("m_ingredient")
+    var ingredient :String=""               // 주성분
+
     constructor(parcel: Parcel) : this() {
-        mName = parcel.readString()
-        count = parcel.readInt()
-        amount = parcel.readInt()
-        detail = parcel.readString()
-        total = parcel.readInt()
+        name = parcel.readString()
+        effect_code = parcel.readInt()
+        ins_code = parcel.readInt()
+        effect = parcel.readString()
+        dosage = parcel.readString()
+        ingredient = parcel.readString()
+    }
+
+
+    constructor(name:String,effect_code:Int, ins_code : Int, effect:String, dosage:String,ingredient:String):this(){
+        this.name=name
+        this.effect_code=effect_code
+        this.ins_code=ins_code
+        this.effect=effect
+        this.dosage=dosage
+        this.ingredient=ingredient
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(mName)
-        parcel.writeInt(count)
-        parcel.writeInt(amount)
-        parcel.writeString(detail)
-        parcel.writeInt(total)
+        parcel.writeString(name)
+        parcel.writeInt(effect_code)
+        parcel.writeInt(ins_code)
+        parcel.writeString(effect)
+        parcel.writeString(dosage)
+        parcel.writeString(ingredient)
     }
 
     override fun describeContents(): Int {
@@ -52,4 +64,5 @@ class MedicineVO() : Parcelable{
             return arrayOfNulls(size)
         }
     }
+
 }
