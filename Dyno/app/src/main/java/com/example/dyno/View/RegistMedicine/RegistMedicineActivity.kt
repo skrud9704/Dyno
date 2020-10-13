@@ -5,13 +5,17 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.OCR.OcrParsing
 import com.example.dyno.OCR.OcrProc
 import com.example.dyno.R
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.VO.MedicineVO
+import com.example.dyno.View.RegistMedicine.MedicineAdapter
 import com.google.gson.JsonArray
+import kotlinx.android.synthetic.main.activity_regist_medicine.*
+import kotlinx.android.synthetic.main.activity_regist_supplement.*
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -27,6 +31,8 @@ class RegistMedicineActivity : AppCompatActivity() {
     private lateinit var imgFilePath : String
     private lateinit var imgFile : File
     private val TAG = this::class.java.simpleName
+    private val medicines : ArrayList<MedicineVO> = arrayListOf()
+    private lateinit var medicineAdapter : MedicineAdapter
 
 
     @SuppressLint("CheckResult")
@@ -40,7 +46,10 @@ class RegistMedicineActivity : AppCompatActivity() {
         // 2. OCR(글자인식) -> 3. Parsing -> 4. Server로부터 의약품 정보 획득. (순서대로일어나게) ArrayList<MedicineVO>
         ClovaOcrTask().execute(OCR_API_GW_URL,OCR_SECRET_KEY,imgFilePath)
 
-        // UI 뿌려지기
+        // 3. UI 뿌려지기
+        medicineAdapter = MedicineAdapter(this,medicines)
+        ocr_result_list.adapter = medicineAdapter
+        ocr_result_list.layoutManager= LinearLayoutManager(this)
         // 질병 추측 -> DiseaseVO
 
 
@@ -63,7 +72,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                 Log.d("json", result.length.toString())
                 val ocrPasredData = getResultParsed(result)!!
                 getMedicine(ocrPasredData)
-
+                medicineAdapter.notifyDataSetChanged()
             } else {
                 Log.d("no_result", "")
             }
@@ -110,9 +119,14 @@ class RegistMedicineActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<MedicineVO>, response: Response<MedicineVO>) {
                         Log.d(TAG,"성공^^")
                         Log.d(TAG, response.body()!!.name)
+                        if(response.body()!!.name!="Not Found") {
+                            medicines.add(response.body()!!)
+                            medicineAdapter.notifyDataSetChanged()
+                        }
                     }
                 })
             }
+
 
         }
 
