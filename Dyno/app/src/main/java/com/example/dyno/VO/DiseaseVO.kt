@@ -2,18 +2,29 @@ package com.example.dyno.VO
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.*
+import com.example.dyno.LocalDB.RoomDAO
 
+@Entity(tableName = "Disease")
 class DiseaseVO() : Parcelable{
-    var dCode:String=""//질병코드
-    var dName:String=""//질병명
-    var date:String=""//처방날짜
-    var medicines : ArrayList<MedicineVO> = arrayListOf()   // 처방된 약 리스트
+    @ColumnInfo(name="d_code")
+    var d_code:String=""//질병코드
+
+    @PrimaryKey
+    @ColumnInfo(name="d_date")
+    var d_date:String=""//처방날짜
+
+    @ColumnInfo(name="d_name")
+    var d_name:String=""//질병명
+
+    @ColumnInfo(name="d_medicines")
+    var d_medicines : ArrayList<MedicineVO> = arrayListOf()   // 처방된 약 리스트
 
     constructor(dCode:String,dName:String,date:String,medicines:ArrayList<MedicineVO>) : this(){
-        this.dCode=dCode
-        this.dName=dName
-        this.date=date
-        this.medicines=medicines
+        this.d_code=dCode
+        this.d_name=dName
+        this.d_date=date
+        this.d_medicines=medicines
     }
 
     constructor(parcel: Parcel) :
@@ -22,10 +33,10 @@ class DiseaseVO() : Parcelable{
             )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(dCode)
-        parcel.writeString(dName)
-        parcel.writeString(date)
-        parcel.writeList(medicines)
+        parcel.writeString(d_code)
+        parcel.writeString(d_name)
+        parcel.writeString(d_date)
+        parcel.writeList(d_medicines)
     }
 
     override fun describeContents(): Int {
@@ -42,4 +53,19 @@ class DiseaseVO() : Parcelable{
         }
     }
 
+}
+// 마이페이지>의약품 탭에서 보여지는 정보만 가진 객체
+class DiseaseMinimal(val d_name : String,val d_date : String)
+
+@Dao
+interface DiseaseDAO : RoomDAO<DiseaseVO> {
+    // 키 겹칠때 지금 넣는것으로 대체
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDisease(diseaseVO: DiseaseVO): Long
+
+    @Query("SELECT * FROM Disease WHERE d_code=:code")
+    fun getDisease(code: String) : DiseaseVO
+
+    @Query("SELECT d_name, d_date FROM Disease")
+    fun getDiseaseMinimal() : List<DiseaseMinimal>
 }

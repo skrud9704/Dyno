@@ -1,6 +1,7 @@
 package com.example.dyno.View.MyPage.RegistMedicine
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +12,9 @@ import com.example.dyno.OCR.OcrProc
 import com.example.dyno.R
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
+import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
+import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
 import com.example.dyno.View.RegistMedicine.MedicineAdapter
 import com.google.gson.JsonArray
 import kotlinx.android.synthetic.main.activity_regist_medicine.*
@@ -48,6 +51,22 @@ class RegistMedicineActivity : AppCompatActivity() {
 
         // 3. UI 뿌려지기
         medicineAdapter = MedicineAdapter(this,medicines)
+        medicineAdapter.setListener(object : MedicineAdapter.diseaseClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(applicationContext, DetailMedicineActivity::class.java)
+                //constructor(name:String,effect_code:Int, ins_code : Int, effect:String, dosage:String,ingredient:String):this(){
+                intent.putExtra("DATA",
+                    DiseaseVO("A000","콜레라","",
+                        arrayListOf(MedicineVO("코덴스정",123,640,"기침, 가래","성인 및 15세 이상 청소년만","구아이페네신"),
+                            MedicineVO("코덴스정",123,640,"기침, 가래","성인 및 15세 이상 청소년만","구아이페네신"),
+                            MedicineVO("코덴스정",123,640,"기침, 가래","성인 및 15세 이상 청소년만","구아이페네신")
+                        )
+                    )
+                )
+                startActivity(intent)
+            }
+
+        })
         ocr_result_list.adapter = medicineAdapter
         ocr_result_list.layoutManager= LinearLayoutManager(this)
         // 질병 추측 -> DiseaseVO
