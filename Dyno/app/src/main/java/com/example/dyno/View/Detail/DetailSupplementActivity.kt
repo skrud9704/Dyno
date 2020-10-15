@@ -75,6 +75,6 @@ class DetailSupplementActivity : AppCompatActivity() {
 
         // DB 닫기.
         RoomDB.destroyInstance()
-}
+    }
 
 }
