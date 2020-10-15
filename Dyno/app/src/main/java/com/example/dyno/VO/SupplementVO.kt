@@ -24,14 +24,14 @@ class SupplementVO() : Parcelable{
 
     @ColumnInfo(name="s_ingredient")
     @SerializedName("s_ingredient")
-    var m_ingredients : ArrayList<String> = arrayListOf()           // 기능성원재료
+    var m_ingredients : String =""              // 기능성 원재료
 
     @ColumnInfo(name="s_info")
     @SerializedName("s_info")
-    var m_ingredients_info : ArrayList<String> = arrayListOf()      // 기능성내용, 위 배열과 사이즈가 같아야한다.
+    var m_ingredients_info : String = ""        // 기능성내용, 위 배열과 사이즈가 같아야한다.
 
 
-    constructor(name: String, company : String, date : String, ingredients : ArrayList<String>, infos : ArrayList<String>) : this() {
+    constructor(name: String, company : String, date : String, ingredients : String, infos : String) : this() {
         this.m_company = company
         this.m_name=name
         this.m_ingredients=ingredients
@@ -40,15 +40,14 @@ class SupplementVO() : Parcelable{
     }
 
     constructor(parcel: Parcel) : this(parcel.readString()!!,parcel.readString()!!,parcel.readString()!!,
-        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,
-        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>)
+        parcel.readString()!!, parcel.readString()!!)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(m_name)
         parcel.writeString(m_company)
         parcel.writeString(m_date)
-        parcel.writeList(m_ingredients)
-        parcel.writeList(m_ingredients_info)
+        parcel.writeString(m_ingredients)
+        parcel.writeString(m_ingredients_info)
     }
 
     override fun describeContents(): Int {

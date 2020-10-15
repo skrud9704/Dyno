@@ -58,10 +58,12 @@ class DetailSupplementActivity : AppCompatActivity() {
     private fun setView(){
         detail_s_name.text = data.m_name
         detail_s_date.text = data.m_date
+        detail_s_ingredient.text = data.m_ingredients
+        detail_s_info.text = data.m_ingredients_info
 
-        val detailSAdapter = DetailSAdapter(this,data.m_ingredients,data.m_ingredients_info)
-        recycler_detail_s.adapter = detailSAdapter
-        recycler_detail_s.layoutManager=LinearLayoutManager(this)
+        //val detailSAdapter = DetailSAdapter(this,data.m_ingredients,data.m_ingredients_info)
+        //recycler_detail_s.adapter = detailSAdapter
+        //recycler_detail_s.layoutManager=LinearLayoutManager(this)
     }
 
     private fun insertLocalDB(){

@@ -119,7 +119,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<MedicineVO>, response: Response<MedicineVO>) {
                         Log.d(TAG,"성공^^")
                         Log.d(TAG, response.body()!!.name)
-                        if(response.body()!!.name!="Not Found") {
+                        if(response.body()!!.name!="Not found") {
                             medicines.add(response.body()!!)
                             medicineAdapter.notifyDataSetChanged()
                         }

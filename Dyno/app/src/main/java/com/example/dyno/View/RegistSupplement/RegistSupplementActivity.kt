@@ -109,7 +109,7 @@ class RegistSupplementActivity : AppCompatActivity() {
 
         service.requestSupplementSingle(keyword).enqueue(object : Callback<SupplementVO>{
             override fun onFailure(call: Call<SupplementVO>, t: Throwable) {
-                Log.d(TAG,"실패 : {$t}")
+                Log.d(TAG,"실패22 : {$t}")
             }
 
             override fun onResponse(call: Call<SupplementVO>, response: Response<SupplementVO>) {

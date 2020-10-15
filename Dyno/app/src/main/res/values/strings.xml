@@ -63,8 +63,8 @@
 
     <!-- Detail Supplement -->
     <string name="detail_supplement_name">건강기능식품명</string>
-    <string name="detail_supplement_ingredient">비타민C</string>
-    <string name="detail_supplement_function">기능성 내용 : 체지방 감소에 도움을 줄 수 있음</string>
+    <string name="detail_supplement_ingredient">기능성 원재료 정보</string>
+    <string name="detail_supplement_info">기능성 내용</string>
 
     <!-- Detail Dur -->
     <string name="detail_dur_name">병용 판단</string>

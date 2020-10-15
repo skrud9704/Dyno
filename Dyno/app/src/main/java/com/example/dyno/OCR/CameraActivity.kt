@@ -45,7 +45,7 @@ class CameraActivity : AppCompatActivity() {
         }
 
         // 카메라 권한 획득
-        settingPermission()
+        setPermission()
 
         // 촬영 버튼 클릭 시
         btn_picture.setOnClickListener {
@@ -64,8 +64,8 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
-    fun settingPermission(){
-        var permis = object : PermissionListener{
+    fun setPermission(){
+        val permission = object : PermissionListener{
             override fun onPermissionGranted() {
                 Toast.makeText(this@CameraActivity,"권한허가", Toast.LENGTH_SHORT).show()
             }
@@ -75,7 +75,7 @@ class CameraActivity : AppCompatActivity() {
             }
         }
         TedPermission.with(this)
-            .setPermissionListener(permis)
+            .setPermissionListener(permission)
             .setRationaleMessage("카메라 사진 권한 필요")
             .setDeniedMessage("카메라 권한 요청 거부")
             .setPermissions(
@@ -98,7 +98,9 @@ class CameraActivity : AppCompatActivity() {
             currentPhotoPath = absolutePath
         }
     }
-    fun startCapture(){
+
+
+    private fun startCapture(){
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(packageManager)?.also {
                 val photoFile: File? = try{
