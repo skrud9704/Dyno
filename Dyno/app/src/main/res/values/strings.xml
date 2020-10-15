@@ -13,9 +13,20 @@
     <string name="sign_up_btn">회원 가입</string>
     <string name="sign_up_notice">Dyno는 사용자의 개인정보를 보호하기 위해 \n한 기기당 하나의 계정만 생성할 수 있습니다. \n해당 기기에 계정을 생성하는 것이 맞습니까?</string>
 
+    <!-- 카메라 -->
+    <string name="btn_camera_medicine">처방전 / 약봉투 촬영하기</string>
+    <string name="btn_camera_supplement">건강기능식품 촬영하기</string>
+    <string name="btn_ocr">위 사진으로 선택</string>
+    <string name="btn_re_camera">다시 촬영하기</string>
+
 
     <!-- 건강기능식품 검색-->
     <string name="hint_supplement">건강기능식품의 이름을 입력하세요.</string>
+    <string name="result_supplement_no">NO.</string>
+    <string name="result_supplement_name">제품명</string>
+    <string name="result_supplement_company">업소명</string>
+    <string name="result_no">조회할 건강기능식품이 없습니다.\n식품안전나라에서 제공하는 국내 \n건강기능식품만 검색할 수 있습니다.</string>
+    <string name="result_no_btn_ocr">성분 직접 찍기</string>
 
     <!-- My Page -->
     <string name="mypage_nim">&#160;님</string>
@@ -52,8 +63,8 @@
 
     <!-- Detail Supplement -->
     <string name="detail_supplement_name">건강기능식품명</string>
-    <string name="detail_supplement_ingredient">비타민C</string>
-    <string name="detail_supplement_function">기능성 내용 : 체지방 감소에 도움을 줄 수 있음</string>
+    <string name="detail_supplement_ingredient">기능성 원재료 정보</string>
+    <string name="detail_supplement_info">기능성 내용</string>
 
     <!-- Detail Dur -->
     <string name="detail_dur_name">병용 판단</string>

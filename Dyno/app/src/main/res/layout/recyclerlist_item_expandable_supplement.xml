@@ -59,7 +59,7 @@
             android:id="@+id/ingredient_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/detail_supplement_function"
+            android:text="@string/detail_supplement_info"
             android:textSize="16sp"
             android:textColor="@color/dynoBlack"/>
 
