@@ -98,7 +98,7 @@ class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> 
             b.putParcelable("b",testVo2)
 
             val intent = Intent(context,DetailMedicineActivity::class.java)
-            intent.putExtra("DATA",testVo2)
+            intent.putExtra("DATA_DISEASE",testVo2)
             context!!.startActivity(intent)
         }
 

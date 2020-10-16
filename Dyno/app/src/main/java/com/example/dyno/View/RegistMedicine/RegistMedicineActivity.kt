@@ -6,6 +6,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.OCR.OcrParsing
 import com.example.dyno.OCR.OcrProc
@@ -53,17 +54,7 @@ class RegistMedicineActivity : AppCompatActivity() {
         medicineAdapter = MedicineAdapter(this,medicines)
         medicineAdapter.setListener(object : MedicineAdapter.diseaseClickListener{
             override fun onItemClick(position: Int) {
-                val intent = Intent(applicationContext, DetailMedicineActivity::class.java)
-                //constructor(name:String,effect_code:Int, ins_code : Int, effect:String, dosage:String,ingredient:String):this(){
-                intent.putExtra("DATA",
-                    DiseaseVO("A000","콜레라","",
-                        arrayListOf(MedicineVO("코덴스정",123,640,"기침, 가래","성인 및 15세 이상 청소년만","구아이페네신"),
-                            MedicineVO("코덴스정",123,640,"기침, 가래","성인 및 15세 이상 청소년만","구아이페네신"),
-                            MedicineVO("코덴스정",123,640,"기침, 가래","성인 및 15세 이상 청소년만","구아이페네신")
-                        )
-                    )
-                )
-                startActivity(intent)
+
             }
 
         })
@@ -71,7 +62,12 @@ class RegistMedicineActivity : AppCompatActivity() {
         ocr_result_list.layoutManager= LinearLayoutManager(this)
         // 질병 추측 -> DiseaseVO
 
-
+        // 질병 상세 화면
+        btn_detail_medicine.setOnClickListener {
+            val intent = Intent(this, DetailMedicineActivity::class.java)
+            intent.putExtra("DATA_DISEASE", DiseaseVO("A000","아직 몰라","", medicines))
+            startActivity(intent)
+        }
     }
 
     private fun initFile(){
@@ -81,9 +77,18 @@ class RegistMedicineActivity : AppCompatActivity() {
 
     @SuppressLint("StaticFieldLeak")
     inner class ClovaOcrTask : AsyncTask<String, String, String>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
+            ocr_result_progress.visibility = View.VISIBLE
+            ocr_result_list.visibility = View.GONE
+        }
         override fun doInBackground(vararg params: String): String? {
             return OcrProc()
                 .start(params[0], params[1], params[2])
+        }
+
+        override fun onProgressUpdate(vararg values: String?) {
+            super.onProgressUpdate(*values)
         }
 
         override fun onPostExecute(result: String?) {
@@ -95,6 +100,8 @@ class RegistMedicineActivity : AppCompatActivity() {
             } else {
                 Log.d("no_result", "")
             }
+            ocr_result_progress.visibility = View.GONE
+            ocr_result_list.visibility = View.VISIBLE
         }
 
         // 인식한 결과 파싱

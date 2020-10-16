@@ -68,13 +68,11 @@ class DetailMAdapter(context: Context, medicines : ArrayList<MedicineVO>)
     // 커스텀 ViewHolder, 리사이클러뷰의 각각의 아이템마다 데이터를 넣을 View 를 미리 선언하고 가져옴, 클릭리스너 implement
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var medicine_tv : TextView
-        var dosage_tv : TextView
         var info_tv : TextView
         var info_layout : LinearLayout
 
         init{
             medicine_tv = itemView.medicine_name
-            dosage_tv = itemView.medicine_dosage
             info_tv = itemView.medicine_info
             info_layout = itemView.m_info_layout
         }

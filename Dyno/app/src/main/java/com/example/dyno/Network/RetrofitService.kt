@@ -2,6 +2,7 @@ package com.example.dyno.Network
 
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.VO.SupplementVO
+import com.example.dyno.VO.TestVO
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -24,10 +25,21 @@ interface RetrofitService {
     ) : Call<SupplementVO>
 
     @FormUrlEncoded
-    @POST("Test/getList")
+    @POST("Medicine/getList")
     fun requestMedicineSingle(
         @Field("m_name") m_name: String
     ) : Call<MedicineVO>
 
+    @FormUrlEncoded
+    @POST("Dur/getMM")
+    fun requestDurMM(
+        @Field("m_name") m_name: String
+    ) : Call<ArrayList<String>>
+
+    @FormUrlEncoded
+    @POST("Dur/getMS")
+    fun requestDurMS(
+        @Field("m_name") m_name: String
+    ) : Call<ArrayList<TestVO>>
 
 }

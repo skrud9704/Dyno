@@ -1,6 +1,7 @@
 package com.example.dyno.View.MyPage.Detail
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.View.MyPage.Detail.Adapters.DetailMAdapter
 import com.example.dyno.R
-import com.example.dyno.Network.PublicAPI.ApiProc
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.VO.SupplementVO
+import com.example.dyno.View.MyPage.DUR.DurActivity
 import kotlinx.android.synthetic.main.activity_detail_medicine.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -32,7 +34,12 @@ class DetailMedicineActivity : AppCompatActivity() {
 
         getData()
         setView()
-        //dur()
+
+        m_dur_btn.setOnClickListener {
+            val intent = Intent(this,DurActivity::class.java)
+            intent.putExtra("DATA_DISEASE",data)
+            startActivity(intent)
+        }
 
     }
 
@@ -66,7 +73,7 @@ class DetailMedicineActivity : AppCompatActivity() {
     private fun getData(){
 
         /* From RegistMedicineActivity / MyPageActivity(MedicineAdapter) */
-        data = intent.getParcelableExtra("DATA")
+        data = intent.getParcelableExtra("DATA_DISEASE")
         //Log.d(TAG,"${data.d_name},${data.d_company}")
 
         // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우
@@ -74,11 +81,12 @@ class DetailMedicineActivity : AppCompatActivity() {
             // 1. d_date(등록일자)를 현재 시간으로 셋팅
             // 오레오 이상 SDK 28
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                data.d_date = LocalDate.now().toString()
+                val now = LocalDateTime.now()
+                data.d_date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             }
             //그 이하
             else{
-                val today = SimpleDateFormat("YYYY-MM-dd").format(Date())
+                val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
                 data.d_date = today
             }
 
@@ -107,39 +115,6 @@ class DetailMedicineActivity : AppCompatActivity() {
         recycler_detail_m.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
     }
 
-    private fun dur(){
-        val medicineDurApiUrl = "http://apis.data.go.kr/1470000/DURPrdlstInfoService"
-        val medicineDurApiKey =
-            "aK%2FBiBnzg6KzgMpSBaMjM7G42kbPdMd%2BOk9KPT8NOlGfDW5pRdlKhU2FufcZ4%2FlKFnHBVpi0gbVbfT8FDdTRhg%3D%3D"
 
-        var mString: String = ""//질병별 의약품 이름들 스트링에 붙이기
-        val mNum: Int = medicines.size
-        for (i in 0 until mNum) {
-            mString += medicines[i].name
-            mString += "/"
-        }
-        mString = mString.substring(0, mString.length - 1)
-        Log.d("api", "medicines:$mString")
-
-        //test_m.text = data.dName
-        m_dur_btn.setOnClickListener {
-            val api = apiTask()
-            api.execute(medicineDurApiUrl, medicineDurApiKey, mString)
-        }
-    }
-
-    //공공데이터포털에서 제공하는 Dur 품목 api용
-    @SuppressLint("StaticFieldLeak")
-    inner class apiTask:AsyncTask<String,String,String>(){
-        override fun doInBackground(vararg params: String?): String? {
-            val apiProc = ApiProc()
-            return apiProc.getInfo(params[0], params[1], params[2])
-        }
-
-        override fun onPostExecute(result: String?) {
-
-            Log.d("api", "result:$result")
-        }
-    }
 
 }

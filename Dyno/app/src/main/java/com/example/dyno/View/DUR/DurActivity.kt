@@ -2,24 +2,78 @@ package com.example.dyno.View.MyPage.DUR
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dyno.View.MyPage.DUR.Adapters.DMAdapter
-import com.example.dyno.View.MyPage.DUR.Adapters.DSAdapter
+import android.util.Log
+import com.example.dyno.Network.RetrofitClient
+import com.example.dyno.Network.RetrofitService
 import com.example.dyno.R
-import kotlinx.android.synthetic.main.activity_dur.*
+import com.example.dyno.VO.DiseaseVO
+import com.example.dyno.VO.TestVO
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 class DurActivity : AppCompatActivity() {
+    private val TAG = this::class.java.simpleName
+    private lateinit var retrofit : Retrofit
+    private lateinit var durService : RetrofitService
+    private val prohibitMedicineList : ArrayList<String> = arrayListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dur)
-        val medicines : Array<String> = arrayOf("간질환","고혈압","감기","치질","심장병","고지혈증","우울증","각막염","중이염","가벼운 화상")
-        val supplements : Array<String> = arrayOf("센트룸 아쿠아비타 발포 멀티비타민 딸기향 30포",
-            "센트룸 포 우먼 멀티비타민 미네랄(50정)",
-            "California Gold Nutrition, LactoBif 프로바이오틱스, 300억 CFU, 베지 캡슐 60정",
-            "Now Foods, 비타민 D-3, 고효능, 5,000 IU, 120 소프트젤",
-            "Sports Research, 아스타잔틴 함유 남극 크릴 오일, 1000mg, 소프트젤 60정",
-            "Sports Research, 오메가-3 피쉬 오일, Triple Strength, 1,250mg, 소프트젤 180정",
-            "광동우황청심원(천연사향함유) 액제/환제")
-        list_dur_m.adapter = DMAdapter(this,R.layout.list_item_dur_medicine,medicines)
-        list_dur_s.adapter = DSAdapter(this,R.layout.list_item_dur_supplement,supplements)
+
+
+        val compareData = intent.getParcelableExtra<DiseaseVO>("DATA_DISEASE")
+
+        // 서버 연결
+        initRetrofit()
+
+        for(medicine in compareData.d_medicines){
+            //getDurMM(durService,medicine.name)
+            getDurMS(durService,medicine.name)
+        }
+
+    }
+
+    private fun initRetrofit(){
+        retrofit = RetrofitClient.getInstance()
+        durService = retrofit.create(RetrofitService::class.java)
+    }
+
+    // 리퀘스트: 의약품 이름, 의-의 병용판단
+    private fun getDurMM(service : RetrofitService, m_name : String){
+        service.requestDurMM(m_name).enqueue(object : Callback<ArrayList<String>>{
+            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
+                Log.d(TAG,"실패33 : {$t}")
+            }
+
+            override fun onResponse(call: Call<ArrayList<String>>, response: Response<ArrayList<String>>) {
+                Log.d(TAG,"성공^^ 33")
+                prohibitMedicineList.addAll(response.body()!!)
+                Log.d(TAG,"받아온 값 사이즈 : ${response.body()!!.size}")
+                Log.d(TAG,"전체 값 사이즈 : ${prohibitMedicineList.size}")
+            }
+
+        })
+    }
+
+    // 리퀘스트: 의약품이름, 의-건 병용판단
+    private fun getDurMS(service : RetrofitService, m_name : String){
+        val durList : ArrayList<TestVO>  = arrayListOf()
+        service.requestDurMS(m_name).enqueue(object : Callback<ArrayList<TestVO>>{
+            override fun onFailure(call: Call<ArrayList<TestVO>>, t: Throwable) {
+                Log.d(TAG,"실패44 : {$t}")
+            }
+
+            override fun onResponse(call: Call<ArrayList<TestVO>>, response: Response<ArrayList<TestVO>>) {
+                Log.d(TAG,"성공^^ 44")
+                Log.d(TAG,"받아온 값 사이즈 : ${response.body()!!.size}")
+                for(data in response.body()!!){
+                    Log.d(TAG,data.printDetail())
+                }
+            }
+
+        })
     }
 }

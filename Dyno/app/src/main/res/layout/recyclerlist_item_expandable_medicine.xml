@@ -18,16 +18,8 @@
             android:layout_height="wrap_content"
             android:text="@string/detail_item_m_name"
             android:textColor="@color/dynoWhite"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:layout_gravity="center"/>
-        <TextView
-            android:id="@+id/medicine_dosage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/detail_item_m_dosage"
-            android:textColor="@color/dynoWhite"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
