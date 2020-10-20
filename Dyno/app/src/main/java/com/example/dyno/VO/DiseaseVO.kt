@@ -55,7 +55,17 @@ class DiseaseVO() : Parcelable{
 
 }
 // 마이페이지>의약품 탭에서 보여지는 정보만 가진 객체
-class DiseaseMinimal(val d_name : String,val d_date : String)
+class DiseaseMinimal(val d_name : String,val d_date : String,val d_medicines : ArrayList<MedicineVO>){
+    fun getMedicineNames() : String{
+        var names = ""
+        for(idx in d_medicines.indices){
+            names = names.plus(d_medicines[idx].name)
+            if(idx!=d_medicines.size-1)
+                names = names.plus(",\n")
+        }
+        return names
+    }
+}
 
 @Dao
 interface DiseaseDAO : RoomDAO<DiseaseVO> {
@@ -66,6 +76,6 @@ interface DiseaseDAO : RoomDAO<DiseaseVO> {
     @Query("SELECT * FROM Disease WHERE d_date=:date")
     fun getDisease(date: String) : DiseaseVO
 
-    @Query("SELECT d_name, d_date FROM Disease")
+    @Query("SELECT d_name, d_date, d_medicines FROM Disease")
     fun getDiseaseMinimal() : List<DiseaseMinimal>
 }

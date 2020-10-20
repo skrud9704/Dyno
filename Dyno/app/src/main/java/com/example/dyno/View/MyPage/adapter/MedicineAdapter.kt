@@ -16,6 +16,9 @@ import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.View.MyPage.Detail.DetailSupplementActivity
 import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.*
+import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.listitem_name
+import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.listitem_subname
+import kotlinx.android.synthetic.main.recyclerlist_item_mypage_medicine.view.*
 
 class MedicineAdapter(private val context: Context) : RecyclerView.Adapter<MedicineAdapter.ViewHolder>() {
 
@@ -27,13 +30,14 @@ class MedicineAdapter(private val context: Context) : RecyclerView.Adapter<Medic
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.recyclerlist_item_mypage, viewGroup, false)
+            .inflate(R.layout.recyclerlist_item_mypage_medicine, viewGroup, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = diseaseData[position].d_name
-        holder.subTitle.text = diseaseData[position].d_date
+        holder.subDate.text = diseaseData[position].d_date
+        holder.subTitle.text = diseaseData[position].getMedicineNames()
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +49,7 @@ class MedicineAdapter(private val context: Context) : RecyclerView.Adapter<Medic
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var title: TextView = itemView.listitem_name
         var subTitle: TextView = itemView.listitem_subname
+        var subDate: TextView = itemView.listitem_date
 
         init {
             itemView.setOnClickListener(this)
