@@ -11,7 +11,7 @@ class OcrParsing {
     var dArr = drugs.split(",").toTypedArray()
     val resultList : ArrayList<String> = arrayListOf()
 
-    fun prescriptionDrugsR(transText: String): ArrayList<String> {
+    fun prescriptionDrugsR(transText: String): String {
         Log.d("pars_start",transText)
         var arr = transText.split("/").toTypedArray()
         //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
@@ -38,7 +38,7 @@ class OcrParsing {
         //var medArr = med.split(",").toTypedArray()
         //var result=med//+"$"+date
         Log.d("pars_medicine",med)
-        return resultList
+        return med
     }
     fun prescriptionR(transText: String){
 

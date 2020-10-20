@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.OCR.OcrParsing
 import com.example.dyno.OCR.OcrProc
 import com.example.dyno.R
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
+import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
@@ -35,7 +37,7 @@ class RegistMedicineActivity : AppCompatActivity() {
     private lateinit var imgFilePath : String
     private lateinit var imgFile : File
     private val TAG = this::class.java.simpleName
-    private val medicines : ArrayList<MedicineVO> = arrayListOf()
+    private var medicines : ArrayList<MedicineVO> = arrayListOf()
     private lateinit var medicineAdapter : MedicineAdapter
 
 
@@ -54,25 +56,41 @@ class RegistMedicineActivity : AppCompatActivity() {
         medicineAdapter = MedicineAdapter(this,medicines)
         medicineAdapter.setListener(object : MedicineAdapter.diseaseClickListener{
             override fun onItemClick(position: Int) {
-
+                Toast.makeText(applicationContext,"효능 효과 : ${medicines[position].effect}",Toast.LENGTH_SHORT).show()
             }
 
         })
         ocr_result_list.adapter = medicineAdapter
         ocr_result_list.layoutManager= LinearLayoutManager(this)
-        // 질병 추측 -> DiseaseVO
 
+
+        // 4. 질병 추측 -> DiseaseVO
+
+
+        // 5 버튼 셋팅
+        initButton()
+    }
+
+    private fun initFile(){
+        imgFilePath = intent.getStringExtra("bitmapImg")
+        imgFile = File(imgFilePath)
+    }
+
+    private fun initButton(){
         // 질병 상세 화면
         btn_detail_medicine.setOnClickListener {
             val intent = Intent(this, DetailMedicineActivity::class.java)
             intent.putExtra("DATA_DISEASE", DiseaseVO("A000","아직 몰라","", medicines))
             startActivity(intent)
         }
-    }
 
-    private fun initFile(){
-        imgFilePath = intent.getStringExtra("bitmapImg")
-        imgFile = File(imgFilePath)
+        // 재촬영 버튼 (OCR결과 없어서)
+        btn_reocr.setOnClickListener {
+            val intent=Intent(this, CameraActivity::class.java)
+            intent.putExtra("DATA","medicine")
+            startActivity(intent)
+            finish()
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -85,10 +103,6 @@ class RegistMedicineActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: String): String? {
             return OcrProc()
                 .start(params[0], params[1], params[2])
-        }
-
-        override fun onProgressUpdate(vararg values: String?) {
-            super.onProgressUpdate(*values)
         }
 
         override fun onPostExecute(result: String?) {
@@ -105,7 +119,7 @@ class RegistMedicineActivity : AppCompatActivity() {
         }
 
         // 인식한 결과 파싱
-        private fun getResultParsed(result: String) : ArrayList<String>? {
+        private fun getResultParsed(result: String) : String {
             var translateText = ""
             try {
                 // 인식된 결과를 Json으로 변환
@@ -126,32 +140,37 @@ class RegistMedicineActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.d("parse_error", e.toString())
             }
-            return null
+            return ""
         }
 
-        private fun getMedicine(data : ArrayList<String>){
+        private fun getMedicine(data : String){
             val retrofit = RetrofitClient.getInstance()
             val medicineService = retrofit.create(RetrofitService::class.java)
 
-            for(d in data)
-                Log.d(TAG,"데이터 - $d")
+            Log.d(TAG,"서버로 보내는 데이터 : $data")
+            medicineService.requestMedicineList(data).enqueue(object : retrofit2.Callback<ArrayList<MedicineVO>> {
+                override fun onFailure(call: Call<ArrayList<MedicineVO>>, t: Throwable) {
+                    Log.d(TAG,"실패 {$t}")
+                }
 
-            for(i in data){
-                medicineService.requestMedicineSingle(i).enqueue(object : retrofit2.Callback<MedicineVO> {
-                    override fun onFailure(call: Call<MedicineVO>, t: Throwable) {
-                        Log.d(TAG,"실패 {$t}")
-                    }
-
-                    override fun onResponse(call: Call<MedicineVO>, response: Response<MedicineVO>) {
-                        Log.d(TAG,"성공^^")
-                        Log.d(TAG, response.body()!!.name)
-                        if(response.body()!!.name!="Not found") {
-                            medicines.add(response.body()!!)
-                            medicineAdapter.notifyDataSetChanged()
+                override fun onResponse(call: Call<ArrayList<MedicineVO>>, response: Response<ArrayList<MedicineVO>>) {
+                    Log.d(TAG,"성공^^")
+                    for(medicine in response.body()!!){
+                        Log.d(TAG, "${medicine.name}\n")
+                        if(medicine.name!="Not found"){
+                            medicines.add(medicine)
+                            ocr_result_no.visibility = View.GONE
+                            ocr_result_list.visibility = View.VISIBLE
                         }
+                        medicineAdapter.notifyDataSetChanged()
                     }
-                })
-            }
+
+                    if(response.body()!!.size==0){
+                        ocr_result_no.visibility = View.VISIBLE
+                        ocr_result_list.visibility = View.GONE
+                    }
+                }
+            })
 
 
         }

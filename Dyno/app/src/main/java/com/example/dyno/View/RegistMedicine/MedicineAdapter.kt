@@ -30,7 +30,7 @@ class MedicineAdapter (private val context: Context, private var data : ArrayLis
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = data[position].name
-        holder.subTitle.text = data[position].dosage
+        //holder.subTitle.text = data[position].dosage
     }
 
     fun getNewData(data : ArrayList<MedicineVO>){
