@@ -15,6 +15,7 @@ import com.example.dyno.R
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.OCR.CameraActivity
+import com.example.dyno.VO.DiseaseGuessVO
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
@@ -108,8 +109,9 @@ class RegistMedicineActivity : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             if (result != null) {
                 Log.d("json", result.length.toString())
-                val ocrPasredData = getResultParsed(result)!!
+                val ocrPasredData = getResultParsed(result)
                 getMedicine(ocrPasredData)
+
                 medicineAdapter.notifyDataSetChanged()
             } else {
                 Log.d("no_result", "")
@@ -143,20 +145,37 @@ class RegistMedicineActivity : AppCompatActivity() {
             return ""
         }
 
+        // OCR 된 문자열 -> 서버로부터 의약품 가져오기, 질병 추측 해오기
         private fun getMedicine(data : String){
             val retrofit = RetrofitClient.getInstance()
             val medicineService = retrofit.create(RetrofitService::class.java)
 
             Log.d(TAG,"서버로 보내는 데이터 : $data")
-            medicineService.requestMedicineList(data).enqueue(object : retrofit2.Callback<ArrayList<MedicineVO>> {
-                override fun onFailure(call: Call<ArrayList<MedicineVO>>, t: Throwable) {
+
+            // 서버 RDS에서 OCR파싱된 의약품 획득 후 질병 추측까지 완료.
+            medicineService.requestMedicineAndDiseaseList(data).enqueue(object : retrofit2.Callback<DiseaseGuessVO> {
+                override fun onFailure(call: Call<DiseaseGuessVO>, t: Throwable) {
                     Log.d(TAG,"실패 {$t}")
+                    Log.d(TAG,"실패 {$call}")
                 }
 
-                override fun onResponse(call: Call<ArrayList<MedicineVO>>, response: Response<ArrayList<MedicineVO>>) {
+                override fun onResponse(call: Call<DiseaseGuessVO>, response: Response<DiseaseGuessVO>) {
                     Log.d(TAG,"성공^^")
-                    for(medicine in response.body()!!){
-                        Log.d(TAG, "안녕^^")
+
+                    // 1. 추측 질병 순위 UI 셋팅
+                    guess_name_1st.text = response.body()!!.diseaseNameList[0]
+                    guess_per_1st.text = response.body()!!.diseasePerList[0]
+
+                    guess_name_2nd.text = response.body()!!.diseaseNameList[1]
+                    guess_per_2nd.text = response.body()!!.diseasePerList[1]
+
+                    guess_name_3rd.text = response.body()!!.diseaseNameList[2]
+                    guess_per_3rd.text = response.body()!!.diseasePerList[2]
+                    guess.visibility = View.VISIBLE
+
+                    // 2. OCR, 파싱, RDS 처리 완료된 의약품 리스트 UI 셋팅
+                    for(medicine in response.body()!!.medicineList){
+                        Log.d(TAG, "의약품 결과")
                         Log.d(TAG, medicine.name)
                         if(medicine.name!="Not found"){
                             medicines.add(medicine)
