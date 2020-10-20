@@ -7,117 +7,57 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
 import com.example.dyno.R
+import com.example.dyno.VO.DiseaseMinimal
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
+import com.example.dyno.View.MyPage.Detail.DetailSupplementActivity
+import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.*
 
-class MedicineAdapter : RecyclerView.Adapter<MedicineAdapter.VersionViewHolder> {
-    var versionModels: List<String>? = null
-    var isHomeList: Boolean
-    var context: Context? = null
+class MedicineAdapter(private val context: Context) : RecyclerView.Adapter<MedicineAdapter.ViewHolder>() {
 
-    fun setDiseaseList(context: Context) {
-        val listArray =
-            context.resources.getStringArray(R.array.disease_name)
-        val subTitleArray =
-            context.resources.getStringArray(R.array.disease_date)
+    // 로컬 DB, DAO 생성.
+    private val localDB = RoomDB.getInstance(context)
+    private val diseaseDAO = localDB.diseaseDAO()
+    // DiseaseMinimal = 현재 페이지에서 필요한 기본적인 정보만 가진 객체
+    private val diseaseData : List<DiseaseMinimal> = diseaseDAO.getDiseaseMinimal()
 
-        nameList!!.clear()
-        dateList.clear()
-        for (i in listArray.indices) {
-            nameList!!.add(listArray[i])
-            dateList.add(subTitleArray[i])
-        }
-    }
-    constructor(context: Context) {
-        isHomeList = true
-        this.context = context
-        setDiseaseList(context)
-    }
-
-    constructor(versionModels: List<String>?) {
-        isHomeList = false
-        this.versionModels = versionModels
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): VersionViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.recyclerlist_item_mypage, viewGroup, false)
-        return VersionViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(versionViewHolder: VersionViewHolder, i: Int) {
-        if (isHomeList) {
-            versionViewHolder.title.text = nameList!![i]
-            versionViewHolder.subTitle.text = dateList[i]
-        } else {
-            versionViewHolder.title.text = versionModels!![i]
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.title.text = diseaseData[position].d_name
+        holder.subTitle.text = diseaseData[position].d_date
     }
 
     override fun getItemCount(): Int {
-        return if (isHomeList)
-            if (nameList == null)
-                0
-            else
-                nameList!!.size
-        else if (versionModels == null)
-            0
-        else
-            versionModels!!.size
+        return diseaseData.size
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
 
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
-    inner class VersionViewHolder(itemView: View) :
+    inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var cardItemLayout: CardView
-        var title: TextView
-        var subTitle: TextView
+        var title: TextView = itemView.listitem_name
+        var subTitle: TextView = itemView.listitem_subname
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         override fun onClick(v: View?) {
             // 약 상세정보 화면으로 이동. 현재 DiseaseVO를 넘긴다.
-            //constructor(mCode:String,count:Int,amount:Int,detail:String,total:Int)
-            val testVo : ArrayList<MedicineVO> = arrayListOf(
-                MedicineVO("하메론에이점안액",123123,60123,"이런효과가 있어요","이렇게 쓰세요","주성분 입니다."),
-                MedicineVO("하메론에이점안액2",123123,60123,"이런효과가 있어요","이렇게 쓰세요","주성분 입니다."),
-                MedicineVO("하메론에이점안액3",123123,60123,"이런효과가 있어요","이렇게 쓰세요","주성분 입니다.")
-            )
-            //constructor(dCode:String,dName:String,date:String,medicines:MutableList<MedicineVO>)
-            val testVo2 = DiseaseVO("H101,H1618","급성 아토비결막영,기타 및 상세불명의 표재성 각막염","2020-06-14",testVo)
-            var b=Bundle()
-            b.putParcelable("b",testVo2)
-
+            val selectedData = diseaseDAO.getDisease(diseaseData[adapterPosition].d_date)
             val intent = Intent(context,DetailMedicineActivity::class.java)
-            intent.putExtra("DATA_DISEASE",testVo2)
-            context!!.startActivity(intent)
-        }
-
-        init {
-            cardItemLayout = itemView.findViewById(R.id.cardlist_item)
-            title = itemView.findViewById(R.id.listitem_name)
-            subTitle = itemView.findViewById(R.id.listitem_subname)
-            if (isHomeList) {
-                itemView.setOnClickListener(this)
-            } else {
-                subTitle.visibility = View.GONE
-            }
+            intent.putExtra("DATA_DISEASE",selectedData)
+            context.startActivity(intent)
         }
     }
 
-    companion object {
-        var nameList: MutableList<String>? =
-            ArrayList()
-        var dateList: MutableList<String> =
-            ArrayList()
-    }
+
 }

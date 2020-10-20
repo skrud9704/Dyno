@@ -63,8 +63,8 @@ interface DiseaseDAO : RoomDAO<DiseaseVO> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDisease(diseaseVO: DiseaseVO): Long
 
-    @Query("SELECT * FROM Disease WHERE d_code=:code")
-    fun getDisease(code: String) : DiseaseVO
+    @Query("SELECT * FROM Disease WHERE d_date=:date")
+    fun getDisease(date: String) : DiseaseVO
 
     @Query("SELECT d_name, d_date FROM Disease")
     fun getDiseaseMinimal() : List<DiseaseMinimal>
