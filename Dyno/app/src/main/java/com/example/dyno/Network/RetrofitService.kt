@@ -30,6 +30,12 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Medicine/medicinesToDisease")
+    fun requestMedicineAndDiseaseList(
+        @Field("m_names") m_names: String
+    ) : Call<DiseaseGuessVO>
+
+    @FormUrlEncoded
+    @POST("Medicine/medicinesToDisease")
     fun requestDiseaseList(
         @Field("m_name") m_name: String
     ) : Call<ArrayList<DiseaseGuessVO>>
