@@ -156,18 +156,19 @@ class RegistMedicineActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ArrayList<MedicineVO>>, response: Response<ArrayList<MedicineVO>>) {
                     Log.d(TAG,"성공^^")
                     for(medicine in response.body()!!){
-                        Log.d(TAG, "${medicine.name}\n")
+                        Log.d(TAG, "안녕^^")
+                        Log.d(TAG, medicine.name)
                         if(medicine.name!="Not found"){
                             medicines.add(medicine)
+                            medicineAdapter.notifyDataSetChanged()
                             ocr_result_no.visibility = View.GONE
                             ocr_result_list.visibility = View.VISIBLE
                         }
                         medicineAdapter.notifyDataSetChanged()
-                    }
-
-                    if(response.body()!!.size==0){
-                        ocr_result_no.visibility = View.VISIBLE
-                        ocr_result_list.visibility = View.GONE
+                        if(medicines.size==0){
+                            ocr_result_no.visibility = View.VISIBLE
+                            ocr_result_list.visibility = View.GONE
+                        }
                     }
                 }
             })
