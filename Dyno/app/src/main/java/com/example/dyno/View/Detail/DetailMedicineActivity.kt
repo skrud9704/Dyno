@@ -10,13 +10,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.LocalDB.RoomDB
+import com.example.dyno.Network.RetrofitClient
+import com.example.dyno.Network.RetrofitService
 import com.example.dyno.View.MyPage.Detail.Adapters.DetailMAdapter
 import com.example.dyno.R
+import com.example.dyno.VO.CombineVO
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.VO.SupplementVO
 import com.example.dyno.View.MyPage.DUR.DurActivity
 import kotlinx.android.synthetic.main.activity_detail_medicine.*
+import retrofit2.Call
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -114,7 +119,25 @@ class DetailMedicineActivity : AppCompatActivity() {
         recycler_detail_m.adapter = DetailMAdapter(this,data.d_medicines)     // RecyclerView Adapter
         recycler_detail_m.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
     }
+    private fun getDurInof(data : String){
+        val retrofit =RetrofitClient.getInstance()
+        val durService=retrofit.create(RetrofitService::class.java)
 
+        Log.d(TAG,"dur서버로 보내는 데이터 : $data")
+        durService.requestDurMM(data).enqueue(object : retrofit2.Callback<ArrayList<String>>{
+            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
+                Log.d(TAG,"실패 {$t}")
+
+            }
+            override fun onResponse(
+                call: Call<ArrayList<String>>,
+                response: Response<ArrayList<String>>
+            ) {
+
+            }
+
+        })
+    }
 
 
 }
