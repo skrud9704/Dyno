@@ -5,6 +5,9 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 class DurMMTestVO() : Parcelable {
+    @SerializedName("disease_date")
+    var dDate:String=""
+
     @SerializedName("m_name")
     var mName:String=""
 
@@ -18,19 +21,22 @@ class DurMMTestVO() : Parcelable {
     var durReason:String=""
 
     constructor(parcel: Parcel) : this() {
+
         mName=parcel.readString()
         durName=parcel.readString()
         ingredient=parcel.readString()
         durReason=parcel.readString()
     }
 
-    constructor(name:String,durName:String,ingredient:String,reason:String):this(){
+    constructor(date:String,name:String,durName:String,ingredient:String,reason:String):this(){
+        this.dDate=date
         this.mName=name
         this.durName=durName
         this.ingredient=ingredient
         this.durReason=reason
     }
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(dDate)
         parcel.writeString(mName)
         parcel.writeString(durName)
         parcel.writeString(ingredient)
@@ -49,6 +55,9 @@ class DurMMTestVO() : Parcelable {
         override fun newArray(size: Int): Array<DurMMTestVO?> {
             return arrayOfNulls(size)
         }
+    }
+    fun printDetail():String{
+        return "의약품 : $mName, dur의약품 : $durName, 이유 : $durReason"
     }
 
 }
