@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.Network.RetrofitClient
@@ -32,8 +31,6 @@ class DetailMedicineActivity : AppCompatActivity() {
     private lateinit var medicines : MutableList<MedicineVO>
     private val TAG = this::class.java.simpleName
     private lateinit var data : DiseaseVO
-    private lateinit var  durItems:ArrayList<DurMMTestVO>
-    private lateinit var  userDurItem:ArrayList<DurVO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +43,7 @@ class DetailMedicineActivity : AppCompatActivity() {
             val intent = Intent(this,DurActivity::class.java)
             intent.putExtra("DATA_DISEASE",data)
             startActivity(intent)
+            getDurInof()
         }
 
     }
@@ -99,8 +97,6 @@ class DetailMedicineActivity : AppCompatActivity() {
 
             // 2. 로컬 DB에 저장(Room)
             insertLocalDB()
-
-            getDurInof()
         }
     }
 
@@ -126,11 +122,9 @@ class DetailMedicineActivity : AppCompatActivity() {
     private fun getDurInof(){
         val retrofit =RetrofitClient.getInstance()
         val durService=retrofit.create(RetrofitService::class.java)
-        val localDB = RoomDB.getInstance(this)
         medicines = data.d_medicines
- 
         for(i in medicines){
-            Log.d(TAG,"dur서버로 보내는 데이터 : $i")
+            Log.d(TAG,"dur서버로 보내는 데이터 : $data")
             durService.requestDurMM(i.name).enqueue(object : retrofit2.Callback<ArrayList<DurMMTestVO>>{
                 override fun onFailure(call: Call<ArrayList<DurMMTestVO>>, t: Throwable) {
                     Log.d(TAG,"실패 {$t}")
@@ -140,41 +134,15 @@ class DetailMedicineActivity : AppCompatActivity() {
                     call: Call<ArrayList<DurMMTestVO>>,
                     response: Response<ArrayList<DurMMTestVO>>
                 ) {
-                    for(dur in response.body()!!){
-                        Log.d(TAG,dur.printDetail())
-                        dur.dDate=data.d_date
-                        durItems.add(dur)
-                    }
+                    Log.d(TAG,"성공:"+response.body()!!)
                 }
-                
+
             })
         }
-        if(durItems.size==0){
-            Log.d(TAG,"dur 없음")
-        }else{
-            val diseaseList: List<DiseaseMinimal> = localDB.diseaseDAO().getDiseaseMinimal()
-            for(item in diseaseList){//처방전마다
-                var durMMList:ArrayList<DurMMTestVO> = ArrayList()
-                var check=0
-                for(med in item.d_medicines){//의약품 하나하나
-                    for(dur in durItems){
-                        if(med.name==dur.durName){//병용하면 안됨
-                            Log.d(TAG,"병용함 안됨:"+med.name+"/"+dur.mName)
-                            durMMList.add(dur)
-                            check=1
-                        }else{//병용가능
-                            Log.d(TAG,"병용가능")
-                        }
-                    }
-                }
-                val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
-                var durVO=DurVO(today, data.d_date, data.d_name, item.d_date,
-                    item.d_name,"",durMMList,ArrayList(),check)
-                userDurItem.add(durVO)
-            }
 
-        }
-
+    }
+    private fun getMedicine(){
+        val localDB = RoomDB.getInstance(this)
     }
 
 
