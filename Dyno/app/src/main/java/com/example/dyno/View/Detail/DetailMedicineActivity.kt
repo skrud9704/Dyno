@@ -155,22 +155,21 @@ class DetailMedicineActivity : AppCompatActivity() {
             val diseaseList: List<DiseaseMinimal> = localDB.diseaseDAO().getDiseaseMinimal()
             for(item in diseaseList){//처방전마다
                 var durMMList:ArrayList<DurMMTestVO> = ArrayList()
-                var check=0
+
                 for(med in item.d_medicines){//의약품 하나하나
                     for(dur in durItems){
                         if(med.name==dur.durName){//병용하면 안됨
                             Log.d(TAG,"병용함 안됨:"+med.name+"/"+dur.mName)
                             durMMList.add(dur)
-                            check=1
                         }else{//병용가능
                             Log.d(TAG,"병용가능")
                         }
                     }
                 }
                 val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
-                var durVO=DurVO(today, data.d_date, data.d_name, item.d_date,
-                    item.d_name,"",durMMList,ArrayList(),check)
-                userDurItem.add(durVO)
+                //var durVO=DurVO(today, 1,data.d_date, data.d_name, item.d_date,
+                  //  item.d_name,"",durMMList,ArrayList(),check)
+                //userDurItem.add(durVO)
             }
 
         }

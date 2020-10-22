@@ -14,12 +14,11 @@ class DetailDurActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_dur)
 
         val data = intent.getParcelableExtra<DurVO>("DATA3")
-        detail_d_name1.text=data.diseaseName1
-        if(data.diseaseName2!="")
-            detail_d_name2.text=data.diseaseName2
-        else
-            detail_d_name2.text=data.supplementName
-        detail_d_info.text=data.durDetail
+        detail_d_name1.text=data.itemName1
+
+        detail_d_name2.text=data.itemName2
+
+        detail_d_info.text=data.durReason
         //recycler_detail_d1.adapter = DetailDAdapter(this,data.warnMedicineNames1)
         //recycler_detail_d2.adapter = DetailDAdapter(this,data.warnMedicineNames2)
         recycler_detail_d1.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
