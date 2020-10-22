@@ -14,7 +14,6 @@ class DiseaseVO() : Parcelable{
     @ColumnInfo(name="d_date")
     var d_date:String=""//처방날짜
 
-
     @ColumnInfo(name="d_name")
     var d_name:String=""//질병명
 
