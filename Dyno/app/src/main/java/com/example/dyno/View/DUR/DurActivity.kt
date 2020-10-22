@@ -7,6 +7,7 @@ import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.R
 import com.example.dyno.VO.DiseaseVO
+import com.example.dyno.VO.DurMMTestVO
 import com.example.dyno.VO.TestVO
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,14 +44,13 @@ class DurActivity : AppCompatActivity() {
 
     // 리퀘스트: 의약품 이름, 의-의 병용판단
     private fun getDurMM(service : RetrofitService, m_name : String){
-        service.requestDurMM(m_name).enqueue(object : Callback<ArrayList<String>>{
-            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
+        service.requestDurMM(m_name).enqueue(object : Callback<ArrayList<DurMMTestVO>>{
+            override fun onFailure(call: Call<ArrayList<DurMMTestVO>>, t: Throwable) {
                 Log.d(TAG,"실패33 : {$t}")
             }
 
-            override fun onResponse(call: Call<ArrayList<String>>, response: Response<ArrayList<String>>) {
+            override fun onResponse(call: Call<ArrayList<DurMMTestVO>>, response: Response<ArrayList<DurMMTestVO>>) {
                 Log.d(TAG,"성공^^ 33")
-                prohibitMedicineList.addAll(response.body()!!)
                 Log.d(TAG,"받아온 값 사이즈 : ${response.body()!!.size}")
                 Log.d(TAG,"전체 값 사이즈 : ${prohibitMedicineList.size}")
             }

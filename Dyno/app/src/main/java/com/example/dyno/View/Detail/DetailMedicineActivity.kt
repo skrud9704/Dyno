@@ -14,11 +14,9 @@ import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.View.MyPage.Detail.Adapters.DetailMAdapter
 import com.example.dyno.R
-import com.example.dyno.VO.CombineVO
-import com.example.dyno.VO.DiseaseVO
-import com.example.dyno.VO.MedicineVO
-import com.example.dyno.VO.SupplementVO
+import com.example.dyno.VO.*
 import com.example.dyno.View.MyPage.DUR.DurActivity
+import com.google.android.gms.common.util.ArrayUtils
 import kotlinx.android.synthetic.main.activity_detail_medicine.*
 import retrofit2.Call
 import retrofit2.Response
@@ -27,6 +25,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailMedicineActivity : AppCompatActivity() {
     private lateinit var medicines : MutableList<MedicineVO>
@@ -44,6 +43,7 @@ class DetailMedicineActivity : AppCompatActivity() {
             val intent = Intent(this,DurActivity::class.java)
             intent.putExtra("DATA_DISEASE",data)
             startActivity(intent)
+            getDurInof()
         }
 
     }
@@ -119,25 +119,33 @@ class DetailMedicineActivity : AppCompatActivity() {
         recycler_detail_m.adapter = DetailMAdapter(this,data.d_medicines)     // RecyclerView Adapter
         recycler_detail_m.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
     }
-    private fun getDurInof(data : String){
+    private fun getDurInof(){
         val retrofit =RetrofitClient.getInstance()
         val durService=retrofit.create(RetrofitService::class.java)
+        medicines = data.d_medicines
+        for(i in medicines){
+            Log.d(TAG,"dur서버로 보내는 데이터 : $data")
+            durService.requestDurMM(i.name).enqueue(object : retrofit2.Callback<ArrayList<DurMMTestVO>>{
+                override fun onFailure(call: Call<ArrayList<DurMMTestVO>>, t: Throwable) {
+                    Log.d(TAG,"실패 {$t}")
 
-        Log.d(TAG,"dur서버로 보내는 데이터 : $data")
-        durService.requestDurMM(data).enqueue(object : retrofit2.Callback<ArrayList<String>>{
-            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
-                Log.d(TAG,"실패 {$t}")
+                }
+                override fun onResponse(
+                    call: Call<ArrayList<DurMMTestVO>>,
+                    response: Response<ArrayList<DurMMTestVO>>
+                ) {
+                    Log.d(TAG,"성공:"+response.body()!!)
+                }
 
-            }
-            override fun onResponse(
-                call: Call<ArrayList<String>>,
-                response: Response<ArrayList<String>>
-            ) {
+            })
+        }
 
-            }
-
-        })
+    }
+    private fun getMedicine(){
+        val localDB = RoomDB.getInstance(this)
     }
 
 
+
 }
+

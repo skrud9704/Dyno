@@ -44,7 +44,7 @@ interface RetrofitService {
     @POST("Dur/getMM")
     fun requestDurMM(
         @Field("m_name") m_name: String
-    ) : Call<ArrayList<String>>
+    ) : Call<ArrayList<DurMMTestVO>>
 
     @FormUrlEncoded
     @POST("Dur/getMS")
