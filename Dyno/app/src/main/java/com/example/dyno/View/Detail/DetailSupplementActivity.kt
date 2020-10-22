@@ -9,16 +9,27 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.View.MyPage.Detail.Adapters.DetailSAdapter
 import com.example.dyno.LocalDB.RoomDB
+import com.example.dyno.Network.RetrofitClient
+import com.example.dyno.Network.RetrofitService
 import com.example.dyno.R
 import com.example.dyno.VO.SupplementVO
+import com.example.dyno.VO.TestVO
 import kotlinx.android.synthetic.main.activity_detail_supplement.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailSupplementActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var data : SupplementVO
+
+    private lateinit var retrofit : Retrofit
+    private lateinit var supplementService : RetrofitService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +48,7 @@ class DetailSupplementActivity : AppCompatActivity() {
         data = intent.getParcelableExtra("DATA2")
         //Log.d(TAG,"${data.m_name},${data.m_company}")
 
-        // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우
+        // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우 = 처음으로 등록하는 경우
         if(data.m_date==""){
             // 1. m_date(등록일자)를 현재 시간으로 셋팅
             // 오레오 이상 SDK 28
@@ -52,6 +63,9 @@ class DetailSupplementActivity : AppCompatActivity() {
 
             // 2. 로컬 DB에 저장(Room)
             insertLocalDB()
+
+            // 3. 병용판단 시작
+            durSM(data.m_name)
         }
     }
 
@@ -75,6 +89,26 @@ class DetailSupplementActivity : AppCompatActivity() {
 
         // DB 닫기.
         RoomDB.destroyInstance()
+    }
+
+    // 병용판단 건강기능식품-의약품
+    private fun durSM(s_name : String){
+        retrofit = RetrofitClient.getInstance()
+        supplementService = retrofit.create(RetrofitService::class.java)
+        Log.d(TAG,"보내는 데이터 $s_name")
+
+        supplementService.requestDurSM(s_name).enqueue(object : Callback<ArrayList<TestVO>>{
+            override fun onFailure(call: Call<ArrayList<TestVO>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(call: Call<ArrayList<TestVO>>, response: Response<ArrayList<TestVO>>) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
     }
 
 }

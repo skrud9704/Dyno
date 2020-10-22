@@ -11,22 +11,30 @@ import androidx.room.Entity
 @Entity(tableName = "DUR")
 class DurVO() : Parcelable {
 
-    var diseaseName1 : String =""       // 질병명 1
-    var diseaseName2 : String =""       // 질병명 2
-    var supplementName : String =""     // 건강기능식품명
+    var durDate : String =""
 
-    var warnMedicineNames1 : ArrayList<String> = arrayListOf()  // 질병명 1의 병용불가 의약품 리스트
-    var warnMedicineNames2 : ArrayList<String> = arrayListOf()  // 질병명 1의 병용불가 의약품 리스트
+    var disease1 : String =""       // 질병1 PK
+    var diseaseName1 : String =""
+
+    var disease2 : String =""       // 질병2 PK (등록날짜)
+    var diseaseName2 : String =""
+
+    var supplementName : String =""     // 건강기능식품명 PK
+
+
+    var warnMedicineIngredients : ArrayList<String> = arrayListOf()  // 질-질 병용불가 주성분 리스트
+
+    var warnSupplementIngredients : ArrayList<String> = arrayListOf()
     var durDetail : String = ""        // 병용금기 내용
     var durCheck:Int=0//병용금기 의약품이 있는지 없는지 용으로 있으면 1 없으면 0
 
     constructor(diseaseName1 : String, diseaseName2 : String, supplementName : String,durDetail : String,
                 warnMedicineNames1 : ArrayList<String>,warnMedicineNames2 : ArrayList<String>,durCheck:Int) : this(){
-        this.diseaseName1 = diseaseName1
-        this.diseaseName2 = diseaseName2
+        this.disease1 = diseaseName1
+        this.disease2 = diseaseName2
         this.supplementName = supplementName
-        this.warnMedicineNames1 = warnMedicineNames1
-        this.warnMedicineNames2 = warnMedicineNames2
+        //this.warnMedicineNames1 = warnMedicineNames1
+        //this.warnMedicineNames2 = warnMedicineNames2
         this.durDetail = durDetail
         this.durCheck=durCheck
     }
@@ -41,8 +49,8 @@ class DurVO() : Parcelable {
         parcel.writeString(diseaseName2)
         parcel.writeString(supplementName)
         parcel.writeString(durDetail)
-        parcel.writeList(warnMedicineNames1)
-        parcel.writeList(warnMedicineNames2)
+        //parcel.writeList(warnMedicineNames1)
+        //parcel.writeList(warnMedicineNames2)
         parcel.writeValue(durCheck)
         parcel.writeInt(durCheck)
     }

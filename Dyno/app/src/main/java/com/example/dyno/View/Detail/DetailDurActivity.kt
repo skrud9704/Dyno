@@ -20,8 +20,8 @@ class DetailDurActivity : AppCompatActivity() {
         else
             detail_d_name2.text=data.supplementName
         detail_d_info.text=data.durDetail
-        recycler_detail_d1.adapter = DetailDAdapter(this,data.warnMedicineNames1)
-        recycler_detail_d2.adapter = DetailDAdapter(this,data.warnMedicineNames2)
+        //recycler_detail_d1.adapter = DetailDAdapter(this,data.warnMedicineNames1)
+        //recycler_detail_d2.adapter = DetailDAdapter(this,data.warnMedicineNames2)
         recycler_detail_d1.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
         recycler_detail_d2.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
     }
