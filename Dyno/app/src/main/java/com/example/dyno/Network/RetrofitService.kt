@@ -52,4 +52,10 @@ interface RetrofitService {
         @Field("m_name") m_name: String
     ) : Call<ArrayList<TestVO>>
 
+    @FormUrlEncoded
+    @POST("Dur/getSM")
+    fun requestDurSM(
+        @Field("s_name") s_name: String
+    ) : Call<ArrayList<TestVO>>
+
 }
