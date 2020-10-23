@@ -21,7 +21,7 @@ class DurMMTestVO() : Parcelable {
     var durReason:String=""
 
     constructor(parcel: Parcel) : this() {
-
+        dDate=parcel.readString()
         mName=parcel.readString()
         durName=parcel.readString()
         ingredient=parcel.readString()
