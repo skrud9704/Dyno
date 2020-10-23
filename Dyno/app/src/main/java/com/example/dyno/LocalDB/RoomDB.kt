@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.dyno.VO.*
 
-@Database(version = 1, entities = [SupplementVO::class, DiseaseVO::class, DurVO::class], exportSchema = false)
+@Database(version = 3, entities = [SupplementVO::class, DiseaseVO::class, DurVO::class], exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class RoomDB : RoomDatabase(){
 
     abstract fun supplementDAO() : SupplementDAO
     abstract fun diseaseDAO() : DiseaseDAO
-    abstract fun DurVO():DurDAO
+    abstract fun durDAO():DurDAO
 
     // 싱글톤
     companion object{

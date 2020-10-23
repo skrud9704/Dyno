@@ -82,6 +82,7 @@ class DurVO() : Parcelable {
         }
     }
 }
+
 @Dao
 interface DurDAO : RoomDAO<DurVO> {
     // 키 겹칠때 지금 넣는것으로 대체
