@@ -35,12 +35,14 @@ class DurVO() : Parcelable {
     var duritems2 : ArrayList<String> = arrayListOf()
 
     @ColumnInfo(name="dur_reason")
-    var durReason : String =""     // 건강기능식품명
+    var durReason : ArrayList<String> = arrayListOf()     // 건강기능식품명
 
 
 
-    constructor(date:String, type:Int, itemDate1 : String, itemName1:String, itemDate2 : String, itemName2 : String,
-                duritems1 : ArrayList<String>, duritems2 : ArrayList<String>, durReason:String) : this(){
+    constructor(
+        date:String, type:Int, itemDate1: String, itemName1:String, itemDate2: String, itemName2: String,
+        duritems1: ArrayList<String>, duritems2: ArrayList<String>, durReason: ArrayList<String>
+    ) : this(){
         this.date=date
         this.type=type
         this.itemDate1 = itemDate1
@@ -55,7 +57,8 @@ class DurVO() : Parcelable {
 
     constructor(parcel: Parcel) : this(parcel.readString()!!,parcel.readInt()!!,parcel.readString()!!, parcel.readString()!!, parcel.readString()!!,parcel.readString()!!,
         parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,
-        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,parcel.readString())
+        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>,
+        parcel.readArrayList(String::class.java.classLoader) as ArrayList<String>)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(date)
@@ -66,7 +69,7 @@ class DurVO() : Parcelable {
         parcel.writeString(itemName2)
         parcel.writeList(duritems1)
         parcel.writeList(duritems2)
-        parcel.writeString(durReason)
+        parcel.writeList(durReason)
     }
 
     override fun describeContents(): Int {
