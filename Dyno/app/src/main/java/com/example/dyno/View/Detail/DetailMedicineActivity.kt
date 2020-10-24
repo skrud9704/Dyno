@@ -2,7 +2,6 @@ package com.example.dyno.View.MyPage.Detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,12 +15,10 @@ import com.example.dyno.View.MyPage.Detail.Adapters.DetailMAdapter
 import com.example.dyno.R
 import com.example.dyno.VO.*
 import com.example.dyno.View.MyPage.DUR.DurActivity
-import com.google.android.gms.common.util.ArrayUtils
 import kotlinx.android.synthetic.main.activity_detail_medicine.*
 import retrofit2.Call
 import retrofit2.Response
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -31,6 +28,8 @@ class DetailMedicineActivity : AppCompatActivity() {
     private lateinit var medicines : MutableList<MedicineVO>
     private val TAG = this::class.java.simpleName
     private lateinit var data : DiseaseVO
+    private var  durItems:ArrayList<DurMMTestVO> = ArrayList()
+    private lateinit var  userDurItem:ArrayList<DurVO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +42,6 @@ class DetailMedicineActivity : AppCompatActivity() {
             val intent = Intent(this,DurActivity::class.java)
             intent.putExtra("DATA_DISEASE",data)
             startActivity(intent)
-            getDurInof()
         }
 
     }
@@ -97,6 +95,13 @@ class DetailMedicineActivity : AppCompatActivity() {
 
             // 2. 로컬 DB에 저장(Room)
             insertLocalDB()
+            var medicine=""
+            medicines = data.d_medicines
+            for(item in medicines){
+                medicine+=item.name
+                medicine+=","
+            }
+            getDurInfo(medicine)
         }
     }
 
@@ -119,33 +124,70 @@ class DetailMedicineActivity : AppCompatActivity() {
         recycler_detail_m.adapter = DetailMAdapter(this,data.d_medicines)     // RecyclerView Adapter
         recycler_detail_m.layoutManager = LinearLayoutManager(this)         // 이거 해줘야 레이아웃 보임.
     }
-    private fun getDurInof(){
+    private fun getDurInfo(medicine: String) {
         val retrofit =RetrofitClient.getInstance()
         val durService=retrofit.create(RetrofitService::class.java)
-        medicines = data.d_medicines
-        for(i in medicines){
-            Log.d(TAG,"dur서버로 보내는 데이터 : $data")
-            durService.requestDurMM(i.name).enqueue(object : retrofit2.Callback<ArrayList<DurMMTestVO>>{
-                override fun onFailure(call: Call<ArrayList<DurMMTestVO>>, t: Throwable) {
-                    Log.d(TAG,"실패 {$t}")
 
-                }
-                override fun onResponse(
-                    call: Call<ArrayList<DurMMTestVO>>,
-                    response: Response<ArrayList<DurMMTestVO>>
-                ) {
-                    Log.d(TAG,"성공:"+response.body()!!)
-                }
-
-            })
-        }
-
-    }
-    private fun getMedicine(){
         val localDB = RoomDB.getInstance(this)
+        Log.d(TAG, "dur서버로 보내는 데이터 : $medicine")
+        durService.requestDurMM(medicine).enqueue(object:retrofit2.Callback<ArrayList<DurMMTestVO>>{
+            override fun onFailure(call: Call<ArrayList<DurMMTestVO>>, t: Throwable) {
+                Log.d(TAG, "실패 {$t}")
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<DurMMTestVO>>,
+                response: Response<ArrayList<DurMMTestVO>>
+            ) {
+                var durNames:ArrayList<String> = ArrayList()
+                for(dur in response.body()!!){
+                    var temp:String=dur.durName
+                    durNames.add(temp)
+                    durItems.add(dur)
+                }
+
+                if(durItems.size==0){
+                    Log.d(TAG,"dur 없음")
+                }else{
+                    val diseaseList:List<DiseaseMinimal> = localDB.diseaseDAO().getDiseaseMinimal()
+                    for(item in diseaseList){
+                        val durMMList1:ArrayList<String> = ArrayList()//item1에 해당하는 의약품 리스트
+                        val durMMList2:ArrayList<String> = ArrayList()//items1에 해당하는 의약품 리스트
+                        var durReason:ArrayList<String> = ArrayList()//dur 이유
+                        Log.d(TAG,item.d_date)//기존에 저장되어 있는 아이들 키값
+                        for(med in item.d_medicines){//처방전에 있는 의약품마다
+                            var check:Boolean = durNames.contains(med.name)
+                            if(check){
+                                var temp = durNames.indexOf(med.name)
+                                var durMM:DurMMTestVO=durItems[temp]
+                                durMMList1.add(durMM.mName)//새로등록하는 아이
+                                durMMList2.add(med.name)//기존에 있던 아이
+                                durReason.add(durMM.durReason)//같이 먹으면 안되는 이유
+                            }
+                        }
+                        if(durMMList1.size!=0){
+                            var today = ""
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                val now = LocalDateTime.now()
+                                today = now.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss.SSS"))
+                            }
+                            //그 이하
+                            else{
+                                today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(Date())
+
+                            }
+
+                            val durVo = DurVO(today,1,data.d_date,data.d_name,item.d_date,item.d_name,
+                            durMMList1,durMMList2,durReason)
+                            Log.d(TAG,"병용 room insert:"+item.d_name+today)
+                            localDB.durDAO().insertDur(durVo)
+                        }
+                    }
+                    RoomDB.destroyInstance()
+                }
+            }
+        })
+
     }
-
-
-
 }
 
