@@ -178,7 +178,7 @@ class DetailSupplementActivity : AppCompatActivity() {
                     val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(Date())
                     today
                 }
-                durArrayList.add(DurVO(date,2,disease.d_date,disease.d_name,"","",duritem1,duritem2,durReason))
+                durArrayList.add(DurVO(date,2,disease.d_date,disease.d_name,"",data.m_name,duritem1,duritem2,durReason))
             }
         }
         //////////////////////// 4중 for 문 끝 ////////////////////////

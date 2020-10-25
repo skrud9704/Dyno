@@ -104,5 +104,7 @@ interface DurDAO : RoomDAO<DurVO> {
     @Insert(onConflict=OnConflictStrategy.REPLACE)
     fun insertDur(durVO:DurVO):Long
 
+    @Query("SELECT * FROM DUR")
+    fun getDurList() : List<DurVO>
 
 }

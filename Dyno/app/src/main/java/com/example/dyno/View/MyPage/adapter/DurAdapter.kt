@@ -1,5 +1,6 @@
 package com.example.dyno.View.MyPage.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,80 +10,43 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.View.MyPage.Detail.DetailDurActivity
 import com.example.dyno.R
 import com.example.dyno.VO.DurVO
+import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.*
 import java.util.ArrayList
 
-class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
-    var versionModels: List<String>? = null
-    var isHomeList: Boolean
-    var context: Context? = null
+class DurAdapter(private val context: Context) : RecyclerView.Adapter<DurAdapter.ViewHolder>() {
 
-    fun setDiseaseList(context: Context) {
-        val listArray =
-            context.resources.getStringArray(R.array.dur_name)
-        val subTitleArray =
-            context.resources.getStringArray(R.array.disease_date)
-        val colorArray = context.resources.getStringArray(R.array.dur_result)
-        homeActivitiesList!!.clear()
-        homeActivitiesSubList.clear()
-        homeColorList.clear()
-        for (i in listArray.indices) {
-            homeActivitiesList!!.add(listArray[i])
-            homeActivitiesSubList.add(subTitleArray[i])
-            homeColorList.add(colorArray[i])
-        }
-    }
+    // 로컬 DB, DAO 생성.
+    private val localDB = RoomDB.getInstance(context)
+    private val durDAO = localDB.durDAO()
+    private val durList : List<DurVO> = durDAO.getDurList()
 
-    // context만 넘기면 자체 데모데이터로 넣고
-    constructor(context: Context) {
-        isHomeList = true
-        this.context = context
-        setDiseaseList(context)
-
-    }
-    // List를 넘기면 실제데이터로 보여줌.
-    constructor(versionModels: List<String>?) {
-        isHomeList = false
-        this.versionModels = versionModels
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): VersionViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.recyclerlist_item_mypage, viewGroup, false)
-        return VersionViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(versionViewHolder: VersionViewHolder, i: Int) {
-        if (isHomeList) {
-
-            versionViewHolder.title.text = homeActivitiesList!![i]
-            versionViewHolder.subTitle.text = homeActivitiesSubList[i]
-            //1 : 정상, 2 : 조심, 3 : 경고
-            if(homeColorList[i]=="1"){
-                versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.green_card))
-            }else if(homeColorList[i]=="2"){
-                versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.orange_card))
-            }else if(homeColorList[i]=="3"){
-                versionViewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.red_card))
-            }
-
-        } else {
-            versionViewHolder.title.text = versionModels!![i]
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+        if(durList[i].type==1) {
+            viewHolder.title.text = "${durList[i].itemName1}의 처방약품 + ${durList[i].itemName2}의 처방약품"
+            viewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context,R.color.purple_50))
         }
+        else if(durList[i].type==2){
+            viewHolder.title.text = "${durList[i].itemName1}의 처방약품 + ${durList[i].itemName2}"
+            viewHolder.cardItemLayout.setCardBackgroundColor(ContextCompat.getColor(context,R.color.cyan_50))
+        }
+
+
+        viewHolder.subTitle.text = durList[i].date
     }
 
     override fun getItemCount(): Int {
-        return if (isHomeList)
-            if (homeActivitiesList == null)
-                0
-            else
-                homeActivitiesList!!.size
-        else if (versionModels == null)
-            0
-        else
-            versionModels!!.size
+        return durList.size
     }
 
     override fun getItemId(position: Int): Long {
@@ -93,23 +57,14 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
         return position
     }
 
-    inner class VersionViewHolder(itemView: View) :
+    inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var cardItemLayout: CardView
-        var title: TextView
-        var subTitle: TextView
-
+        var cardItemLayout: CardView = itemView.cardlist_item
+        var title: TextView = itemView.listitem_name
+        var subTitle: TextView = itemView.listitem_subname
 
         init {
-
-            cardItemLayout = itemView.findViewById(R.id.cardlist_item)
-            title = itemView.findViewById(R.id.listitem_name)
-            subTitle = itemView.findViewById(R.id.listitem_subname)
-            if (isHomeList) {
-                itemView.setOnClickListener(this)
-            } else {
-                subTitle.visibility = View.GONE
-            }
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
@@ -121,18 +76,9 @@ class DurAdapter : RecyclerView.Adapter<DurAdapter.VersionViewHolder> {
             val testVo3 = DurVO("2016",1,"2016","각막염","2016","감기",testVo,testV2,re)
 
             intent.putExtra("DATA3",testVo3)
-            context!!.startActivity(intent)
+            context.startActivity(intent)
 
         }
     }
 
-
-    companion object {
-        var homeActivitiesList: MutableList<String>? =
-            ArrayList()
-        var homeActivitiesSubList: MutableList<String> =
-            ArrayList()
-        var homeColorList: MutableList<String> =
-            ArrayList()
-    }
 }

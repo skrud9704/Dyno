@@ -39,12 +39,6 @@ class DetailMedicineActivity : AppCompatActivity() {
         getData()
         setView()
 
-        m_dur_btn.setOnClickListener {
-            val intent = Intent(this,DurActivity::class.java)
-            intent.putExtra("DATA_DISEASE",data)
-            startActivity(intent)
-        }
-
     }
 
     // 복용 마지막 날짜를 계산하는 함수
@@ -256,7 +250,7 @@ class DetailMedicineActivity : AppCompatActivity() {
                     val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(Date())
                     today
                 }
-                durArrayList.add(DurVO(date,2,data.d_date,data.d_name,"","",duritem1,duritem2,durReason))
+                durArrayList.add(DurVO(date,2,data.d_date,data.d_name,"",supplement.s_name,duritem1,duritem2,durReason))
             }
         }
 
