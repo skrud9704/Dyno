@@ -83,6 +83,7 @@ class RegistMedicineActivity : AppCompatActivity() {
             val intent = Intent(this, DetailMedicineActivity::class.java)
             intent.putExtra("DATA_DISEASE", DiseaseVO("A000","아직 몰라","", medicines))
             startActivity(intent)
+            finish()
         }
 
         // 재촬영 버튼 (OCR결과 없어서)

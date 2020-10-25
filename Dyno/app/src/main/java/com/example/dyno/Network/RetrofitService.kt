@@ -47,8 +47,8 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("Dur/getMS")
     fun requestDurMS(
-        @Field("m_name") m_name: String
-    ) : Call<ArrayList<TestVO>>
+        @Field("m_names") m_names: String
+    ) : Call<ArrayList<DurMSVO>>
 
     @FormUrlEncoded
     @POST("Dur/getSM")

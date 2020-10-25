@@ -61,7 +61,7 @@ class DurActivity : AppCompatActivity() {
     // 리퀘스트: 의약품이름, 의-건 병용판단
     private fun getDurMS(service : RetrofitService, m_name : String){
         val durList : ArrayList<TestVO>  = arrayListOf()
-        service.requestDurMS(m_name).enqueue(object : Callback<ArrayList<TestVO>>{
+        /*service.requestDurMS(m_name).enqueue(object : Callback<ArrayList<TestVO>>{
             override fun onFailure(call: Call<ArrayList<TestVO>>, t: Throwable) {
                 Log.d(TAG,"실패44 : {$t}")
             }
@@ -74,6 +74,6 @@ class DurActivity : AppCompatActivity() {
                 }
             }
 
-        })
+        })*/
     }
 }

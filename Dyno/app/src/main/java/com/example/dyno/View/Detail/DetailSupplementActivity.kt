@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.R
 import com.example.dyno.VO.*
+import com.example.dyno.View.MyPage.Detail.Adapters.DetailSAdapter
 import kotlinx.android.synthetic.main.activity_detail_supplement.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -76,7 +78,7 @@ class DetailSupplementActivity : AppCompatActivity() {
 
         //val detailSAdapter = DetailSAdapter(this,data.m_ingredients,data.m_ingredients_info)
         //recycler_detail_s.adapter = detailSAdapter
-        //recycler_detail_s.layoutManager=LinearLayoutManager(this)
+        //recycler_detail_s.layoutManager= LinearLayoutManager(this)
     }
 
     private fun insertLocalDB(){

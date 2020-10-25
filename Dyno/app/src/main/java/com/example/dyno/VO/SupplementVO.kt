@@ -67,7 +67,7 @@ class SupplementVO() : Parcelable{
 
 }
 // 마이페이지>건강기능식품 탭에서 보여지는 정보만 가진 객체
-class SupplementMinimal(val s_name : String,val s_date : String)
+class SupplementMinimal(val s_name : String,val s_date : String, val s_ingredient : String)
 
 @Dao
 interface SupplementDAO : RoomDAO<SupplementVO>{
@@ -78,6 +78,6 @@ interface SupplementDAO : RoomDAO<SupplementVO>{
     @Query("SELECT * FROM Supplement WHERE s_name=:name")
     fun getSupplement(name: String) : SupplementVO
 
-    @Query("SELECT s_name, s_date FROM Supplement")
+    @Query("SELECT s_name, s_date, s_ingredient FROM Supplement")
     fun getSupplementMinimal() : List<SupplementMinimal>
 }
