@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.RegistSupplement
+package com.example.dyno.View.RegistSupplement
 
 import android.content.Context
 import android.view.LayoutInflater

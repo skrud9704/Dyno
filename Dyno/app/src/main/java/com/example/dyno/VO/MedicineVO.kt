@@ -65,4 +65,9 @@ class MedicineVO() : Parcelable{
         }
     }
 
+
+    fun getIngredientsArray() : List<String>{
+        return ingredient.split(",")
+    }
+
 }

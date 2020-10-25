@@ -64,29 +64,6 @@ class MyPageActivity : AppCompatActivity() {
         val collapsingToolbarLayout =
             findViewById<View>(R.id.htab_collapse_toolbar) as CollapsingToolbarLayout
 
-        /*try {
-            val bitmap = BitmapFactory.decodeResource(resources,
-                R.drawable.dyno_logo
-            )
-            Palette.from(bitmap).generate { palette ->
-                //val vibrantColor: Int = palette!!.getVibrantColor(R.color.primary_500)
-                val vibrantColor: Int = palette!!.getVibrantColor(R.color.dynoMainWhite)
-                //val vibrantDarkColor: Int = palette.getDarkVibrantColor(R.color.primary_700)
-                val vibrantDarkColor: Int = palette.getDarkVibrantColor(R.color.dynoMainBeige)
-                collapsingToolbarLayout.setContentScrimColor(vibrantColor)
-                collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkColor)
-            }
-        } catch (e: Exception) {
-            // if Bitmap fetch fails, fallback to primary colors
-            Log.e(TAG, "onCreate: failed to create bitmap from background", e.fillInStackTrace())
-            collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this,
-                R.color.dynoMainWhite
-            ))
-            collapsingToolbarLayout.setStatusBarScrimColor(ContextCompat.getColor(this,
-                R.color.dynoMainBeige
-            ))
-        }*/
-
         // 탭 변경 될 때 리스너
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -105,7 +82,6 @@ class MyPageActivity : AppCompatActivity() {
 
         if (intent.hasExtra("ver")) {
             viewPager.currentItem = 1
-
         }
     }
 
@@ -121,7 +97,7 @@ class MyPageActivity : AppCompatActivity() {
         adapter.addFrag(
             MyFragment(
                 ContextCompat.getColor(this, R.color.dynoMainBeige), 0
-            ), "의약품"
+            ), "처방약(의약품)"
         )
         adapter.addFrag(
             MyFragment(
@@ -133,7 +109,7 @@ class MyPageActivity : AppCompatActivity() {
             MyFragment(
                 ContextCompat.getColor(this, R.color.dynoMainBeige),
                 2
-            ), "병용판단"
+            ), "병용 금기"
         )
         viewPager.adapter = adapter
     }
@@ -197,11 +173,7 @@ class MyPageActivity : AppCompatActivity() {
             this.data_type_num = data_type
         }
 
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             val view: View =
                 inflater.inflate(R.layout.fragment_my_page, container, false)
             val frameLayout = view.findViewById<FrameLayout>(R.id.dummyfrag_bg)

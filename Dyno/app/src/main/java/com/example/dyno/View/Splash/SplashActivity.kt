@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.Splash
+package com.example.dyno.View.Splash
 
 import android.content.Context
 import android.content.Intent

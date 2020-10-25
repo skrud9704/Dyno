@@ -17,18 +17,19 @@ class MainAdapter(private val context: Context,private val list:ArrayList<NowEat
         val inflater=LayoutInflater.from(container.context)
         val view=inflater.inflate(R.layout.layout,container,false)
 
-        view.name.text=list[position].name
-        view.detail.text=list[position].detail
-        view.detail2.text=list[position].detail2
-        view.date.text=list[position].date
+        view.name.text=list[position].item_name
+        view.date.text=list[position].item_date
+        view.detail.text=list[position].item_list_data
+        //view.detail2.text=list[position].detail2
 
-        // 건강기능식품이 경우 - 밝은 파랑
-        if(list[position].category==1){
+        // 의약품을 경우 - 파랑
+        if(list[position].type==1){
             view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
                 R.color.dynoMainBlueLight
             ))
-        }// 의약품을 경우 - 파랑
-        else if(list[position].category==0){
+        }
+        // 건강기능식품일 경우 - 밝은 파랑
+        else if(list[position].type==2){
             view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
                 R.color.dynoMainBlue
             ))

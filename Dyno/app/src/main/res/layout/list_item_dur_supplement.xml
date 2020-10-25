@@ -19,15 +19,6 @@
         android:singleLine="true"
         android:ellipsize="marquee"/>
 
-    <!--<TextView
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent"
-        android:text="@string/mypage_date"
-        android:gravity="center_vertical"
-        android:textSize="15sp"
-        android:textColor="@color/dynoBlack"/>-->
-
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

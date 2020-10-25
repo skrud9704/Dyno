@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.RegistMedicine
+package com.example.dyno.View.RegistMedicine
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -18,13 +18,8 @@ import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.VO.DiseaseGuessVO
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
-import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
-import com.example.dyno.View.RegistMedicine.DiseaseAdapter
-import com.example.dyno.View.RegistMedicine.MedicineAdapter
-import com.google.gson.JsonArray
+import com.example.dyno.View.Detail.DetailMedicineActivity
 import kotlinx.android.synthetic.main.activity_regist_medicine.*
-import kotlinx.android.synthetic.main.activity_regist_supplement.*
-import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
@@ -95,6 +90,7 @@ class RegistMedicineActivity : AppCompatActivity() {
             else
                 intent.putExtra("DATA_DISEASE", DiseaseVO("A000","아직 몰라","", medicines))
             startActivity(intent)
+            finish()
         }
 
         // 재촬영 버튼 (OCR결과 없어서)

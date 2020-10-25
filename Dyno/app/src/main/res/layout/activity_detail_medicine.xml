@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.MyPage.Detail.DetailMedicineActivity"
+    tools:context=".View.Detail.DetailMedicineActivity"
     android:orientation="vertical"
     android:background="@color/dynoMainBeige">
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/dynoBlack"
             android:text="@string/detail_disease_date_s"/>
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dynoBlack"
@@ -44,17 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dynoBlack"
-            android:text="@string/detail_disease_date_e"/>
+            android:text="@string/detail_disease_date_e"/>-->
         
     </LinearLayout>
-
-    <Button
-        android:id="@+id/m_dur_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_gravity="end"
-        android:text="@string/detail_dur_btn"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_detail_m"
