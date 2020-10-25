@@ -69,13 +69,7 @@ class DurAdapter(private val context: Context) : RecyclerView.Adapter<DurAdapter
 
         override fun onClick(v: View?) {
             val intent = Intent(context,DetailDurActivity::class.java)
-            val testVo : ArrayList<String> = arrayListOf("뮤코세라정","볼그레액")
-            val testV2 : ArrayList<String> = arrayListOf("세포독심정")
-
-            var re:ArrayList<String> = arrayListOf("무엇무엇을 유발해서 좋지 않음")
-            val testVo3 = DurVO("2016",1,"2016","각막염","2016","감기",testVo,testV2,re)
-
-            intent.putExtra("DATA3",testVo3)
+            intent.putExtra("DATA3",durList[adapterPosition])
             context.startActivity(intent)
 
         }
