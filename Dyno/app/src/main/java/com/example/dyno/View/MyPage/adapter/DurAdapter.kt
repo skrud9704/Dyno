@@ -42,7 +42,7 @@ class DurAdapter(private val context: Context) : RecyclerView.Adapter<DurAdapter
         }
 
 
-        viewHolder.subTitle.text = durList[i].date
+        viewHolder.subTitle.text = durList[i].date.substring(0,10)
     }
 
     override fun getItemCount(): Int {
