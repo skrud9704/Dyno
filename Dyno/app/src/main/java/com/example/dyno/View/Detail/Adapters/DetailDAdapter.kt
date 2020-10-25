@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.Detail.Adapters
+package com.example.dyno.View.Detail.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dyno.View.MyPage.Detail.DetailSupplementActivity
+import com.example.dyno.View.Detail.DetailSupplementActivity
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.R
 import com.example.dyno.VO.SupplementMinimal

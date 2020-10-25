@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.LocalDB.RoomDB
-import com.example.dyno.View.MyPage.Detail.DetailDurActivity
+import com.example.dyno.View.Detail.DetailDurActivity
 import com.example.dyno.R
 import com.example.dyno.VO.DurVO
 import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.*

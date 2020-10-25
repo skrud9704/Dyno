@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.Detail.Adapters
+package com.example.dyno.View.Detail.Adapters
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dyno.View.MyPage.Detail.Adapters.DetailSAdapter.ViewHolder
+import com.example.dyno.View.Detail.Adapters.DetailSAdapter.ViewHolder
 import com.example.dyno.R
 import kotlinx.android.synthetic.main.recyclerlist_item_expandable_supplement.view.*
 
@@ -107,11 +107,10 @@ class DetailSAdapter(context: Context, ingredients : ArrayList<String>, infos : 
         val dpValue=holder.info_layout.layoutParams.height
         val d = context.resources.displayMetrics.density
         val height = (dpValue*d).toInt()
-        var va : ValueAnimator = ValueAnimator()
-        if(isExpanded){
-            va = ValueAnimator.ofInt(0,height)
+        val va = if(isExpanded){
+            ValueAnimator.ofInt(0,height)
         }else{
-            va = ValueAnimator.ofInt(height,0)
+            ValueAnimator.ofInt(height,0)
         }
 
         va.duration=600

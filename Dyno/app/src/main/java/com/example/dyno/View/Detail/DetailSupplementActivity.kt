@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.Detail
+package com.example.dyno.View.Detail
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.R
 import com.example.dyno.VO.*
-import com.example.dyno.View.MyPage.Detail.Adapters.DetailSAdapter
+import com.example.dyno.View.Detail.Adapters.DetailSAdapter
 import kotlinx.android.synthetic.main.activity_detail_supplement.*
 import retrofit2.Call
 import retrofit2.Callback

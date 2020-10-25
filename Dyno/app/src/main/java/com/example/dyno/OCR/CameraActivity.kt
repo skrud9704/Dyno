@@ -18,7 +18,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.example.dyno.R
-import com.example.dyno.View.MyPage.RegistMedicine.RegistMedicineActivity
+import com.example.dyno.View.RegistMedicine.RegistMedicineActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 import java.io.IOException

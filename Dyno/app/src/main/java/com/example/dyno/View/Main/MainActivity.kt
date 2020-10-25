@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.dyno.View.MyPage.MyPageActivity
 import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.R
-import com.example.dyno.View.MyPage.RegistSupplement.RegistSupplementActivity
+import com.example.dyno.View.RegistSupplement.RegistSupplementActivity
 import com.example.dyno.VO.NowEatVO
 import kotlinx.android.synthetic.main.activity_main.*
 

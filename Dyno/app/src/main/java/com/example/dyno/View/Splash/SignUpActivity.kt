@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.Splash
+package com.example.dyno.View.Splash
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -44,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
         // 로그 확인.
         Log.d("device info",deviceId)
 
-        consent.setOnCheckedChangeListener { buttonView, isChecked ->
+        consent.setOnCheckedChangeListener { _, isChecked ->
             isConsent = isChecked
         }
 

@@ -1,4 +1,4 @@
-package com.example.dyno.View.MyPage.RegistSupplement
+package com.example.dyno.View.RegistSupplement
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.OCR.CameraActivity
-import com.example.dyno.View.MyPage.Detail.DetailSupplementActivity
+import com.example.dyno.View.Detail.DetailSupplementActivity
 import com.example.dyno.R
 import com.example.dyno.Network.RetrofitService
 import com.example.dyno.Network.RetrofitClient

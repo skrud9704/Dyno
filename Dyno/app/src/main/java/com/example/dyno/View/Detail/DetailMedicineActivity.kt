@@ -1,7 +1,6 @@
-package com.example.dyno.View.MyPage.Detail
+package com.example.dyno.View.Detail
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,10 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.Network.RetrofitClient
 import com.example.dyno.Network.RetrofitService
-import com.example.dyno.View.MyPage.Detail.Adapters.DetailMAdapter
+import com.example.dyno.View.Detail.Adapters.DetailMAdapter
 import com.example.dyno.R
 import com.example.dyno.VO.*
-import com.example.dyno.View.MyPage.DUR.DurActivity
 import kotlinx.android.synthetic.main.activity_detail_medicine.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -162,8 +160,7 @@ class DetailMedicineActivity : AppCompatActivity() {
                             }
                         }
                         if(durMMList1.size!=0){
-                            var today = ""
-                            today = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            val today = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 val now = LocalDateTime.now()
                                 now.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss.SSS"))
                             } else{

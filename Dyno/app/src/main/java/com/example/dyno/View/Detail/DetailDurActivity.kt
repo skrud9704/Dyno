@@ -1,9 +1,8 @@
-package com.example.dyno.View.MyPage.Detail
+package com.example.dyno.View.Detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dyno.View.MyPage.Detail.Adapters.DetailDAdapter
+import com.example.dyno.View.Detail.Adapters.DetailDAdapter
 import com.example.dyno.R
 import com.example.dyno.VO.DurVO
 import kotlinx.android.synthetic.main.activity_detail_dur.*

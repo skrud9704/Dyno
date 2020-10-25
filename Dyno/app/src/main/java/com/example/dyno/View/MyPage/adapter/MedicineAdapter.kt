@@ -2,20 +2,15 @@ package com.example.dyno.View.MyPage.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.LocalDB.RoomDB
-import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
+import com.example.dyno.View.Detail.DetailMedicineActivity
 import com.example.dyno.R
 import com.example.dyno.VO.DiseaseMinimal
-import com.example.dyno.VO.DiseaseVO
-import com.example.dyno.VO.MedicineVO
-import com.example.dyno.View.MyPage.Detail.DetailSupplementActivity
-import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.*
 import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.listitem_name
 import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.listitem_subname
 import kotlinx.android.synthetic.main.recyclerlist_item_mypage_medicine.view.*
