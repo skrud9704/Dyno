@@ -67,7 +67,16 @@ class SupplementVO() : Parcelable{
 
 }
 // 마이페이지>건강기능식품 탭에서 보여지는 정보만 가진 객체
-class SupplementMinimal(val s_name : String,val s_date : String, val s_ingredient : String)
+class SupplementMinimal(val s_name : String,val s_date : String, val s_ingredient : String){
+    fun getIngredients() : String{
+        val list = s_ingredient.split(",")
+        var go : String = ""
+        for(item in list){
+            go = go.plus(item).plus("\n")
+        }
+        return go
+    }
+}
 
 @Dao
 interface SupplementDAO : RoomDAO<SupplementVO>{

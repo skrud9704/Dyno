@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.MyPage.Detail.DetailMedicineActivity"
+    tools:context=".View.Detail.DetailMedicineActivity"
     android:orientation="vertical"
     android:background="@color/dynoMainBeige">
 

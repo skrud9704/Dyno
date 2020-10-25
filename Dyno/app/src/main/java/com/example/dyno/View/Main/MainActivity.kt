@@ -3,6 +3,7 @@ package com.example.dyno.View.Main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.View.MyPage.MyPageActivity
 import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.R
@@ -12,17 +13,31 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val userEatList : ArrayList<NowEatVO> = arrayListOf()
+    private val adapter : MainAdapter = MainAdapter(this,userEatList)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 페이저 데이터인 NowEatVO 가져오기
-        getData()
         // 페이저 셋팅 (사용자가 현재 복용 중인 약/건강기능식품)
         setPager()
+        // 페이저 데이터인 NowEatVO 가져오기
+        getData()
         // 각 버튼 클릭 리스너 셋팅
         setClickListener()
     }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    /*override fun onPostResume() {
+        super.onPostResume()
+        adapter.notifyDataSetChanged()
+
+    }*/
 
     private fun setPager(){
         val dpValue = 40
@@ -34,10 +49,6 @@ class MainActivity : AppCompatActivity() {
         mPager.setPadding(margin*11/12,0,margin*11/12,0)
         mPager.pageMargin=margin/2
 
-        val adapter= MainAdapter(
-            this,
-            whatIEatList
-        )
         mPager.adapter=adapter
     }
 
@@ -69,25 +80,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData(){
+        val localDB = RoomDB.getInstance(this)
+        val diseaseList = localDB.diseaseDAO().getDiseaseMinimal()
+        val supplementList = localDB.supplementDAO().getSupplementMinimal()
 
+        userEatList.clear()
+
+        for(disease in diseaseList){
+            val date = disease.d_date.substring(0,10)
+            userEatList.add(NowEatVO(1,disease.d_date,disease.d_name,date,disease.getMedicineNames()))
+        }
+
+        for(supplement in supplementList){
+            val date = supplement.s_date.substring(0,10)
+            userEatList.add(NowEatVO(2,supplement.s_name,supplement.s_name,date,supplement.getIngredients()))
+        }
+
+        adapter.notifyDataSetChanged()
     }
 
-
-    companion object{
-        val whatIEatList =arrayListOf(
-            NowEatVO(
-                "급성 아토피결막염",
-                "하메론에이점안액\n톨론점안액\n올로텐플러스점안액",
-                "60mg/1회\n1방울/1회\n1방울/1회", "2020-09-26", 0
-            ),
-            NowEatVO(
-                "락토바이옴 장용성",
-                "산화아연",
-                "",
-                "2020-09-26",
-                1
-            )
-        )
-    }
 
 }

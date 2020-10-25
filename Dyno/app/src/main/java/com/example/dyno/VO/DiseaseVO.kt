@@ -65,6 +65,14 @@ class DiseaseMinimal(val d_name : String,val d_date : String,val d_medicines : A
         }
         return names
     }
+
+    fun getMedicineNameList() : ArrayList<String>{
+        val value = getMedicineNames()
+        val list = value.split(",\n")
+        val go : ArrayList<String> = arrayListOf()
+        go.addAll(list)
+        return go
+    }
 }
 
 @Dao

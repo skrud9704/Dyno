@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.MyPage.RegistMedicine.RegistMedicineActivity"
+    tools:context=".View.RegistMedicine.RegistMedicineActivity"
     android:background="@color/dynoMainWhite"
     android:padding="15dp">
     <ScrollView
@@ -81,7 +81,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ocr_result_list"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="170dp"
+                    android:maxHeight="250dp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintStart_toEndOf="parent"
