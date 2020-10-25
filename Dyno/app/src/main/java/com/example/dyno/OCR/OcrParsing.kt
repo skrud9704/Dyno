@@ -14,6 +14,7 @@ class OcrParsing {
     fun prescriptionDrugsR(transText: String): String {
         Log.d("pars_start","ocr 결과"+transText)
         var arr = transText.split("/").toTypedArray()
+
         //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
 
         var med = ""
@@ -26,7 +27,17 @@ class OcrParsing {
                         date += arr[i]
                         date += ","
                     }else{
-                        med += arr[i]
+                        var temp=""
+                        if(arr[i].contains("(")){
+                            temp=arr[i].split("(").toTypedArray()[0]
+                            med+=temp
+                        }else if(arr[i].contains("m")){
+                            temp=arr[i].split("m").toTypedArray()[0]
+                            med+=temp
+                        }else{
+                            med += arr[i]
+                        }
+
                         med += ","
                         resultList.add(arr[i])
                     }
@@ -52,6 +63,8 @@ class OcrParsing {
         val reg=Regex("[A-Z]\\d{2}")//질병분류기호를 찾기 위해
         val reg2=Regex("[60][0-9]{8}")//보험약가코드찾기 위해
         val reg3=Regex("[.]")
+        val reg4=Regex("[m]")
+
 
         for(i in arr){
             if(reg.containsMatchIn(i)){
@@ -72,6 +85,7 @@ class OcrParsing {
                 Log.d("pars_med","pars_med"+temp)
                 med+=temp
                 med+=","
+
 
             }
         }
