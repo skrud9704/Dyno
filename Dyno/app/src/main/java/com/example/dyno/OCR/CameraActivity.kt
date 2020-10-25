@@ -25,7 +25,8 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CameraActivity : AppCompatActivity() {
+class
+CameraActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_CAPTURE = 1
     lateinit var currentPhotoPath : String
 

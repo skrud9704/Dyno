@@ -12,7 +12,7 @@ class OcrParsing {
     val resultList : ArrayList<String> = arrayListOf()
 
     fun prescriptionDrugsR(transText: String): String {
-        Log.d("pars_start",transText)
+        Log.d("pars_start","ocr 결과"+transText)
         var arr = transText.split("/").toTypedArray()
         //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
 
@@ -21,7 +21,7 @@ class OcrParsing {
         //약으로 추정되는 단어들을 문자열로 만들기
         for (i in arr.indices) {
             for (j in dArr.indices) {
-                if (arr[i].endsWith(dArr[j]) && !arr[i].endsWith(".")) {
+                if (arr[i].contains(dArr[j]) && !arr[i].endsWith(".")) {
                     if(arr[i].endsWith("분")){
                         date += arr[i]
                         date += ","
@@ -40,8 +40,43 @@ class OcrParsing {
         Log.d("pars_medicine",med)
         return med
     }
-    fun prescriptionR(transText: String){
+    fun prescriptionR(transText: String):String{
+        //처방전의 경우 이름으로 검색이 아니라 보험약가코드로 의약품 검색할 거임
 
+        Log.d("pars_start","ocr 결과"+transText)
+        val arr = transText.split("/").toTypedArray()
+        //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
+        var dCode=""
+        var med=""
+        Log.d("pars_start","질병분류기호 있음")
+        val reg=Regex("[A-Z]\\d{2}")//질병분류기호를 찾기 위해
+        val reg2=Regex("[60][0-9]{8}")//보험약가코드찾기 위해
+        val reg3=Regex("[.]")
+
+        for(i in arr){
+            if(reg.containsMatchIn(i)){
+                Log.d("pars_disease","pars_disease:"+i)
+                if(reg3.containsMatchIn(i)){
+                    val re=reg3.replace(i,"")
+                    dCode+=re
+                }else{
+                    dCode+=i
+                }
+                dCode+=","
+
+            }else if(reg2.containsMatchIn(i)){
+                var temp=i
+                if(temp.length>9){//보험코드만 들어있는게 아니라 앞뒤로 뭔가 다른게 붙어있을 경우
+                    temp= reg2.find(i)?.value.toString()//보험약가코드만 추출하여 가져옴
+                }
+                Log.d("pars_med","pars_med"+temp)
+                med+=temp
+                med+=","
+
+            }
+        }
+        Log.d("pars_end","pars_end:"+dCode+"%"+med)
+        return dCode+"/"+med
     }
     fun supplementR(trasnText:String){
 

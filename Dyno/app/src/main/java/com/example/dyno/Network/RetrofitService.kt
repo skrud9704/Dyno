@@ -41,6 +41,12 @@ interface RetrofitService {
     ) : Call<ArrayList<DiseaseGuessVO>>
 
     @FormUrlEncoded
+    @POST("Medicine/getMFromPrescription")
+    fun requestMAndDList(
+        @Field("m_names") m_name: String
+    ) : Call<DiseaseGuessVO>
+
+    @FormUrlEncoded
     @POST("Dur/getMM")
     fun requestDurMM(
         @Field("m_name") m_name: String
