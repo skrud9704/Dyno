@@ -19,6 +19,7 @@ import com.example.dyno.VO.DiseaseGuessVO
 import com.example.dyno.VO.DiseaseVO
 import com.example.dyno.VO.MedicineVO
 import com.example.dyno.View.MyPage.Detail.DetailMedicineActivity
+import com.example.dyno.View.RegistMedicine.DiseaseAdapter
 import com.example.dyno.View.RegistMedicine.MedicineAdapter
 import com.google.gson.JsonArray
 import kotlinx.android.synthetic.main.activity_regist_medicine.*
@@ -40,7 +41,12 @@ class RegistMedicineActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private var medicines : ArrayList<MedicineVO> = arrayListOf()
     private lateinit var medicineAdapter : MedicineAdapter
+    private lateinit var diseaseAdapter : DiseaseAdapter
     private var preType:Int=1;//1이면 약봉투 2면 처방전
+    private var dcode:String=""
+    private var dname:String=""
+    private var disease:ArrayList<String> = arrayListOf()
+    private var diseaseCode:ArrayList<String> = arrayListOf()
 
 
     @SuppressLint("CheckResult")
@@ -65,7 +71,9 @@ class RegistMedicineActivity : AppCompatActivity() {
         ocr_result_list.adapter = medicineAdapter
         ocr_result_list.layoutManager= LinearLayoutManager(this)
 
-
+        diseaseAdapter = DiseaseAdapter(this,disease,diseaseCode)
+        ocr_result_Dlist.adapter=diseaseAdapter
+        ocr_result_Dlist.layoutManager = LinearLayoutManager(this)
         // 4. 질병 추측 -> DiseaseVO
 
 
@@ -82,7 +90,10 @@ class RegistMedicineActivity : AppCompatActivity() {
         // 질병 상세 화면
         btn_detail_medicine.setOnClickListener {
             val intent = Intent(this, DetailMedicineActivity::class.java)
-            intent.putExtra("DATA_DISEASE", DiseaseVO("A000","아직 몰라","", medicines))
+            if(preType==2)
+                intent.putExtra("DATA_DISEASE", DiseaseVO(dcode,dname,"", medicines))
+            else
+                intent.putExtra("DATA_DISEASE", DiseaseVO("A000","아직 몰라","", medicines))
             startActivity(intent)
         }
 
@@ -117,7 +128,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                     getMedAndDisease(ocrPasredData)
                 }
                 medicineAdapter.notifyDataSetChanged()
-                preType=1
+                diseaseAdapter.notifyDataSetChanged()
             } else {
                 Log.d("no_result", "")
             }
@@ -142,16 +153,19 @@ class RegistMedicineActivity : AppCompatActivity() {
                     }
                 }
                 // 파싱된 결과를 리턴 ArrayList<String>
-                var check:Boolean=translateText.contains("질병분류기호")
-                var check1:Boolean=translateText.contains("질병")
-                var check2:Boolean=translateText.contains("기호")
+                val check:Boolean=translateText.contains("질병분류기호")
+                val check1:Boolean=translateText.contains("질병")
+                val check2:Boolean=translateText.contains("기호")
+
+                var parsingResult:String=""
                 if(check||check1||check2){//질병분류기호가 있을 경우 처방전
                     Log.d("pars_start","질병분류기호 있음")
                     preType=2
-                    return OcrParsing().prescriptionR(translateText)
+                    parsingResult= OcrParsing().prescriptionR(translateText)
                 }else{//아닐경우 약봉투임
-                    return OcrParsing().prescriptionDrugsR(translateText)
+                    parsingResult= OcrParsing().prescriptionDrugsR(translateText)
                 }
+                return parsingResult
             } catch (e: Exception) {
                 Log.d("parse_error", e.toString())
             }
@@ -162,7 +176,6 @@ class RegistMedicineActivity : AppCompatActivity() {
         private fun getMedicine(data : String){
             val retrofit = RetrofitClient.getInstance()
             val medicineService = retrofit.create(RetrofitService::class.java)
-
             Log.d(TAG,"서버로 보내는 데이터 : $data")
 
             // 서버 RDS에서 OCR파싱된 의약품 획득 후 질병 추측까지 완료.
@@ -213,6 +226,7 @@ class RegistMedicineActivity : AppCompatActivity() {
             val retrofit = RetrofitClient.getInstance()
             val medicineService = retrofit.create(RetrofitService::class.java)
 
+
             Log.d(TAG,"서버로 보내는 데이터 질병 : $data")
 
             // 서버 RDS에서 OCR파싱된 의약품 획득 후 질병 추측까지 완료.
@@ -226,18 +240,33 @@ class RegistMedicineActivity : AppCompatActivity() {
                     Log.d(TAG,"질병 성공^^")
 
                     // 1. 추측 질병 순위 UI 셋팅
-                    guess_name_1st.text = response.body()!!.diseaseNameList[0]
-                    guess_per_1st.text = response.body()!!.diseasePerList[0]
-                    if(response.body()!!.diseaseNameList.size==2){
-                        guess_name_2nd.text = response.body()!!.diseaseNameList[1]
-                        guess_per_2nd.text = response.body()!!.diseasePerList[1]
-                    }else if(response.body()!!.diseaseNameList.size==3){
-                        guess_name_2nd.text = response.body()!!.diseaseNameList[1]
-                        guess_per_2nd.text = response.body()!!.diseasePerList[1]
-                        guess_name_3rd.text = response.body()!!.diseaseNameList[2]
-                        guess_per_3rd.text = response.body()!!.diseasePerList[2]
+
+                    disease_text.text = "읽어온 질병"
+                    for(code in response.body()!!.diseasePerList){
+                        dcode+=code
+                        diseaseCode.add(code)
+                        diseaseAdapter.notifyDataSetChanged()
                     }
-                    guess.visibility = View.VISIBLE
+                    for(name in response.body()!!.diseaseNameList){
+                        dname+=name
+                        if(name!="Not found"){
+                            dname+=name
+                            disease.add(name)
+                            diseaseAdapter.notifyDataSetChanged()
+                            guess.visibility = View.GONE
+                            ocr_result_Dlist.visibility = View.VISIBLE
+                        }
+                        diseaseAdapter.notifyDataSetChanged()
+                        if(disease.size==0){
+                            guess.visibility = View.VISIBLE
+                            ocr_result_Dlist.visibility = View.GONE
+                        }
+
+                    }
+                    for(code in response.body()!!.diseasePerList){
+                        dcode+=code
+                        diseaseCode.add(code)
+                    }
 
                     // 2. OCR, 파싱, RDS 처리 완료된 의약품 리스트 UI 셋팅
                     for(medicine in response.body()!!.medicineList){

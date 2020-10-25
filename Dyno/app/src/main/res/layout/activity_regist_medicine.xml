@@ -99,7 +99,20 @@
                 android:textColor="@color/dynoBlack"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:id="@+id/disease_text"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ocr_result_Dlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="250dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
             <LinearLayout
                 android:id="@+id/guess"
                 android:layout_width="match_parent"
