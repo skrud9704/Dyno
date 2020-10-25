@@ -221,7 +221,7 @@ class RegistMedicineActivity : AppCompatActivity() {
         private fun getMedAndDisease(data:String){
             val retrofit = RetrofitClient.getInstance()
             val medicineService = retrofit.create(RetrofitService::class.java)
-
+            medicines.clear()
 
             Log.d(TAG,"서버로 보내는 데이터 질병 : $data")
 
@@ -244,7 +244,6 @@ class RegistMedicineActivity : AppCompatActivity() {
                         diseaseAdapter.notifyDataSetChanged()
                     }
                     for(name in response.body()!!.diseaseNameList){
-                        dname+=name
                         if(name!="Not found"){
                             dname+=name
                             disease.add(name)
@@ -264,6 +263,11 @@ class RegistMedicineActivity : AppCompatActivity() {
                         diseaseCode.add(code)
                     }
 
+                    if(response.body()!!.medicineList.size==0){
+                        ocr_result_no.visibility = View.VISIBLE
+                        ocr_result_list.visibility = View.GONE
+                    }
+
                     // 2. OCR, 파싱, RDS 처리 완료된 의약품 리스트 UI 셋팅
                     for(medicine in response.body()!!.medicineList){
                         Log.d(TAG, "의약품 결과")
@@ -280,6 +284,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                             ocr_result_list.visibility = View.GONE
                         }
                     }
+
                 }
             })
         }
