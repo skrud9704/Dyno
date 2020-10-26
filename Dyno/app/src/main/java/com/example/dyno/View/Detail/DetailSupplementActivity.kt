@@ -153,7 +153,7 @@ class DetailSupplementActivity : AppCompatActivity() {
                             // 해당 의약품 추가
                             duritem1.add(medicine.name)
                             // 금기 주성분 추가
-                            duritem2.add(dur.m_ingredient)
+                            duritem2.add(dur.s_name)
                             // 이유 추가
                             durReason.add(dur.d_reason)
                             // 중간 (의약품)Loop를 탈출. (refinedData가 중복 데이터를 제거했기때문에 일치하는 즉시 나가도 됨!)

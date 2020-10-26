@@ -146,11 +146,14 @@
                             android:id="@+id/guess_name_1st"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
+                            android:maxWidth="180dp"
                             android:text="감기"
                             android:textColor="@color/dynoBlack"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:textStyle="bold"/>
+                            android:textSize="17sp"
+                            android:gravity="left"
+                            android:textStyle="bold"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"/>
                         <TextView
                             android:id="@+id/guess_per_1st"
                             android:layout_width="match_parent"
@@ -187,11 +190,14 @@
                             android:id="@+id/guess_name_2nd"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
+                            android:maxWidth="180dp"
                             android:text="감기"
                             android:textColor="@color/dynoBlack"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:textStyle="bold"/>
+                            android:textSize="17sp"
+                            android:gravity="left"
+                            android:textStyle="bold"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"/>
                         <TextView
                             android:id="@+id/guess_per_2nd"
                             android:layout_width="match_parent"
@@ -228,11 +234,14 @@
                             android:id="@+id/guess_name_3rd"
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
+                            android:maxWidth="180dp"
                             android:text="감기"
                             android:textColor="@color/dynoBlack"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:textStyle="bold"/>
+                            android:textSize="17sp"
+                            android:gravity="left"
+                            android:textStyle="bold"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"/>
                         <TextView
                             android:id="@+id/guess_per_3rd"
                             android:layout_width="match_parent"

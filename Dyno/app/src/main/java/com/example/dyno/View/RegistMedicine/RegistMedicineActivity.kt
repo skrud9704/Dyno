@@ -184,18 +184,48 @@ class RegistMedicineActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<DiseaseGuessVO>, response: Response<DiseaseGuessVO>) {
                     Log.d(TAG,"성공^^")
 
+                    if(response.body()!!.diseaseNameList.size<2){
+                        guess_name_1st.text = "추측불가능"
+                        guess_per_1st.text = ""
+
+                        guess_name_2nd.text = "추측불가능"
+                        guess_per_2nd.text = ""
+
+                        guess_name_3rd.text = "추측불가능"
+                        guess_per_3rd.text = ""
+                    }else if(response.body()!!.diseaseNameList.size==2){
+                        guess_name_1st.text = response.body()!!.diseaseNameList[0]
+                        guess_per_1st.text = response.body()!!.diseasePerList[0]
+                        guess_name_2nd.text = "추측불가능"
+                        guess_per_2nd.text = ""
+
+                        guess_name_3rd.text = "추측불가능"
+                        guess_per_3rd.text = ""
+                    }else if(response.body()!!.diseaseNameList.size==3){
+                        dname=response.body()!!.diseaseNameList[0]
+                        guess_name_1st.text = response.body()!!.diseaseNameList[0]
+                        guess_per_1st.text = response.body()!!.diseasePerList[0]
+                        guess_name_2nd.text = response.body()!!.diseaseNameList[1]
+                        guess_per_2nd.text = response.body()!!.diseasePerList[1]
+
+                        guess_name_3rd.text = "추측불가능"
+                        guess_per_3rd.text = ""
+                    }else{
+                        dname=response.body()!!.diseaseNameList[0]
+                        guess_name_1st.text = response.body()!!.diseaseNameList[0]
+                        guess_per_1st.text = response.body()!!.diseasePerList[0]
+
+                        guess_name_2nd.text = response.body()!!.diseaseNameList[1]
+                        guess_per_2nd.text = response.body()!!.diseasePerList[1]
+
+                        guess_name_3rd.text = response.body()!!.diseaseNameList[2]
+                        guess_per_3rd.text = response.body()!!.diseasePerList[2]
+
+                    }
                     // 1. 추측 질병 순위 UI 셋팅
-                    guess_name_1st.text = response.body()!!.diseaseNameList[1]
-                    guess_per_1st.text = response.body()!!.diseasePerList[1]
 
-                    guess_name_2nd.text = response.body()!!.diseaseNameList[2]
-                    guess_per_2nd.text = response.body()!!.diseasePerList[2]
-
-                    guess_name_3rd.text = response.body()!!.diseaseNameList[3]
-                    guess_per_3rd.text = response.body()!!.diseasePerList[3]
                     guess.visibility = View.VISIBLE
 
-                    dname=response.body()!!.diseaseNameList[1]
 
                     // 2. OCR, 파싱, RDS 처리 완료된 의약품 리스트 UI 셋팅
                     for(medicine in response.body()!!.medicineList){

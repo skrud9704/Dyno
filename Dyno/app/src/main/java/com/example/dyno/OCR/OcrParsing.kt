@@ -34,7 +34,17 @@ class OcrParsing {
                         }else if(arr[i].contains("m")){
                             temp=arr[i].split("m").toTypedArray()[0]
                             med+=temp
-                        }else{
+                        }else if(arr[i].contains(")")){
+                            temp=arr[i].split(")").toTypedArray()[1]
+                            med+=temp
+                        }else if(arr[i].contains("[")){
+                            temp=arr[i].split("[").toTypedArray()[0]
+                            med+=temp
+                        }else if(arr[i].contains("*")){
+                            temp=arr[i].split("*").toTypedArray()[1]
+                            med+=temp
+                        }
+                        else{
                             med += arr[i]
                         }
 
