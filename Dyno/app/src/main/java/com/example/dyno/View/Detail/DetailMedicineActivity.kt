@@ -28,7 +28,6 @@ class DetailMedicineActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var data : DiseaseVO
     private var  durItems:ArrayList<DurMMTestVO> = ArrayList()
-    private lateinit var  userDurItem:ArrayList<DurVO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,63 +38,50 @@ class DetailMedicineActivity : AppCompatActivity() {
 
     }
 
-    // 복용 마지막 날짜를 계산하는 함수
-    /*fun calculateEdate(medicines : ArrayList<MedicineVO>, sDate : String) : String {
-        // date format은 YYYY-MM-dd
-        // medicines 중 투약일 수(total)가 제일 긴 것 = maxPeriod
-        // sDate + maxPeriod
-        var maxPeriod = -1
-        for(medicineModel in medicines){
-            if(maxPeriod < medicineModel.total)
-                maxPeriod = medicineModel.total
-        }
-        // sDate에 더하기를 할 수 있게 LocalDate로 바꾸는 작업.
-        val localDate =
-            // API Level 26이상부터 가능.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                LocalDate.parse(sDate, DateTimeFormatter.ISO_DATE)      // ISO_DATE : YYYY-mm-dd
-            }
-            // 보류.
-            else {
-                TODO("VERSION.SDK_INT < O")
-            }
-
-        // 더하기 후 리턴.
-        val addedDate = localDate.plusDays(maxPeriod.toLong())
-        return addedDate.toString()
-    }*/
-
     @SuppressLint("SimpleDateFormat")
     private fun getData(){
+        // 의약품 등록, 혹은 마이페이지에서 선택해서 들어오는 경우
+        // From RegistMedicineActivity / MyPageActivity(MedicineAdapter)
+        if(intent.hasExtra("DATA_DISEASE")){
+            data = intent.getParcelableExtra("DATA_DISEASE")
+            //Log.d(TAG,"${data.d_name},${data.d_company}")
 
-        /* From RegistMedicineActivity / MyPageActivity(MedicineAdapter) */
-        data = intent.getParcelableExtra("DATA_DISEASE")
-        //Log.d(TAG,"${data.d_name},${data.d_company}")
+            // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우
+            if(data.d_date==""){
+                // 1. d_date(등록일자)를 현재 시간으로 셋팅
+                // 오레오 이상 SDK 28
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val now = LocalDateTime.now()
+                    data.d_date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                }
+                //그 이하
+                else{
+                    val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
+                    data.d_date = today
+                }
 
-        // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우
-        if(data.d_date==""){
-            // 1. d_date(등록일자)를 현재 시간으로 셋팅
-            // 오레오 이상 SDK 28
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val now = LocalDateTime.now()
-                data.d_date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                // 2. 로컬 DB에 저장(Room)
+                insertLocalDB()
+                var medicine=""
+                medicines = data.d_medicines
+                for(item in medicines){
+                    medicine+=item.name
+                    medicine+=","
+                }
+                getDurInfo(medicine)
             }
-            //그 이하
-            else{
-                val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
-                data.d_date = today
-            }
-
-            // 2. 로컬 DB에 저장(Room)
-            insertLocalDB()
-            var medicine=""
-            medicines = data.d_medicines
-            for(item in medicines){
-                medicine+=item.name
-                medicine+=","
-            }
-            getDurInfo(medicine)
         }
+
+        // 메인화면에서 선택해 들어오는 경우
+        if(intent.hasExtra("DISEASE_FROM_MAIN")){
+            val key : String = intent.getStringExtra("DISEASE_FROM_MAIN")
+            val localDB = RoomDB.getInstance(this)
+            data = localDB.diseaseDAO().getDisease(key)
+
+            // DB 닫기.
+            RoomDB.destroyInstance()
+        }
+
     }
 
     private fun insertLocalDB(){

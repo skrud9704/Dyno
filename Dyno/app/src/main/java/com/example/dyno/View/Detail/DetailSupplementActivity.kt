@@ -44,29 +44,45 @@ class DetailSupplementActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun getData(){
-        /* From RegistSupplementActivity / MyPageActivity(SupplementAdapter) */
-        data = intent.getParcelableExtra("DATA2")
-        //Log.d(TAG,"${data.m_name},${data.m_company}")
 
-        // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우 = 처음으로 등록하는 경우
-        if(data.m_date==""){
-            // 1. m_date(등록일자)를 현재 시간으로 셋팅
-            // 오레오 이상 SDK 28
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                data.m_date = LocalDate.now().toString()
+        // 건강기능식품 등록 호는 마이페이지에서 선택해 들어오는 경우
+        // From RegistSupplementActivity / MyPageActivity(SupplementAdapter)
+        if(intent.hasExtra("DATA2")){
+            data = intent.getParcelableExtra("DATA2")
+            //Log.d(TAG,"${data.m_name},${data.m_company}")
+
+            // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우 = 처음으로 등록하는 경우
+            if(data.m_date==""){
+                // 1. m_date(등록일자)를 현재 시간으로 셋팅
+                // 오레오 이상 SDK 28
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    data.m_date = LocalDate.now().toString()
+                }
+                //그 이하
+                else{
+                    val today = SimpleDateFormat("YYYY-MM-dd").format(Date())
+                    data.m_date = today
+                }
+
+                // 2. 로컬 DB에 저장(Room)
+                insertLocalDB()
+
+                // 3. 병용판단 시작
+                durSM(data.m_name)
             }
-            //그 이하
-            else{
-                val today = SimpleDateFormat("YYYY-MM-dd").format(Date())
-                data.m_date = today
-            }
-
-            // 2. 로컬 DB에 저장(Room)
-            insertLocalDB()
-
-            // 3. 병용판단 시작
-            durSM(data.m_name)
         }
+
+        // 메인화면에서 선택해 들어오는 경우
+        if(intent.hasExtra("SUPPLEMENT_FROM_MAIN")){
+            val key : String = intent.getStringExtra("SUPPLEMENT_FROM_MAIN")
+            val localDB = RoomDB.getInstance(this)
+            data = localDB.supplementDAO().getSupplement(key)
+
+            // DB 닫기.
+            RoomDB.destroyInstance()
+        }
+
+
     }
 
     private fun setView(){
