@@ -44,11 +44,12 @@ class MedicineAdapter (private val context: Context, private var data : ArrayLis
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val title: TextView = itemView.listitem_name
-        var subTitle: TextView = itemView.listitem_subname
+        val subTitle: TextView = itemView.listitem_subname
         init{
             itemView.setOnClickListener {
                 mListener.onItemClick(adapterPosition)
             }
+            subTitle.visibility = View.GONE
         }
     }
 

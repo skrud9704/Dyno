@@ -50,6 +50,8 @@ class RegistMedicineActivity : AppCompatActivity() {
     // 인식한 사진이 의약품인지 처방전인지 판단
     private var preType:Int=1;      //1이면 약봉투 2면 처방전
 
+    private var diseaseGuessVO : DiseaseGuessVO = DiseaseGuessVO()
+
     private var dcode:String=""
     private var dname:String=""
     private var disease:ArrayList<String> = arrayListOf()
@@ -77,7 +79,7 @@ class RegistMedicineActivity : AppCompatActivity() {
         ocr_result_list.adapter = medicineAdapter
         ocr_result_list.layoutManager= LinearLayoutManager(this)
 
-        diseaseAdapter = DiseaseAdapter(this,disease,diseaseCode)
+        diseaseAdapter = DiseaseAdapter(this,diseaseGuessVO)
         ocr_result_Dlist.adapter=diseaseAdapter
         ocr_result_Dlist.layoutManager = LinearLayoutManager(this)
 
@@ -210,52 +212,16 @@ class RegistMedicineActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<DiseaseGuessVO>, t: Throwable) {
                         Log.d(TAG,"실패 {$t}")
                         Log.d(TAG,"실패 {$call}")
+                        ocr_result_no.visibility = View.VISIBLE
+                        ocr_result_list.visibility = View.GONE
                     }
 
                     override fun onResponse(call: Call<DiseaseGuessVO>, response: Response<DiseaseGuessVO>) {
                         Log.d(TAG,"성공^^")
 
-                        if(response.body()!!.diseaseNameList.size<2){
-                            guess_name_1st.text = "추측불가능"
-                            guess_per_1st.text = ""
-
-                            guess_name_2nd.text = "추측불가능"
-                            guess_per_2nd.text = ""
-
-                            guess_name_3rd.text = "추측불가능"
-                            guess_per_3rd.text = ""
-                        }else if(response.body()!!.diseaseNameList.size==2){
-                            guess_name_1st.text = response.body()!!.diseaseNameList[0]
-                            guess_per_1st.text = response.body()!!.diseasePerList[0]
-                            guess_name_2nd.text = "추측불가능"
-                            guess_per_2nd.text = ""
-
-                            guess_name_3rd.text = "추측불가능"
-                            guess_per_3rd.text = ""
-                        }else if(response.body()!!.diseaseNameList.size==3){
-                            dname=response.body()!!.diseaseNameList[0]
-                            guess_name_1st.text = response.body()!!.diseaseNameList[0]
-                            guess_per_1st.text = response.body()!!.diseasePerList[0]
-                            guess_name_2nd.text = response.body()!!.diseaseNameList[1]
-                            guess_per_2nd.text = response.body()!!.diseasePerList[1]
-
-                            guess_name_3rd.text = "추측불가능"
-                            guess_per_3rd.text = ""
-                        }else{
-                            dname=response.body()!!.diseaseNameList[0]
-                            guess_name_1st.text = response.body()!!.diseaseNameList[0]
-                            guess_per_1st.text = response.body()!!.diseasePerList[0]
-
-                            guess_name_2nd.text = response.body()!!.diseaseNameList[1]
-                            guess_per_2nd.text = response.body()!!.diseasePerList[1]
-
-                            guess_name_3rd.text = response.body()!!.diseaseNameList[2]
-                            guess_per_3rd.text = response.body()!!.diseasePerList[2]
-
-                        }
                         // 1. 추측 질병 순위 UI 셋팅
-
-                        guess.visibility = View.VISIBLE
+                        diseaseGuessVO = response.body()!!
+                        diseaseAdapter.setAdapterData(diseaseGuessVO)
 
 
                         // 2. OCR, 파싱, RDS 처리 완료된 의약품 리스트 UI 셋팅
@@ -302,7 +268,10 @@ class RegistMedicineActivity : AppCompatActivity() {
                     // 1. 추측 질병 순위 UI 셋팅
 
                     disease_text.text = "읽어온 질병"
-                    for(code in response.body()!!.diseasePerList){
+                    diseaseGuessVO = response.body()!!
+                    diseaseAdapter.setAdapterData(diseaseGuessVO)
+
+                    /*for(code in response.body()!!.diseasePerList){
                         dcode+=code
                         diseaseCode.add(code)
                         diseaseAdapter.notifyDataSetChanged()
@@ -321,7 +290,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                             ocr_result_Dlist.visibility = View.GONE
                         }
 
-                    }
+                    }*/
                     for(code in response.body()!!.diseasePerList){
                         dcode+=code
                         diseaseCode.add(code)
