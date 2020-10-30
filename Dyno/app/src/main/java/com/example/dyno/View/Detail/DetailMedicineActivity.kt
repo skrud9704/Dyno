@@ -28,7 +28,6 @@ class DetailMedicineActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var data : DiseaseVO
     private var  durItems:ArrayList<DurMMTestVO> = ArrayList()
-    private lateinit var  userDurItem:ArrayList<DurVO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,63 +38,50 @@ class DetailMedicineActivity : AppCompatActivity() {
 
     }
 
-    // 복용 마지막 날짜를 계산하는 함수
-    /*fun calculateEdate(medicines : ArrayList<MedicineVO>, sDate : String) : String {
-        // date format은 YYYY-MM-dd
-        // medicines 중 투약일 수(total)가 제일 긴 것 = maxPeriod
-        // sDate + maxPeriod
-        var maxPeriod = -1
-        for(medicineModel in medicines){
-            if(maxPeriod < medicineModel.total)
-                maxPeriod = medicineModel.total
-        }
-        // sDate에 더하기를 할 수 있게 LocalDate로 바꾸는 작업.
-        val localDate =
-            // API Level 26이상부터 가능.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                LocalDate.parse(sDate, DateTimeFormatter.ISO_DATE)      // ISO_DATE : YYYY-mm-dd
-            }
-            // 보류.
-            else {
-                TODO("VERSION.SDK_INT < O")
-            }
-
-        // 더하기 후 리턴.
-        val addedDate = localDate.plusDays(maxPeriod.toLong())
-        return addedDate.toString()
-    }*/
-
     @SuppressLint("SimpleDateFormat")
     private fun getData(){
+        // 의약품 등록, 혹은 마이페이지에서 선택해서 들어오는 경우
+        // From RegistMedicineActivity / MyPageActivity(MedicineAdapter)
+        if(intent.hasExtra("DATA_DISEASE")){
+            data = intent.getParcelableExtra("DATA_DISEASE")
+            //Log.d(TAG,"${data.d_name},${data.d_company}")
 
-        /* From RegistMedicineActivity / MyPageActivity(MedicineAdapter) */
-        data = intent.getParcelableExtra("DATA_DISEASE")
-        //Log.d(TAG,"${data.d_name},${data.d_company}")
+            // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우
+            if(data.d_date==""){
+                // 1. d_date(등록일자)를 현재 시간으로 셋팅
+                // 오레오 이상 SDK 28
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val now = LocalDateTime.now()
+                    data.d_date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                }
+                //그 이하
+                else{
+                    val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
+                    data.d_date = today
+                }
 
-        // 등록일자에 값이 없는 경우 = RegistSupplementActivty로부터 데이터를 받아온 경우
-        if(data.d_date==""){
-            // 1. d_date(등록일자)를 현재 시간으로 셋팅
-            // 오레오 이상 SDK 28
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val now = LocalDateTime.now()
-                data.d_date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                // 2. 로컬 DB에 저장(Room)
+                insertLocalDB()
+                var medicine=""
+                medicines = data.d_medicines
+                for(item in medicines){
+                    medicine+=item.name
+                    medicine+=","
+                }
+                getDurInfo(medicine)
             }
-            //그 이하
-            else{
-                val today = SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(Date())
-                data.d_date = today
-            }
-
-            // 2. 로컬 DB에 저장(Room)
-            insertLocalDB()
-            var medicine=""
-            medicines = data.d_medicines
-            for(item in medicines){
-                medicine+=item.name
-                medicine+=","
-            }
-            getDurInfo(medicine)
         }
+
+        // 메인화면에서 선택해 들어오는 경우
+        if(intent.hasExtra("DISEASE_FROM_MAIN")){
+            val key : String = intent.getStringExtra("DISEASE_FROM_MAIN")
+            val localDB = RoomDB.getInstance(this)
+            data = localDB.diseaseDAO().getDisease(key)
+
+            // DB 닫기.
+            RoomDB.destroyInstance()
+        }
+
     }
 
     private fun insertLocalDB(){
@@ -131,50 +117,9 @@ class DetailMedicineActivity : AppCompatActivity() {
                 Log.d(TAG, "실패 {$t}")
             }
 
-            @SuppressLint("SimpleDateFormat")
             override fun onResponse(call: Call<ArrayList<DurMMTestVO>>, response: Response<ArrayList<DurMMTestVO>>) {
-                val durNames:ArrayList<String> = ArrayList()
-                for(dur in response.body()!!){
-                    val temp:String=dur.durName
-                    durNames.add(temp)
-                    durItems.add(dur)
-                }
-
-                if(durItems.size==0){
-                    //Log.d(TAG,"dur 없음")
-                }else{
-                    val diseaseList:List<DiseaseMinimal> = localDB.diseaseDAO().getDiseaseMinimal()
-                    for(item in diseaseList){
-                        val durMMList1:ArrayList<String> = ArrayList()//item1에 해당하는 의약품 리스트
-                        val durMMList2:ArrayList<String> = ArrayList()//items1에 해당하는 의약품 리스트
-                        val durReason:ArrayList<String> = ArrayList()//dur 이유
-                        //Log.d(TAG,item.d_date)//기존에 저장되어 있는 아이들 키값
-                        for(med in item.d_medicines){//처방전에 있는 의약품마다
-                            val check:Boolean = durNames.contains(med.name)
-                            if(check){
-                                val temp = durNames.indexOf(med.name)
-                                val durMM:DurMMTestVO=durItems[temp]
-                                durMMList1.add(durMM.mName)//새로등록하는 아이
-                                durMMList2.add(med.name)//기존에 있던 아이
-                                durReason.add(durMM.durReason)//같이 먹으면 안되는 이유
-                            }
-                        }
-                        if(durMMList1.size!=0){
-                            val today = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                val now = LocalDateTime.now()
-                                now.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss.SSS"))
-                            } else{
-                                SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(Date())
-                            }
-
-                            val durVo = DurVO(today,1,data.d_date,data.d_name,item.d_date,item.d_name,
-                            durMMList1,durMMList2,durReason)
-                            //Log.d(TAG,"병용 room insert:"+item.d_name+today)
-                            localDB.durDAO().insertDur(durVo)
-                        }
-                    }
-                    //RoomDB.destroyInstance()
-                }
+                Log.d(TAG,"성공 의의 : ${response.body()!!.size}")
+                compareWithUserMedicine(response.body()!!)
             }
         })
 
@@ -256,6 +201,46 @@ class DetailMedicineActivity : AppCompatActivity() {
             localDB.durDAO().insertDur(dur)
         }
 
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun compareWithUserMedicine(durMMdata:ArrayList<DurMMTestVO>){
+        val localDB = RoomDB.getInstance(this)
+        //사용자가 현재 복용중인 처방전 list 가져오기
+        val diseaseList:List<DiseaseMinimal> = localDB.diseaseDAO().getDiseaseMinimal()
+
+        for(dur in durMMdata){//먹으면 안되는 금기 성분 개수 만큼
+            Log.d(TAG,"의의 병용금기 판단시작"+dur.durName)
+            for(item in diseaseList){//처방전 마다다
+                Log.d(TAG,"의의 병용금기 판단시작 처방전"+item.d_date)
+                val durMMList1:ArrayList<String> = ArrayList()//item1에 해당하는 의약품 리스트
+                val durMMList2:ArrayList<String> = ArrayList()//items1에 해당하는 의약품 리스트
+                val durReason:ArrayList<String> = ArrayList()//dur 이유
+                for(med in item.d_medicines){//의약품 마다
+                    Log.d(TAG,"의의 병용금기 판단시작 의약품"+med.name)
+                    if(dur.durName==med.ingredient){//내가 가지고 있는 의약품의 주성분과 병용금기 성분이 같을 경우
+                        durMMList1.add(dur.mName)//새로등록하는 아이
+                        durMMList2.add(med.name)//기존에 있던 아이
+                        durReason.add(dur.durReason)//같이 먹으면 안되는 이유
+                        Log.d(TAG,"의의 병용금기 존재"+dur.mName+dur.durName)
+                    }
+                }
+                if(durMMList1.size!=0){
+                    val today = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        val now = LocalDateTime.now()
+                        now.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss.SSS"))
+                    } else{
+                        SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(Date())
+                    }
+                    val durVo = DurVO(today,1,data.d_date,data.d_name,item.d_date,item.d_name,
+                        durMMList1,durMMList2,durReason)
+                    Log.d(TAG,"의의 병용 room insert:"+item.d_name+today)
+                    localDB.durDAO().insertDur(durVo)
+                }
+           }
+
+        }
 
     }
 }

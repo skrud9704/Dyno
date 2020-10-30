@@ -12,7 +12,7 @@ class MedicineVO() : Parcelable{
     var effect_code:Int = -1                // 약효분류군
 
     @SerializedName("m_ins_code")
-    var ins_code :Int=-1                    // 보험약가코드
+    var ins_code :String=""                    // 보험약가코드
 
     @SerializedName("m_effect")
     var effect:String=""                    // 효능 효과
@@ -26,14 +26,14 @@ class MedicineVO() : Parcelable{
     constructor(parcel: Parcel) : this() {
         name = parcel.readString()
         effect_code = parcel.readInt()
-        ins_code = parcel.readInt()
+        ins_code = parcel.readString()
         effect = parcel.readString()
         dosage = parcel.readString()
         ingredient = parcel.readString()
     }
 
 
-    constructor(name:String,effect_code:Int, ins_code : Int, effect:String, dosage:String,ingredient:String):this(){
+    constructor(name:String,effect_code:Int, ins_code : String, effect:String, dosage:String,ingredient:String):this(){
         this.name=name
         this.effect_code=effect_code
         this.ins_code=ins_code
@@ -45,7 +45,7 @@ class MedicineVO() : Parcelable{
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeInt(effect_code)
-        parcel.writeInt(ins_code)
+        parcel.writeString(ins_code)
         parcel.writeString(effect)
         parcel.writeString(dosage)
         parcel.writeString(ingredient)

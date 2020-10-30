@@ -14,6 +14,7 @@ class OcrParsing {
     fun prescriptionDrugsR(transText: String): String {
         Log.d("pars_start","ocr 결과"+transText)
         var arr = transText.split("/").toTypedArray()
+
         //ocr하여 나온 결과값을 띄여쓰기 기준으로 나눔
 
         var med = ""
@@ -26,7 +27,27 @@ class OcrParsing {
                         date += arr[i]
                         date += ","
                     }else{
-                        med += arr[i]
+                        var temp=""
+                        if(arr[i].contains("(")){
+                            temp=arr[i].split("(").toTypedArray()[0]
+                            med+=temp
+                        }else if(arr[i].contains("m")){
+                            temp=arr[i].split("m").toTypedArray()[0]
+                            med+=temp
+                        }else if(arr[i].contains(")")){
+                            temp=arr[i].split(")").toTypedArray()[1]
+                            med+=temp
+                        }else if(arr[i].contains("[")){
+                            temp=arr[i].split("[").toTypedArray()[0]
+                            med+=temp
+                        }else if(arr[i].contains("*")){
+                            temp=arr[i].split("*").toTypedArray()[1]
+                            med+=temp
+                        }
+                        else{
+                            med += arr[i]
+                        }
+
                         med += ","
                         resultList.add(arr[i])
                     }
@@ -52,8 +73,10 @@ class OcrParsing {
         val reg=Regex("[A-Z]\\d{2}")//질병분류기호를 찾기 위해
         val reg2=Regex("[60][0-9]{8}")//보험약가코드찾기 위해
         val reg3=Regex("[.]")
-        val reg4=Regex("^[1]\\d{1}")//I로 시작하는 질병분류기호를 찾기 위해
+        val reg6=Regex("^[1]\\d{1}")//I로 시작하는 질병분류기호를 찾기 위해
         val reg5=Regex("[가-힣a-zA-Z]")
+        val reg4=Regex("[m]")
+
 
         for(i in arr){
             if(reg.containsMatchIn(i)){//질병코드 시작이 I가 아닐때
@@ -66,7 +89,7 @@ class OcrParsing {
                 }
                 dCode+=","
 
-            }else if(reg4.containsMatchIn(i) && !reg5.containsMatchIn(i)){
+            }else if(reg6.containsMatchIn(i) && !reg5.containsMatchIn(i)){
                 if(i.length in 3..6){
                     dCode+="I"
                     dCode+=i.substring(1,i.length-1)
@@ -80,6 +103,7 @@ class OcrParsing {
                 Log.d("pars_med","pars_med"+temp)
                 med+=temp
                 med+=","
+
 
             }
         }

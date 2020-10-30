@@ -31,7 +31,7 @@ class MedicineAdapter(private val context: Context) : RecyclerView.Adapter<Medic
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = diseaseData[position].d_name
-        holder.subDate.text = diseaseData[position].d_date
+        holder.subDate.text = diseaseData[position].d_date.substring(0,10)
         holder.subTitle.text = diseaseData[position].getMedicineNames()
     }
 

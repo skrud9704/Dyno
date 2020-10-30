@@ -27,21 +27,10 @@ interface RetrofitService {
     ) : Call<ArrayList<MedicineVO>>
 
     @FormUrlEncoded
-    @POST("Medicine/medicinesToDisease")
+    @POST("Medicine/medicinesAndDisease")
     fun requestMedicineAndDiseaseList(
-        @Field("m_names") m_names: String
-    ) : Call<DiseaseGuessVO>
-
-    @FormUrlEncoded
-    @POST("Medicine/medicinesToDisease")
-    fun requestDiseaseList(
-        @Field("m_name") m_name: String
-    ) : Call<ArrayList<DiseaseGuessVO>>
-
-    @FormUrlEncoded
-    @POST("Medicine/getMFromPrescription")
-    fun requestMAndDList(
-        @Field("m_names") m_name: String
+        @Field("m_names") m_names: String,
+        @Field("m_type") m_type : Int
     ) : Call<DiseaseGuessVO>
 
     @FormUrlEncoded
