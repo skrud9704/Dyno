@@ -19,27 +19,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity
-            android:name=".View.Splash.SplashActivity"
-            android:theme="@style/SplashTheme">
+        android:theme="@style/AppTheme">
+        <activity android:name=".MyPage.MyPageActivity"></activity>
+        <activity android:name=".ocrRegister"></activity>
+
+        <activity android:name=".Camera" />
+        <activity android:name=".SignUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
 
-        <activity android:name=".View.Splash.SignUpActivity" />
-        <activity android:name=".View.Main.MainActivity" />
-        <activity android:name=".View.RegistMedicine.RegistMedicineActivity"/>
-        <activity android:name=".View.Detail.DetailDurActivity" />
-        <activity android:name=".View.Detail.DetailSupplementActivity" />
-        <activity android:name=".View.Detail.DetailMedicineActivity" />
-        <activity android:name=".View.RegistSupplement.RegistSupplementActivity" />
-        <activity android:name=".View.MyPage.MyPageActivity" />
-        <activity android:name=".OCR.CameraActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.dyno"
