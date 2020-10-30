@@ -2,7 +2,6 @@ package com.example.dyno.View.RegistMedicine
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
 import com.example.dyno.VO.DiseaseGuessVO
-import com.example.dyno.VO.MedicineVO
-import kotlinx.android.synthetic.main.recyclerlist_item_mypage.view.*
-import kotlinx.android.synthetic.main.recyclerlist_item_regist_disease.view.*
+import kotlinx.android.synthetic.main.recyclerlist_item_reg_disease.view.*
 
 class DiseaseAdapter(private val context: Context, private var data : DiseaseGuessVO)
 : RecyclerView.Adapter<DiseaseAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view= LayoutInflater.from(context)
-            .inflate(R.layout.recyclerlist_item_regist_disease, parent, false)
+            .inflate(R.layout.recyclerlist_item_reg_disease, parent, false)
         return ViewHolder(view)
     }
 

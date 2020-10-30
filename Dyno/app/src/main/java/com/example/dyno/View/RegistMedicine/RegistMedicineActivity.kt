@@ -271,26 +271,6 @@ class RegistMedicineActivity : AppCompatActivity() {
                     diseaseGuessVO = response.body()!!
                     diseaseAdapter.setAdapterData(diseaseGuessVO)
 
-                    /*for(code in response.body()!!.diseasePerList){
-                        dcode+=code
-                        diseaseCode.add(code)
-                        diseaseAdapter.notifyDataSetChanged()
-                    }
-                    for(name in response.body()!!.diseaseNameList){
-                        if(name!="Not found"){
-                            dname+=name
-                            disease.add(name)
-                            diseaseAdapter.notifyDataSetChanged()
-                            guess.visibility = View.GONE
-                            ocr_result_Dlist.visibility = View.VISIBLE
-                        }
-                        diseaseAdapter.notifyDataSetChanged()
-                        if(disease.size==0){
-                            guess.visibility = View.VISIBLE
-                            ocr_result_Dlist.visibility = View.GONE
-                        }
-
-                    }*/
                     for(code in response.body()!!.diseasePerList){
                         dcode+=code
                         diseaseCode.add(code)
