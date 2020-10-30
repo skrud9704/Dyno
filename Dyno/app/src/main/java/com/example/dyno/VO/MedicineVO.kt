@@ -33,6 +33,7 @@ class MedicineVO() : Parcelable{
         effect = parcel.readString()
         dosage = parcel.readString()
         ingredient = parcel.readString()
+        dur_item = parcel.readString()
     }
 
 

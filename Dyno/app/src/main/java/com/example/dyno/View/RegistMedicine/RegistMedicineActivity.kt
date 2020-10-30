@@ -100,7 +100,7 @@ class RegistMedicineActivity : AppCompatActivity() {
             if(preType==2)
                 intent.putExtra("DATA_DISEASE", DiseaseVO(dcode,dname,"", medicines))
             else
-                intent.putExtra("DATA_DISEASE", DiseaseVO("A000",dname,"", medicines))
+                intent.putExtra("DATA_DISEASE", DiseaseVO("A000","TEMP","", medicines))
             startActivity(intent)
             finish()
         }
