@@ -16,14 +16,17 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.example.dyno.R
+import com.example.dyno.View.RegistMedicine.RegistMedicineActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Camera : AppCompatActivity() {
-    val REQUEST_IMAGE_CAPTURE = 1
+class CameraActivity : AppCompatActivity() {
+    private val REQUEST_IMAGE_CAPTURE = 1
+
     lateinit var currentPhotoPath : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +46,11 @@ class Camera : AppCompatActivity() {
     fun settingPermission(){
         var permis = object : PermissionListener{
             override fun onPermissionGranted() {
-                Toast.makeText(this@Camera,"권한허가", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity,"권한허가", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-                Toast.makeText(this@Camera,"권한 거부",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity,"권한 거부",Toast.LENGTH_SHORT).show()
             }
         }
         TedPermission.with(this)

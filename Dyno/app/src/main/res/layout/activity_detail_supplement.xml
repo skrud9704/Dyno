@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Detail.DetailMedicineActivity"
+    android:orientation="vertical"
+    android:background="@color/dynoMainBeige">
+
+    <TextView
+        android:id="@+id/detail_s_name"
+        android:text="@string/detail_supplement_name"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/dynoBlack"
+        android:ellipsize="marquee"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/detail_s_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dynoBlack"
+        android:text="@string/detail_disease_date_s"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/style_round_corner"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_supplement_ingredient"
+                android:textColor="@color/dynoWhite"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:padding="20dp"
+            android:background="@color/dynoWhite"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/detail_s_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/dynoBlack"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/style_round_corner"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_supplement_info"
+                android:textColor="@color/dynoWhite"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:padding="20dp"
+            android:background="@color/dynoWhite">
+
+            <TextView
+                android:id="@+id/detail_s_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/dynoBlack"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_detail_s"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"/>-->
+
+
+</LinearLayout>
