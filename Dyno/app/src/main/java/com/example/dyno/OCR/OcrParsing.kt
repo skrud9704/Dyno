@@ -72,9 +72,9 @@ class OcrParsing {
         Log.d("pars_start","질병분류기호 있음")
         val reg=Regex("[A-Z]\\d{2}")//질병분류기호를 찾기 위해
         val reg2=Regex("[60][0-9]{8}")//보험약가코드찾기 위해
-        val reg3=Regex("[.]")
+        val reg3=Regex("[.]")//질병 코드에 . 이쓴거 붙여서 보낼려구
         val reg6=Regex("^[1]\\d{1}")//I로 시작하는 질병분류기호를 찾기 위해
-        val reg5=Regex("[가-힣a-zA-Z]")
+        val reg5=Regex("[가-힣a-zA-Z]")//한글이랑 영어 있는 거 제외하기 위해서
         val reg4=Regex("[m]")
 
 
@@ -90,9 +90,14 @@ class OcrParsing {
                 dCode+=","
 
             }else if(reg6.containsMatchIn(i) && !reg5.containsMatchIn(i)){
-                if(i.length in 3..6){
+                if(i.length in 3..6 ){
                     dCode+="I"
-                    dCode+=i.substring(1,i.length-1)
+                    if(reg3.containsMatchIn(i)){
+                        val temp=reg3.replace(i,"")
+                        dCode+=temp.substring(1,i.length-1)
+                    }else{
+                        dCode+=i.substring(1,i.length-1)
+                    }
                     dCode+=","
                 }
             }else if(reg2.containsMatchIn(i)){
