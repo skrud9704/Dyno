@@ -23,9 +23,6 @@ class MedicineVO() : Parcelable{
     @SerializedName("m_ingredient")
     var ingredient :String=""               // 주성분
 
-    @SerializedName("m_dur_item")
-    var dur_item : String =""
-
     constructor(parcel: Parcel) : this() {
         name = parcel.readString()
         effect_code = parcel.readInt()
@@ -33,18 +30,16 @@ class MedicineVO() : Parcelable{
         effect = parcel.readString()
         dosage = parcel.readString()
         ingredient = parcel.readString()
-        dur_item = parcel.readString()
     }
 
 
-    constructor(name:String,effect_code:Int, ins_code : String, effect:String, dosage:String,ingredient:String, dur_item:String):this(){
+    constructor(name:String,effect_code:Int, ins_code : String, effect:String, dosage:String,ingredient:String):this(){
         this.name=name
         this.effect_code=effect_code
         this.ins_code=ins_code
         this.effect=effect
         this.dosage=dosage
         this.ingredient=ingredient
-        this.dur_item = dur_item
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -54,7 +49,6 @@ class MedicineVO() : Parcelable{
         parcel.writeString(effect)
         parcel.writeString(dosage)
         parcel.writeString(ingredient)
-        parcel.writeString(dur_item)
     }
 
     override fun describeContents(): Int {
