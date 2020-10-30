@@ -8,32 +8,26 @@ class DurMMTestVO() : Parcelable {
     @SerializedName("m_name")
     var mName:String=""
 
-    @SerializedName("dur_name")
+    @SerializedName("dur_item")
     var durName:String=""
 
-    @SerializedName("dur_ingredient")
-    var ingredient:String=""
-
-    @SerializedName("dur_reason")
+    @SerializedName("d_reason")
     var durReason:String=""
 
     constructor(parcel: Parcel) : this() {
         mName=parcel.readString()
         durName=parcel.readString()
-        ingredient=parcel.readString()
         durReason=parcel.readString()
     }
 
     constructor(name:String,durName:String,ingredient:String,reason:String):this(){
         this.mName=name
         this.durName=durName
-        this.ingredient=ingredient
         this.durReason=reason
     }
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(mName)
         parcel.writeString(durName)
-        parcel.writeString(ingredient)
         parcel.writeString(durReason)
     }
 
