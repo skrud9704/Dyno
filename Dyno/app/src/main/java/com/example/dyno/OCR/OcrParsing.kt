@@ -52,9 +52,11 @@ class OcrParsing {
         val reg=Regex("[A-Z]\\d{2}")//질병분류기호를 찾기 위해
         val reg2=Regex("[60][0-9]{8}")//보험약가코드찾기 위해
         val reg3=Regex("[.]")
+        val reg4=Regex("^[1]\\d{1}")//I로 시작하는 질병분류기호를 찾기 위해
+        val reg5=Regex("[가-힣a-zA-Z]")
 
         for(i in arr){
-            if(reg.containsMatchIn(i)){
+            if(reg.containsMatchIn(i)){//질병코드 시작이 I가 아닐때
                 Log.d("pars_disease","pars_disease:"+i)
                 if(reg3.containsMatchIn(i)){
                     val re=reg3.replace(i,"")
@@ -64,6 +66,12 @@ class OcrParsing {
                 }
                 dCode+=","
 
+            }else if(reg4.containsMatchIn(i) && !reg5.containsMatchIn(i)){
+                if(i.length in 3..6){
+                    dCode+="I"
+                    dCode+=i.substring(1,i.length-1)
+                    dCode+=","
+                }
             }else if(reg2.containsMatchIn(i)){
                 var temp=i
                 if(temp.length>9){//보험코드만 들어있는게 아니라 앞뒤로 뭔가 다른게 붙어있을 경우
