@@ -54,8 +54,6 @@ class RegistMedicineActivity : AppCompatActivity() {
 
     private var dcode:String=""
     private var dname:String=""
-    private var disease:ArrayList<String> = arrayListOf()
-    private var diseaseCode:ArrayList<String> = arrayListOf()
 
 
     @SuppressLint("CheckResult")
@@ -273,8 +271,14 @@ class RegistMedicineActivity : AppCompatActivity() {
 
                     for(code in response.body()!!.diseasePerList){
                         dcode+=code
-                        diseaseCode.add(code)
+                        dcode+=" "
+
                     }
+                    for(name in response.body()!!.diseaseNameList){
+                        dname+=name
+                        dname+=" "
+                    }
+
 
                     if(response.body()!!.medicineList.size==0){
                         ocr_result_no.visibility = View.VISIBLE
