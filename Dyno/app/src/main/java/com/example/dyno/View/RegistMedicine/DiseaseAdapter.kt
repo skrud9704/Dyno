@@ -74,12 +74,7 @@ class DiseaseAdapter(private val context: Context, private var data : DiseaseGue
         val check : CheckBox = itemView.disease_check
 
         init{
-            Log.d("사이즈 몇인데", diseaseCheck.size.toString())
-            for(i in diseaseCheck){
-                Log.d("값 초기화 돼있나?", i.toString())
-            }
             check.setOnCheckedChangeListener { _, isChecked ->
-                Log.d("gdgd", adapterPosition.toString())
                 diseaseCheck[adapterPosition] = isChecked
             }
         }

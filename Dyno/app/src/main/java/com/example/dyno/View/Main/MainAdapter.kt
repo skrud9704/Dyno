@@ -11,13 +11,13 @@ import com.example.dyno.R
 import com.example.dyno.VO.NowEatVO
 import com.example.dyno.View.Detail.DetailMedicineActivity
 import com.example.dyno.View.Detail.DetailSupplementActivity
-import kotlinx.android.synthetic.main.layout.view.*
+import kotlinx.android.synthetic.main.pager_item_now_eat.view.*
 
 class MainAdapter(private val context: Context,private val list:ArrayList<NowEatVO>):PagerAdapter(){
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater=LayoutInflater.from(container.context)
-        val view=inflater.inflate(R.layout.layout,container,false)
+        val view=inflater.inflate(R.layout.pager_item_now_eat,container,false)
 
         view.name.text=list[position].item_name
         view.date.text=list[position].item_date

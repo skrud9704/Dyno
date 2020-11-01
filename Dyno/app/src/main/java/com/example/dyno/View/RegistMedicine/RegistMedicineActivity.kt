@@ -244,6 +244,7 @@ class RegistMedicineActivity : AppCompatActivity() {
                         Log.d(TAG,"성공^^")
 
                         // 1. 추측 질병 순위 UI 셋팅
+                        disease_text.text = "추측 질병 순위"
                         diseaseGuessVO = response.body()!!
                         diseaseAdapter.setAdapterData(diseaseGuessVO)
 
@@ -290,7 +291,6 @@ class RegistMedicineActivity : AppCompatActivity() {
                     Log.d(TAG,"질병 성공^^")
 
                     // 1. 추측 질병 순위 UI 셋팅
-
                     disease_text.text = "읽어온 질병"
                     diseaseGuessVO = response.body()!!
                     diseaseAdapter.setAdapterData(diseaseGuessVO)

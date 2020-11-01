@@ -95,15 +95,15 @@
 
 
             <TextView
+                android:id="@+id/disease_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="추측 질병 순위"
+                android:text="@string/result_disease"
                 android:textSize="20sp"
                 android:textColor="@color/dynoBlack"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/disease_text"/>
+                android:layout_marginTop="10dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ocr_result_Dlist"
@@ -122,7 +122,7 @@
             android:id="@+id/btn_detail_medicine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="나의 의약품에 저장"
+            android:text="@string/btn_result_save"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:textColor="@color/dynoWhite"

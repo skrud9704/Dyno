@@ -50,13 +50,13 @@
      <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="My 대시보드"
+         android:text="@string/main_my_dashboard"
          android:textSize="15sp"
          android:textColor="@color/dynoMainBlue"/>
      <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="준비 중"
+         android:text="@string/main_not_service"
          android:layout_gravity="center"
          android:layout_marginTop="50dp"/>
      <ImageView

@@ -28,7 +28,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:id="@+id/name"
-                tools:text="처방전A"/>
+                tools:text="@string/main_card_title"/>
             <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
@@ -37,22 +37,26 @@
                 android:textStyle="bold"
                 android:gravity="end"
                 android:textColor="@color/dynoWhite"
-                tools:text="2020-10-20"
+                tools:text="@string/main_card_date"
                 android:layout_marginBottom="5dp"/>
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp">
-                <TextView
+                android:layout_marginStart="10dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:id="@+id/detail"
-                    tools:text="상세내역"
-                    android:textColor="@color/dynoWhite"/>
-            </LinearLayout>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:id="@+id/detail"
+                        tools:text="@string/main_card_sub"
+                        android:textColor="@color/dynoWhite"/>
+                </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
 
