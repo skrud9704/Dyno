@@ -2,10 +2,10 @@ package com.example.dyno.View.Main
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import com.example.dyno.R
 import com.example.dyno.VO.NowEatVO
@@ -24,17 +24,19 @@ class MainAdapter(private val context: Context,private val list:ArrayList<NowEat
         view.detail.text=list[position].item_list_data
         //view.detail2.text=list[position].detail2
 
-        // 의약품일 경우 - 파랑
+        // 의약품일 경우 - 빨강
         if(list[position].type==1){
-            view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
+            view.card_back.setImageResource(R.drawable.ic_main_card_red)
+            /*view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
                 R.color.dynoMainBlueLight
-            ))
+            ))*/
         }
-        // 건강기능식품일 경우 - 밝은 파랑
+        // 건강기능식품일 경우 - 초록
         else if(list[position].type==2){
-            view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
+            view.card_back.setImageResource(R.drawable.ic_main_card_green)
+            /*view.card_item.setCardBackgroundColor(ContextCompat.getColor(context,
                 R.color.dynoMainBlue
-            ))
+            ))*/
         }
 
         view.setOnClickListener {

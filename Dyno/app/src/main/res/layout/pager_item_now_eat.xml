@@ -4,28 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:clipToPadding="false"
     android:clipChildren="false">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="10dp"
-        app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/dynoMainBlue"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@android:color/transparent">
+        <ImageView
+            android:id="@+id/card_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_main_card_green"
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp">
             <TextView
-                android:textColor="@color/dynoWhite"
+                android:textColor="@color/dynoBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:id="@+id/name"
                 tools:text="@string/main_card_title"/>
@@ -36,7 +45,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:gravity="end"
-                android:textColor="@color/dynoWhite"
+                android:textColor="@color/dynoBlack"
                 tools:text="@string/main_card_date"
                 android:layout_marginBottom="5dp"/>
             <ScrollView
@@ -54,7 +63,7 @@
                         android:textStyle="bold"
                         android:id="@+id/detail"
                         tools:text="@string/main_card_sub"
-                        android:textColor="@color/dynoWhite"/>
+                        android:textColor="@color/dynoBlack"/>
                 </LinearLayout>
             </ScrollView>
 

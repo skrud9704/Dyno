@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
         val margin = (dpValue * d).toInt()
 
         mPager.clipToPadding=false
-        mPager.setPadding(margin*11/12,0,margin*11/12,0)
-        mPager.pageMargin=margin/2
+        mPager.setPadding(margin*14/15,0,margin*14/15,0)
+        mPager.pageMargin=margin/3
 
         mPager.adapter=adapter
     }

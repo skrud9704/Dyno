@@ -2,8 +2,8 @@
     <string name="app_name">Dyno</string>
 
     <!-- MAIN -->
-    <string name="main_btn_medicine">의약품\n등록</string>
-    <string name="main_btn_supplement">건강기능식품\n등록</string>
+    <string name="main_btn_medicine">의약품 등록</string>
+    <string name="main_btn_supplement">건강기능식품 등록</string>
     <string name="main_btn_combine">병용\n판단</string>
     <string name="btn_search">검색</string>
     <string name="main_card_title">처방전A</string>
@@ -76,4 +76,6 @@
     <!-- Regist Medicine -->
     <string name="result_disease">추측 질병 순위 / 읽어온 질병</string>
     <string name="btn_result_save">나의 의약품에 저장</string>
+
+    <string name="action_settings">settings</string>
 </resources>
