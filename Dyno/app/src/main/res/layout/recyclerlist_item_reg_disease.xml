@@ -19,6 +19,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/disease_check"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"

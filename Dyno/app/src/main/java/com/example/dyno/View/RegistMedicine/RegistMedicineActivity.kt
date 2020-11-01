@@ -95,12 +95,38 @@ class RegistMedicineActivity : AppCompatActivity() {
         // 질병 상세 화면
         btn_detail_medicine.setOnClickListener {
             val intent = Intent(this, DetailMedicineActivity::class.java)
-            if(preType==2)
+            var goToNext = false
+
+            // 처방전일 경우 = 질병기호가 있어서 질병명 그냥 넣으면 됨
+            if(preType==2){
                 intent.putExtra("DATA_DISEASE", DiseaseVO(dcode,dname,"", medicines))
-            else
-                intent.putExtra("DATA_DISEASE", DiseaseVO("A000","TEMP","", medicines))
-            startActivity(intent)
-            finish()
+                goToNext = true
+            }
+            // 약봉투 경우 = 추측된 질병에서 선택해서 넣는다
+            else if(preType==1) {
+                var dCheckName = ""
+                var dCheckCode = ""
+                for(position in diseaseAdapter.getDiseaseCheck().indices){
+                    if(diseaseAdapter.getDiseaseCheck()[position]){
+                        dCheckName+=diseaseAdapter.getDiseaseName(position)
+                        dCheckName+=" "
+                        dCheckCode+=diseaseAdapter.getDiseaseCode(position)
+                        dCheckCode+=" "
+                    }
+                }
+                if(dCheckName==""){
+                    goToNext = false
+                    Toast.makeText(applicationContext,"적어도 한 개의 질병을 선택해주세요.",Toast.LENGTH_SHORT).show()
+                }else{
+                    goToNext = true
+                    intent.putExtra("DATA_DISEASE", DiseaseVO(dCheckCode, dCheckName, "", medicines))
+                }
+            }
+
+            if(goToNext){
+                startActivity(intent)
+                finish()
+            }
         }
 
         // 재촬영 버튼 (OCR결과 없어서)
@@ -272,7 +298,6 @@ class RegistMedicineActivity : AppCompatActivity() {
                     for(code in response.body()!!.diseasePerList){
                         dcode+=code
                         dcode+=" "
-
                     }
                     for(name in response.body()!!.diseaseNameList){
                         dname+=name
