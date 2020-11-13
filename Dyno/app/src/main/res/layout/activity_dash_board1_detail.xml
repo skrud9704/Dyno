@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.DashBoard1.DashBoard1DetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/warn_detail_s_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인삼"
+            android:textColor="@color/dynoBlack"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/warn_detail_s_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_sample_ginseng"
+            android:layout_gravity="end"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dynoMainBeige"
+        android:padding="10dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/warn_detail_d_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

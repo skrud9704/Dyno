@@ -13,7 +13,6 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- allowBackup = false : RoomDB Version 때문 -->
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".View.DashBoard1.DashBoard1DetailActivity"></activity>
+        <activity android:name=".View.DashBoard1.DashBoard1Activity" />
         <activity
             android:name=".View.Splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -34,13 +35,14 @@
         </activity>
         <activity android:name=".View.Splash.SignUpActivity" />
         <activity android:name=".View.Main.MainActivity" />
-        <activity android:name=".View.RegistMedicine.RegistMedicineActivity"/>
+        <activity android:name=".View.RegistMedicine.RegistMedicineActivity" />
         <activity android:name=".View.Detail.DetailDurActivity" />
         <activity android:name=".View.Detail.DetailSupplementActivity" />
         <activity android:name=".View.Detail.DetailMedicineActivity" />
         <activity android:name=".View.RegistSupplement.RegistSupplementActivity" />
         <activity android:name=".View.MyPage.MyPageActivity" />
         <activity android:name=".OCR.CameraActivity" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.dyno"

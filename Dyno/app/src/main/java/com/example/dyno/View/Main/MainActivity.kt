@@ -9,6 +9,7 @@ import com.example.dyno.OCR.CameraActivity
 import com.example.dyno.R
 import com.example.dyno.View.RegistSupplement.RegistSupplementActivity
 import com.example.dyno.VO.NowEatVO
+import com.example.dyno.View.DashBoard1.DashBoard1Activity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setClickListener(){
+
+        // My Dash Board 1
+        dash_board.setOnClickListener{
+            val nextIntent=Intent(this, DashBoard1Activity::class.java)
+            startActivity(nextIntent)
+        }
+
         // 의약품 등록
         registerM.setOnClickListener{
             val nextIntent=Intent(this, CameraActivity::class.java)
