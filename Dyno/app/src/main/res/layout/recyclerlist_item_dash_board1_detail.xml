@@ -62,13 +62,13 @@
             android:textSize="17sp"
             android:layout_margin="15dp"/>
         <LinearLayout
-            android:id="@+id/warn_reason"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="15dp"
             android:background="@color/dynoWhite">
             <TextView
+                android:id="@+id/warn_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="밀크씨슬은 간이 약을 분해하는 속도를 저하시킬 수 있어요."/>

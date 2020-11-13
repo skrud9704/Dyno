@@ -71,5 +71,5 @@ interface NotRecommmendDAO : RoomDAO<NotRecommendVO>{
     fun getDurItemCount():Int
 
     @Query("SELECT * FROM NotRecommend WHERE s_ingredient=:ingredient")
-    fun getNotRecommend(ingredient: String):NotRecommendVO
+    fun getNotRecommend(ingredient: String): List<NotRecommendVO>?
 }
