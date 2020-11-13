@@ -56,6 +56,7 @@ class DetailAdapter (private val context: Context, private var data : List<NotRe
 
         init {
             delete.setOnClickListener {
+                //Toast.makeText(context,data[adapterPosition].d_id,Toast.LENGTH_SHORT).show()
                 listener.onClick(data[adapterPosition].d_id)
             }
         }
