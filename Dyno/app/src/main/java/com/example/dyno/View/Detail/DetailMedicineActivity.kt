@@ -22,6 +22,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 class DetailMedicineActivity : AppCompatActivity() {
     private lateinit var medicines : MutableList<MedicineVO>
@@ -90,6 +91,15 @@ class DetailMedicineActivity : AppCompatActivity() {
         val localDB = RoomDB.getInstance(this)
         localDB.diseaseDAO().insertDisease(data)
         Toast.makeText(this,"나의 의약품에 추가했습니다.", Toast.LENGTH_SHORT).show()
+
+        // 병용 주의 건강기능식품 성분 뽑기.
+        val mList : ArrayList<MedicineVO> = data.d_medicines
+        val sIngredient : HashSet<String> = HashSet()
+        for(medicine in mList){
+            val ingredients = medicine.ingredient.split(",")
+            for(ingredient in ingredients)
+                sIngredient.add(ingredient)
+        }
 
         // DB 닫기.
         RoomDB.destroyInstance()
