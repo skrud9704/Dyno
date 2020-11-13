@@ -41,6 +41,7 @@
             android:orientation="horizontal"
             android:layout_marginStart="15dp">
             <TextView
+                android:id="@+id/warn_disease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="[상세불명의 위십이장염] 처방전 외..."/>

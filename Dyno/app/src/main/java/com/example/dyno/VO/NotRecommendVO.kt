@@ -62,6 +62,7 @@ class NotRecommendVO() : Parcelable {
     }
 }
 
+
 @Dao
 interface NotRecommmendDAO : RoomDAO<NotRecommendVO>{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -72,4 +73,10 @@ interface NotRecommmendDAO : RoomDAO<NotRecommendVO>{
 
     @Query("SELECT * FROM NotRecommend WHERE s_ingredient=:ingredient")
     fun getNotRecommend(ingredient: String):NotRecommendVO
+
+    @Query("SELECT * FROM NotRecommend GROUP BY s_ingredient")
+    fun getAllNotRecommend():List<NotRecommendVO>
+
+    @Query("SELECT COUNT(d_name),s_ingredient FROM NotRecommend WHERE s_ingredient=:ingredient")
+    fun getCountforEach(ingredient: String):Int
 }
