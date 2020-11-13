@@ -77,6 +77,6 @@ interface NotRecommmendDAO : RoomDAO<NotRecommendVO>{
     @Query("SELECT * FROM NotRecommend GROUP BY s_ingredient")
     fun getAllNotRecommend():List<NotRecommendVO>
 
-    @Query("SELECT COUNT(d_name),s_ingredient FROM NotRecommend WHERE s_ingredient=:ingredient")
+    @Query("SELECT COUNT(d_name) FROM NotRecommend WHERE s_ingredient=:ingredient")
     fun getCountforEach(ingredient: String):Int
 }

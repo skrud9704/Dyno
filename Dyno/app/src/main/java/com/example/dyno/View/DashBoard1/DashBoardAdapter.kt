@@ -12,15 +12,9 @@ import com.example.dyno.VO.NotRecommendVO
 import kotlinx.android.synthetic.main.recyclerlist_item_dash_board1.view.*
 
 
-class DashBoardAdapter(private val context: Context):
+class DashBoardAdapter(private val context: Context, private val list:List<NotRecommendVO>):
     RecyclerView.Adapter<DashBoardAdapter.ViewHolder>(){
-    private val localDB= RoomDB.getInstance(context)
-    private val notRecommendDao=localDB.notRecommmendDAO()
-    private val list:List<NotRecommendVO> = notRecommendDao.getAllNotRecommend()
-
-
-
-
+    private val localDB = RoomDB.getInstance(context)
     override fun getItemCount(): Int {
         return list.size
     }
@@ -28,7 +22,7 @@ class DashBoardAdapter(private val context: Context):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var s_in=list[position].s_ingredient
         holder.ig_name.text=s_in
-        var count:Int=notRecommendDao.getCountforEach(s_in)
+        var count:Int=localDB.notRecommmendDAO().getCountforEach(s_in)
         holder.ig_count.text = count.toString()
         holder.ig_dname.text=list[position].d_name
     }
@@ -45,7 +39,7 @@ class DashBoardAdapter(private val context: Context):
 
         val ig_name = itemView.warn_ingredient_name
         val ig_count = itemView.warn_ingredient_count
-        val ig_dname=itemView.warn_ingredient_name
+        val ig_dname=itemView.warn_disease
         init {
             itemView.setOnClickListener(this)
         }
