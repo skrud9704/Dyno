@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageView
+                android:id="@+id/warn_disease_icon"
                 android:src="@drawable/ic_disease_folder"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -72,6 +73,27 @@
                 android:layout_height="wrap_content"
                 android:text="밀크씨슬은 간이 약을 분해하는 속도를 저하시킬 수 있어요."/>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="완치된 질병이라면?"
+                android:layout_gravity="center"
+                android:textColor="@color/dynoMainRed"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/warn_disease_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_delete"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
 
