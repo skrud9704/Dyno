@@ -9,12 +9,20 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import com.example.dyno.LocalDB.RoomDB
+import com.example.dyno.Network.RetrofitClient
+import com.example.dyno.Network.RetrofitService
 import com.example.dyno.VO.UserVO
 import com.example.dyno.View.Main.MainActivity
 import com.example.dyno.R
+import com.example.dyno.VO.DynoDurSupplementVO
+import com.example.dyno.VO.NotRecommendVO
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -28,6 +36,11 @@ class SignUpActivity : AppCompatActivity() {
     private val TABLE_NAME = "USERS"
 
     private var isConsent : Boolean = false
+
+    private val TAG = this::class.java.simpleName
+
+    private var dynoDurSupplementVO: DynoDurSupplementVO = DynoDurSupplementVO()
+
 
     @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,4 +102,42 @@ class SignUpActivity : AppCompatActivity() {
                                                         //          ㄴ "디바이스 아이디"
                                                         //          ㄴ "사용자 명"
     }
+
+    private fun getSupplementDur(){
+        val retrofit = RetrofitClient.getInstance()
+        val notRecommendServer = retrofit.create(RetrofitService::class.java)
+
+        notRecommendServer.requestDynoDurSupplement(0).enqueue(object : retrofit2.Callback<DynoDurSupplementVO>{
+            override fun onFailure(call: Call<DynoDurSupplementVO>, t: Throwable) {
+                Log.d(TAG,"dyno dur suppplement 가져오는거 실패{$t}")
+                Log.d(TAG,"dyno dur suppplement 가져오는거 실패{$call}")
+            }
+
+            override fun onResponse(
+                call: Call<DynoDurSupplementVO>,
+                response: Response<DynoDurSupplementVO>
+            ) {
+                Log.d(TAG,"dyno dur supplement 가져오는거 성공")
+                dynoDurSupplementVO=response.body()!!
+                insertLocalDB()
+            }
+        })
+    }
+
+    private fun insertLocalDB(){
+        Log.d(TAG,"RoomDB 접근")
+        // DB 싱글톤으로 생성.
+        val localDB = RoomDB.getInstance(this)
+        localDB.durSupplementDAO().insertDynoDurSupplement(dynoDurSupplementVO)
+        Toast.makeText(this,"dyno dur supplement 추가.",Toast.LENGTH_SHORT).show()
+
+        // DB 닫기.
+        RoomDB.destroyInstance()
+    }
 }
+
+private fun <T> Call<T>.enqueue(callback: Callback<DynoDurSupplementVO>) {
+
+}
+
+

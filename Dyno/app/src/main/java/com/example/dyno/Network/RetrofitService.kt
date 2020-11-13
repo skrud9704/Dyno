@@ -51,4 +51,10 @@ interface RetrofitService {
         @Field("s_name") s_name: String
     ) : Call<ArrayList<DurSMVO>>
 
+    @FormUrlEncoded
+    @POST("NotRecommendedS/getNotRecommended")
+    fun requestDynoDurSupplement(
+        @Field("id") id: Int
+    ) : Call<ArrayList<DynoDurSupplementVO>>
+
 }
