@@ -16,6 +16,10 @@
     <string name="main_my_dashboard_1_num">6</string>
     <string name="main_my_dashboard_1_count">건</string>
 
+    <!-- DashBoard -->
+    <string name="dashboard_1_detail_subtitle">위 질병의 약과 복용하면...</string>
+    <string name="dashboard_1_detail_button">완치된 질병이라면?</string>
+
     <!-- SignUp -->
     <string name="sign_up_name">사용자 이름</string>
     <string name="sign_up_device">디바이스 아이디</string>

@@ -15,7 +15,6 @@
             android:id="@+id/warn_detail_s_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="인삼"
             android:textColor="@color/dynoBlack"
             android:textStyle="bold"
             android:textSize="25sp"
@@ -25,7 +24,7 @@
             android:id="@+id/warn_detail_s_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_sample_mango"
+            android:src="@drawable/ic_sample_mt"
             android:layout_gravity="end"
             android:layout_margin="5dp"/>
 
