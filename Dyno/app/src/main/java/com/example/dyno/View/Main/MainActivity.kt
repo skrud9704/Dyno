@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         getData()
+        setDashBoard()
     }
 
     /*override fun onPostResume() {
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private fun setDashBoard(){
         val localDB = RoomDB.getInstance(this)
         not_recommend_count.text = localDB.notRecommmendDAO().getDurItemCount().toString()
+        RoomDB.destroyInstance()
     }
 
     private fun setPager(){

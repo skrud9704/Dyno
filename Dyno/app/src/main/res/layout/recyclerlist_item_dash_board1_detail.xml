@@ -16,7 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,8 +25,8 @@
             <ImageView
                 android:id="@+id/warn_disease_icon"
                 android:src="@drawable/ic_disease_folder"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="10dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,15 +37,13 @@
                     android:id="@+id/warn_disease_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.AppCompat.Headline"
-                    android:text="상세불명의 위십이장염"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:textColor="@color/dynoBlack"/>
                 <TextView
                     android:id="@+id/warn_disease_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.AppCompat.Subhead"
-                    android:text="2020-11-01" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -53,14 +52,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey"/>
+            android:background="@color/grey"
+            android:layout_margin="2dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="위 질병의 약과 복용하면..."
+            android:text="@string/dashboard_1_detail_subtitle"
             android:textColor="@color/dynoBlack"
             android:textSize="17sp"
-            android:layout_margin="15dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,8 +71,7 @@
             <TextView
                 android:id="@+id/warn_reason"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="밀크씨슬은 간이 약을 분해하는 속도를 저하시킬 수 있어요."/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -83,17 +83,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="완치된 질병이라면?"
+                android:text="@string/dashboard_1_detail_button"
                 android:layout_gravity="center"
                 android:textColor="@color/dynoMainRed"
                 android:textSize="12sp"
                 android:textStyle="bold"/>
             <ImageView
                 android:id="@+id/warn_disease_delete"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_delete"
-                android:layout_margin="5dp"/>
+                android:layout_margin="10dp"/>
         </LinearLayout>
 
 
