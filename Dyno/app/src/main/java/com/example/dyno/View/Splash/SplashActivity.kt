@@ -38,6 +38,8 @@ class SplashActivity : AppCompatActivity() {
 
         val count = getCount()
         getSupplementDur(count)
+
+        Log.d(TAG,"$count 개 있음")
         if(prefDid=="null" && prefName=="null"){
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -63,11 +65,16 @@ class SplashActivity : AppCompatActivity() {
                 call: Call<ArrayList<DynoDurSupplementVO>>,
                 response: Response<ArrayList<DynoDurSupplementVO>>
             ) {
-                Log.d(TAG,"dyno dur supplement 가져오는거 성공")
-                for(item in response.body()!!){
-                    dynoDurSupplementVO=item
-                    insertLocalDB()
+                Log.d(TAG,"${response.body()!!.size}개")
+                if(response.body()!!.size==1 && response.body()!![0].id==-1){
+                    Toast.makeText(applicationContext,"서버로부터 데이터 업데이트 완료.",Toast.LENGTH_SHORT).show()
+                }else{
+                    for(item in response.body()!!){
+                        dynoDurSupplementVO=item
+                        insertLocalDB()
+                    }
                 }
+
             }
         })
     }
@@ -77,8 +84,6 @@ class SplashActivity : AppCompatActivity() {
         // DB 싱글톤으로 생성.
         val localDB = RoomDB.getInstance(this)
         localDB.durSupplementDAO().insertDynoDurSupplement(dynoDurSupplementVO)
-        Toast.makeText(this,"dyno dur supplement 추가.", Toast.LENGTH_SHORT).show()
-
         // DB 닫기.
         RoomDB.destroyInstance()
     }

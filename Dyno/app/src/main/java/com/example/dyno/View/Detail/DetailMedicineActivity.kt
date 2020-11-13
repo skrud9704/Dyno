@@ -94,12 +94,33 @@ class DetailMedicineActivity : AppCompatActivity() {
 
         // 병용 주의 건강기능식품 성분 뽑기.
         val mList : ArrayList<MedicineVO> = data.d_medicines
-        val sIngredient : HashSet<String> = HashSet()
+        val hashIngredients : HashSet<String> = HashSet()
         for(medicine in mList){
             val ingredients = medicine.ingredient.split(",")
             for(ingredient in ingredients)
-                sIngredient.add(ingredient)
+                hashIngredients.add(ingredient)
         }
+
+        for(hi in hashIngredients){
+            val item = localDB.durSupplementDAO().getDynoDurSupplement(hi)
+            if(item==null || item.isEmpty()) {
+                Log.d(TAG, "의약품 주성분 $hi 는 해당 없음.")
+            } else{
+                Log.d(TAG, "의약품 주성분 $hi 는 해당.")
+
+                for(durIngredient in item){
+                    Log.d(TAG,"성분 : ${durIngredient.s_ingredient}, 이유 : ${durIngredient.reason}")
+                    val notRecommendId = data.d_date.plus(durIngredient.s_ingredient)
+                    val nrData = NotRecommendVO(notRecommendId,data.d_date,data.d_name,durIngredient.s_ingredient,durIngredient.reason)
+                    localDB.notRecommmendDAO().insertSupplement(nrData)
+                }
+
+            }
+
+        }
+
+
+
 
         // DB 닫기.
         RoomDB.destroyInstance()

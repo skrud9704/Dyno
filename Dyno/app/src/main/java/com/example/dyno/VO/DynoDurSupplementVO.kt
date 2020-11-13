@@ -63,8 +63,8 @@ interface DurSupplementDAO : RoomDAO<DynoDurSupplementVO>{
     @Insert(onConflict=OnConflictStrategy.REPLACE)
     fun insertDynoDurSupplement(dynoDurSupplementVO: DynoDurSupplementVO):Long
 
-    @Query("SELECT * FROM DurSupplement WHERE m_ingredient=:ingredient2")
-    fun getDynoDurSupplement(ingredient2:String):DynoDurSupplementVO
+    @Query("SELECT * FROM DurSupplement WHERE m_ingredient=:ingredient")
+    fun getDynoDurSupplement(ingredient:String) : List<DynoDurSupplementVO>?
 
     @Query("SELECT id FROM DurSupplement ORDER BY id DESC LIMIT 1")
     fun getDurID():Int
