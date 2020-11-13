@@ -13,34 +13,35 @@ class NotRecommendVO() : Parcelable {
     //처방전이름과 처방전 등록일자만 보여줌으로 약마다 이유가 다를 수 있지만 그냥 같이 보여줌
 
     @PrimaryKey
-    @ColumnInfo(name="d_date")
-    @SerializedName("d_date")
-    var d_date:String=""
+    @ColumnInfo(name="id")
+    var id: String=""
+
+    @ColumnInfo(name="d_id")
+    var d_id:String=""
 
     @ColumnInfo(name="d_name")
-    @SerializedName("d_name")
     var d_name:String=""
 
     @ColumnInfo(name="s_ingredient")
-    @SerializedName("s_ingredient")
     var s_ingredient:String=""
 
     @ColumnInfo(name="reason")
-    @SerializedName("reason")
     var reason:String=""
 
-    constructor(date:String,name:String,ingredient:String,reason:String) : this() {
-        this.d_date=date
+    constructor(id:String,d_id:String,name:String,ingredient:String,reason:String) : this() {
+        this.id=id
+        this.d_id=d_id
         this.d_name=name
         this.s_ingredient=ingredient
         this.reason=reason
     }
 
-    constructor(parcel: Parcel) : this(parcel.readString()!!,parcel.readString()!!,parcel.readString()!!,
+    constructor(parcel: Parcel) : this(parcel.readString()!!,parcel.readString()!!,parcel.readString()!!,parcel.readString()!!,
         parcel.readString()!!)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(d_date)
+        parcel.writeString(id)
+        parcel.writeString(d_id)
         parcel.writeString(d_name)
         parcel.writeString(s_ingredient)
         parcel.writeString(reason)

@@ -36,13 +36,13 @@ class SplashActivity : AppCompatActivity() {
         val prefName = pref.getString(SHARED_PREF_NAME,"null")
         val prefDid = pref.getString(SHARED_PREF_DID,"null")
 
+        val count = getCount()
+        getSupplementDur(count)
         if(prefDid=="null" && prefName=="null"){
-            getSupplementDur(0)
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }else{
-            var count=getLocalDB()
-            getSupplementDur(count)
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -82,11 +82,10 @@ class SplashActivity : AppCompatActivity() {
         // DB 닫기.
         RoomDB.destroyInstance()
     }
-    private fun getLocalDB():Int{
+    private fun getCount():Int{
         val localDB = RoomDB.getInstance(this)
-        var count = localDB.notRecommmendDAO().getDurItemCount()
-
+        val count = localDB.durSupplementDAO().getLocalDurCount()
         RoomDB.destroyInstance()
-        return  count
+        return count
     }
 }

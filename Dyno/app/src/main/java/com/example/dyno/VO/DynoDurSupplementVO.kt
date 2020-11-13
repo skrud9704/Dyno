@@ -68,4 +68,8 @@ interface DurSupplementDAO : RoomDAO<DynoDurSupplementVO>{
 
     @Query("SELECT id FROM DurSupplement ORDER BY id DESC LIMIT 1")
     fun getDurID():Int
+
+    @Query("SELECT COUNT(*) FROM DurSupplement")
+    fun getLocalDurCount():Int
+
 }
