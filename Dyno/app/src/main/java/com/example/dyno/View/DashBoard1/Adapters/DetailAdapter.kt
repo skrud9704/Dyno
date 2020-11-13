@@ -1,6 +1,9 @@
 package com.example.dyno.View.DashBoard1.Adapters
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +33,6 @@ class DetailAdapter (private val context: Context, private val data : List<NotRe
         holder.warn.text = data[position].reason
 
     }
-
 
 
     // 커스텀 ViewHolder, 리사이클러뷰의 각각의 아이템마다 데이터를 넣을 View 를 미리 선언하고 가져옴, 클릭리스너 implement
