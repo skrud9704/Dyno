@@ -1,4 +1,4 @@
-package com.example.dyno.View.DashBoard1
+package com.example.dyno.View.DashBoard1.Adapters
 
 import android.content.Context
 import android.content.Intent
@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.R
 import com.example.dyno.VO.NotRecommendVO
+import com.example.dyno.View.DashBoard1.DashBoard1DetailActivity
 import kotlinx.android.synthetic.main.recyclerlist_item_dash_board1.view.*
 
 
-class DashBoardAdapter(private val context: Context, private val list:List<NotRecommendVO>):
+class DashBoardAdapter(private val context: Context, private var list:List<NotRecommendVO>):
     RecyclerView.Adapter<DashBoardAdapter.ViewHolder>(){
     private val localDB = RoomDB.getInstance(context)
     override fun getItemCount(): Int {
@@ -40,6 +41,11 @@ class DashBoardAdapter(private val context: Context, private val list:List<NotRe
            .inflate(R.layout.recyclerlist_item_dash_board1, parent,false)
         return ViewHolder(view)
 
+    }
+
+    fun setNewData(data: List<NotRecommendVO>){
+        this.list = data
+        notifyDataSetChanged()
     }
 
     fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
@@ -89,7 +95,8 @@ class DashBoardAdapter(private val context: Context, private val list:List<NotRe
         }
         override fun onClick(v: View?) {
             val data=list[adapterPosition].s_ingredient
-            val intent = Intent(context,DashBoard1DetailActivity::class.java)
+            val intent = Intent(context,
+                DashBoard1DetailActivity::class.java)
             intent.putExtra("DATA",data)
             context.startActivity(intent)
         }

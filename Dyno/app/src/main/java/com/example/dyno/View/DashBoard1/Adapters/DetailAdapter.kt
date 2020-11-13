@@ -1,6 +1,8 @@
 package com.example.dyno.View.DashBoard1.Adapters
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +11,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dyno.R
 import com.example.dyno.VO.NotRecommendVO
+import com.example.dyno.View.DashBoard1.DashBoard1DetailActivity
 import kotlinx.android.synthetic.main.recyclerlist_item_dash_board1_detail.view.*
 
-class DetailAdapter (private val context: Context, private val data : List<NotRecommendVO>)
+class DetailAdapter (private val context: Context, private var data : List<NotRecommendVO>)
     : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
+
+    private lateinit var listener: DashBoard1DetailActivity.OnItemDeleteClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailAdapter.ViewHolder {
         val view: View = LayoutInflater.from(context)
@@ -28,7 +33,15 @@ class DetailAdapter (private val context: Context, private val data : List<NotRe
         holder.d_name.text = data[position].d_name
         holder.d_date.text = data[position].d_id
         holder.warn.text = data[position].reason
+    }
 
+    fun setListener(listener : DashBoard1DetailActivity.OnItemDeleteClickListener){
+        this.listener = listener
+    }
+
+    fun setNewData(data : List<NotRecommendVO>){
+        this.data = data
+        notifyDataSetChanged()
     }
 
 
@@ -43,9 +56,10 @@ class DetailAdapter (private val context: Context, private val data : List<NotRe
 
         init {
             delete.setOnClickListener {
-                Toast.makeText(context,data[adapterPosition].d_id,Toast.LENGTH_SHORT).show()
+                listener.onClick(data[adapterPosition].d_id)
             }
         }
+
 
     }
 
