@@ -37,11 +37,6 @@ class MainActivity : AppCompatActivity() {
         setDashBoard()
     }
 
-    /*override fun onPostResume() {
-        super.onPostResume()
-        adapter.notifyDataSetChanged()
-
-    }*/
 
     private fun setDashBoard(){
         val localDB = RoomDB.getInstance(this)
