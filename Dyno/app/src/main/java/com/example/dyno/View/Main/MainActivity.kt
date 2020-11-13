@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 대시보드 셋팅
+        setDashBoard()
         // 페이저 셋팅 (사용자가 현재 복용 중인 약/건강기능식품)
         setPager()
         // 페이저 데이터인 NowEatVO 가져오기
@@ -39,6 +41,11 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
 
     }*/
+
+    private fun setDashBoard(){
+        val localDB = RoomDB.getInstance(this)
+        not_recommend_count.text = localDB.notRecommmendDAO().getDurItemCount().toString()
+    }
 
     private fun setPager(){
         val dpValue = 40

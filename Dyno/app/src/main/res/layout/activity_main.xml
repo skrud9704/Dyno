@@ -80,21 +80,22 @@
          android:layout_gravity="end"
          android:layout_marginTop="25dp">
          <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/main_my_dashboard_1_num"
-          android:textSize="60sp"
-          android:layout_gravity="bottom"
-          android:textColor="@color/dynoMainRed"
-          android:textStyle="bold" />
+             android:id="@+id/not_recommend_count"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/main_my_dashboard_1_num"
+             android:textSize="60sp"
+             android:layout_gravity="bottom"
+             android:textColor="@color/dynoMainRed"
+             android:textStyle="bold" />
          <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/main_my_dashboard_1_count"
-          android:textSize="30sp"
-          android:layout_gravity="bottom"
-          android:textColor="@color/dynoMainRed"
-          android:textStyle="bold" />
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/main_my_dashboard_1_count"
+             android:textSize="30sp"
+             android:layout_gravity="bottom"
+             android:textColor="@color/dynoMainRed"
+             android:textStyle="bold" />
 
      </LinearLayout>
 
