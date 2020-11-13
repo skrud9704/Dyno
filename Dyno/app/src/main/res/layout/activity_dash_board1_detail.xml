@@ -24,7 +24,7 @@
             android:id="@+id/warn_detail_s_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_sample_mt"
+            android:src="@drawable/ic_sample_mango"
             android:layout_gravity="end"
             android:layout_margin="5dp"/>
 

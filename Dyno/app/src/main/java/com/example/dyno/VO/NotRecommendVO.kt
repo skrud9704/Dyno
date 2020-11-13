@@ -79,4 +79,7 @@ interface NotRecommmendDAO : RoomDAO<NotRecommendVO>{
 
     @Query("SELECT COUNT(d_name) FROM NotRecommend WHERE s_ingredient=:ingredient")
     fun getCountforEach(ingredient: String):Int
+
+    @Query("DELETE FROM NotRecommend WHERE id=:id")
+    fun deleteDiseaseFromRecommend(id : String)
 }
