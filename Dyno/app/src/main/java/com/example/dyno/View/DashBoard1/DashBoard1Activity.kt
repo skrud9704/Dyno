@@ -8,21 +8,34 @@ import com.example.dyno.R
 import com.example.dyno.VO.NotRecommendVO
 import com.example.dyno.View.DashBoard1.Adapters.DashBoardAdapter
 import kotlinx.android.synthetic.main.activity_dash_board1.*
-import kotlinx.android.synthetic.main.recyclerlist_item_dash_board1.*
 
 class DashBoard1Activity : AppCompatActivity() {
     private lateinit var adapt: DashBoardAdapter
     private val TAG = this::class.java.simpleName
+    private lateinit var localDB : RoomDB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dash_board1)
 
-        val locaDB = RoomDB.getInstance(this)
-        Log.d(TAG,locaDB.notRecommmendDAO().getAllNotRecommend().size.toString())
-        adapt = DashBoardAdapter(this,locaDB.notRecommmendDAO().getAllNotRecommend())
+        getData()
+
+    }
+
+    private fun getData(){
+        localDB = RoomDB.getInstance(this)
+        Log.d(TAG,localDB.notRecommmendDAO().getAllNotRecommend().size.toString())
+        adapt = DashBoardAdapter(
+            this,
+            localDB.notRecommmendDAO().getAllNotRecommend()
+        )
 
         dash_boardR.adapter=adapt
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapt.setNewData(localDB.notRecommmendDAO().getAllNotRecommend())
     }
 
 

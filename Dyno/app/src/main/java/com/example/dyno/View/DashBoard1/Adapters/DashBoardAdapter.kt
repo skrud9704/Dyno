@@ -16,7 +16,7 @@ import com.example.dyno.View.DashBoard1.DashBoard1DetailActivity
 import kotlinx.android.synthetic.main.recyclerlist_item_dash_board1.view.*
 
 
-class DashBoardAdapter(private val context: Context, private val list:List<NotRecommendVO>):
+class DashBoardAdapter(private val context: Context, private var list:List<NotRecommendVO>):
     RecyclerView.Adapter<DashBoardAdapter.ViewHolder>(){
     private val localDB = RoomDB.getInstance(context)
     override fun getItemCount(): Int {
@@ -45,6 +45,7 @@ class DashBoardAdapter(private val context: Context, private val list:List<NotRe
         return ViewHolder(view)
 
     }
+
 
     fun getImgsrc(name:String):Int{
         var resId:Int=-1
@@ -80,6 +81,12 @@ class DashBoardAdapter(private val context: Context, private val list:List<NotRe
         }
         return resId
     }
+
+    fun setNewData(data: List<NotRecommendVO>){
+        this.list = data
+        notifyDataSetChanged()
+    }
+
     fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
         // Raw height and width of image
         val (height: Int, width: Int) = options.run { outHeight to outWidth }
