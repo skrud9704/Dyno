@@ -3,6 +3,7 @@ package com.example.dyno.View.Main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.dyno.LocalDB.RoomDB
 import com.example.dyno.View.MyPage.MyPageActivity
 import com.example.dyno.OCR.CameraActivity
@@ -33,6 +34,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        getData()
+        setDashBoard()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
         getData()
         setDashBoard()
     }
@@ -92,11 +99,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData(){
+        //Toast.makeText(this,"다시 획득",Toast.LENGTH_SHORT).show()
         val localDB = RoomDB.getInstance(this)
         val diseaseList = localDB.diseaseDAO().getDiseaseMinimal()
         val supplementList = localDB.supplementDAO().getSupplementMinimal()
 
         userEatList.clear()
+        adapter.notifyDataSetChanged()
 
         for(disease in diseaseList){
             val date = disease.d_date.substring(0,10)
