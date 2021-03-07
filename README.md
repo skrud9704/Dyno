@@ -72,6 +72,6 @@ Mobile service that helps Medication / Health Supplements intake management
 
 --
 
-### Contack
+### Contact
 
 * Mail : skrud9704@gmail.com
