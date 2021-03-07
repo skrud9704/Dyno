@@ -16,7 +16,7 @@ Mobile service that helps management of Medication / Health Supplements intake
 
 ---
 
-### Funcions
+### Functions
 
 ##### 1. Medicines / Health Supplements intake management
 * You can manage both medicine and supplements in one application.
