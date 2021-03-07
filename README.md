@@ -3,7 +3,7 @@ Konkuk Univ. CSE Graduation Project
 
 Mobile service that helps Medication / Health Supplements intake management
 
---
+---
 
 ### Intro
 
@@ -14,7 +14,7 @@ Mobile service that helps Medication / Health Supplements intake management
 * So we developed a service that helps safe intake of medicines and health supplements.
 
 
---
+---
 
 ### Funcions
 
@@ -46,7 +46,7 @@ Mobile service that helps Medication / Health Supplements intake management
 ![그림4](https://user-images.githubusercontent.com/43378081/110244236-17c23d80-7fa1-11eb-8437-57d3fe16fc8c.png)
 
 
--- 
+---
 
 ### Development
 
@@ -64,13 +64,13 @@ Mobile service that helps Medication / Health Supplements intake management
 ![image](https://user-images.githubusercontent.com/43378081/110244373-c8c8d800-7fa1-11eb-9feb-4459eca695e9.png)
 
 
---
+---
 
 ### How to Use App
 
 * Not servicing now.
 
---
+---
 
 ### Contact
 
