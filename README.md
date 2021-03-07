@@ -1,7 +1,7 @@
 # Dyno (Diet + Note)
 Konkuk Univ. CSE Graduation Project
 
-Mobile service that helps Medication / Health Supplements intake management
+Mobile service that helps management of Medication / Health Supplements intake
 
 ---
 
