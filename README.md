@@ -33,12 +33,17 @@ Mobile service that helps Medication / Health Supplements intake management
 ##### 3. Probability model-based disease estimation
 * About medicine, in case of drug bag or some prescription, there's no information about disease. 
 * So we developed disease estimation algorithm that uses "Prescription records by pharmacology group" provided by Health Insurance Review & Assessment Service
+![그림2](https://user-images.githubusercontent.com/43378081/110244069-602d2b80-7fa0-11eb-9e01-10a6ac2f373f.png)
+
 
 ##### 4. DUR (Drug Utilization Review) between medicine and supplements
 * Many existing services have provided DUR between medications, But we also provide DUR functions between supplements and medicines.
+![그림3](https://user-images.githubusercontent.com/43378081/110244182-ddf13700-7fa0-11eb-8696-74ff1363e200.png)
+
 
 ##### 5. Notify warning in advance
 * We inform you of the main ingredients of supplements that should not be taken together when registering medicine.
+![그림4](https://user-images.githubusercontent.com/43378081/110244236-17c23d80-7fa1-11eb-8437-57d3fe16fc8c.png)
 
 
 -- 
@@ -48,9 +53,16 @@ Mobile service that helps Medication / Health Supplements intake management
 [Client]
 * FrameWork : Android
 * Language : Kotlin
-* API : Retrofit2, Okhttp3
+* API : Retrofit2(HTTP), Okhttp3(HTTP), Naver Clova(OCR)
 
 [Server]
+* AWS EC2 Apache, CI
+* DB : AWS RDS - MySQL
+* Language : php, javascipt
+* Crawling : Python
+
+![image](https://user-images.githubusercontent.com/43378081/110244373-c8c8d800-7fa1-11eb-9feb-4459eca695e9.png)
+
 
 --
 
