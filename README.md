@@ -21,9 +21,7 @@ Mobile service that helps Medication / Health Supplements intake management
 ##### 1. Medicines / Health Supplements intake management
 * You can manage both medicine and supplements in one application.
 * Your dosage information is only stored on the device. Never sent to server.
-![1-약관동의](https://user-images.githubusercontent.com/43378081/110243722-e8123600-7f9e-11eb-83d5-6882009a3e75.jpg)
-![7-메인](https://user-images.githubusercontent.com/43378081/110243729-f3656180-7f9e-11eb-8b2e-51015a598a68.jpg)
-![5  처방전 등록후마이페이지](https://user-images.githubusercontent.com/43378081/110243735-feb88d00-7f9e-11eb-9d5f-af79d878ada7.jpg)
+![그림1](https://user-images.githubusercontent.com/43378081/110243808-5656f880-7f9f-11eb-93c4-a84cd3530b46.png)
 
 
 ##### 2. Use OCR to register / edit conveniently
@@ -42,3 +40,26 @@ Mobile service that helps Medication / Health Supplements intake management
 ##### 5. Notify warning in advance
 * We inform you of the main ingredients of supplements that should not be taken together when registering medicine.
 
+
+-- 
+
+### Development
+
+[Client]
+* FrameWork : Android
+* Language : Kotlin
+* API : Retrofit2, Okhttp3
+
+[Server]
+
+--
+
+### How to Use App
+
+* Not servicing now.
+
+--
+
+### Contack
+
+* Mail : skrud9704@gmail.com
