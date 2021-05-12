@@ -5,7 +5,7 @@ Mobile service that helps management of Medication / Health Supplements intake
 
 ---
 
-### Intro
+### Intro 
 
 * Interest in medicines and health supplementary foods is increasing day by day.
 * According to the Korea Health Supplements Association (KHSA), the domestic health Supplement market formed 4.6 trillion won in 2019.
